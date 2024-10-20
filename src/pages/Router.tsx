@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import MainPage from './mainpage';
-import DetailPage from './detailpage';
+import MainPage from './Mainpage';
+import DetailPage from './Detailpage';
 import { ROUTE } from '@constants/ROUTE';
-import LoginPage from './loginpage';
-import Mypage from './mypage';
-import ShoppingCartPage from './shoppingcartpage';
+import LoginPage from './Loginpage';
+import Mypage from './Mypage';
+import ShoppingCartPage from './Shoppingcartpage';
 
 export const Router = () => {
   return (
