@@ -1,17 +1,32 @@
 import styled from 'styled-components';
-import { Like, Cart, Search, Petpick } from '@assets/svg/index';
-
-const Header = () => {
+import { Cart, Search, Petpick, User } from '@assets/svg/index';
+import { useNavigate } from 'react-router-dom';
+const Header = ({ userId }: { userId: number }) => {
+  const navigate = useNavigate();
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+  const handleLMyPageButtonClick = (userId: number) => {
+    navigate(`/mypage/${userId}`);
+  };
+  const hadleCartButtonClick = (userId: number) => {
+    navigate(`/shoppingcart/${userId}`);
+  };
   return (
     <HeaderLayout>
       <HeaderContainer>
         <LoginMenuContainer>
-          <LoginButtonText>로그인</LoginButtonText>
+          <LoginButtonText onClick={handleLoginClick}>로그인</LoginButtonText>
           <TextBox>|</TextBox>
           <LoginButtonText>회원가입</LoginButtonText>
         </LoginMenuContainer>
         <ContentContainer>
-          <Petpick width="115" height="100" />
+          <button onClick={handleHomeClick}>
+            <Petpick width="115" height="100" />
+          </button>
           <SearchContainer>
             <SearchBox type="text" placeholder="검색어를 입력해주세요" />
             <SearchButton>
@@ -19,11 +34,11 @@ const Header = () => {
             </SearchButton>
           </SearchContainer>
           <ButtonContainer>
-            <button>
-              <Like width="30" height="30" />
-            </button>
-            <button>
+            <button onClick={() => hadleCartButtonClick(userId)}>
               <Cart width="30" height="30" />
+            </button>
+            <button onClick={() => handleLMyPageButtonClick(userId)}>
+              <User width="30" height="30" />
             </button>
           </ButtonContainer>
         </ContentContainer>
@@ -33,6 +48,7 @@ const Header = () => {
 };
 
 export default Header;
+
 const LoginButtonText = styled.button`
   font-size: 12px;
 `;
@@ -82,6 +98,7 @@ const SearchContainer = styled.div`
 `;
 const SearchBox = styled.input`
   width: 100%;
+  margin-top: 3px;
   outline: none;
   ::placeholder {
     color: ${({ theme }) => theme.color.gray};
