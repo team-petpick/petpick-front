@@ -2,17 +2,28 @@ import { useState } from 'react';
 import * as S from './Category.style';
 
 const Category = () => {
-  const [showCategory, setShowCategory] = useState(false);
+  const [showCategory, setShowCategory] = useState<number | null>(null);
+  const [activeButton, setActiveButton] = useState<number | null>(null);
 
-  const handleClickAnimalType = () => {
-    setShowCategory((prev) => !prev);
+  const handleClickAnimalType = (index: number) => {
+    if (activeButton === index) {
+      setActiveButton(null);
+      setShowCategory(null);
+    } else {
+      setActiveButton(index);
+      setShowCategory(index + 1);
+    }
   };
 
   return (
     <S.Wrapper>
       <S.AnimalTypeWrapper>
-        {['강아지', '고양이', '기타'].map((type) => (
-          <S.AnimalTypeButton key={type} onClick={handleClickAnimalType}>
+        {['강아지', '고양이', '기타'].map((type, index) => (
+          <S.AnimalTypeButton
+            key={type}
+            onClick={() => handleClickAnimalType(index)}
+            isActive={activeButton === index}
+          >
             <S.AnimalTypeText>{type}</S.AnimalTypeText>
           </S.AnimalTypeButton>
         ))}
