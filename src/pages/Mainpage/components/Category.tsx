@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import * as S from './Category.style';
+import { anymalType } from '@constants';
+import { categories } from '@constants';
 
 const Category = () => {
   const [showCategory, setShowCategory] = useState<number | null>(null);
@@ -18,7 +20,7 @@ const Category = () => {
   return (
     <S.Wrapper>
       <S.AnimalTypeWrapper>
-        {['강아지', '고양이', '기타'].map((type, index) => (
+        {anymalType.map((type, index) => (
           <S.AnimalTypeButton
             key={type}
             onClick={() => handleClickAnimalType(index)}
@@ -31,7 +33,7 @@ const Category = () => {
 
       {showCategory && (
         <S.CategoryWrapper>
-          {['전체', '용품', '사료', '간식', '의류'].map((category) => (
+          {categories.map((category) => (
             <S.CategoryButton key={category}>
               <S.CategoryText>{category}</S.CategoryText>
             </S.CategoryButton>
