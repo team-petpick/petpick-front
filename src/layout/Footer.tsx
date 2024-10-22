@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { PETPICK_COLORS } from '@constants/colors';
+import { TextStyles } from '@styles/textStyles';
 const Footer = () => {
   return (
     <FooterLayout>
@@ -60,8 +61,7 @@ const BodyButton = styled.button`
   text-align: left;
   gap: 10px;
   color: ${PETPICK_COLORS.GRAY[600]};
-  font-size: 10px;
-  line-height: 14.5px;
+  ${TextStyles.caption.xsmallR}
 `;
 const FooterBottom = styled.div`
   background: #f6f6f6;
@@ -70,6 +70,6 @@ const FooterBottom = styled.div`
   padding: 20px 0px 30px;
   text-align: center;
   color: ${PETPICK_COLORS.GRAY[600]};
-  font-size: 10px;
+  ${TextStyles.caption.xsmallR}
   line-height: 15px;
 `;
