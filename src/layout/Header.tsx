@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { Cart, Search, Petpick, User } from '@assets/svg/index';
 import { useNavigate } from 'react-router-dom';
-const Header = ({ userId }: { userId: number }) => {
+interface HeaderProps {
+  userId: number;
+  userName: string;
+  isLoggedIn: boolean;
+}
+const Header = ({ userId, userName, isLoggedIn }: HeaderProps) => {
+  // router 설정
   const navigate = useNavigate();
   const handleHomeClick = () => {
     navigate('/');
@@ -10,16 +16,27 @@ const Header = ({ userId }: { userId: number }) => {
     navigate('/login');
   };
   const handleLMyPageButtonClick = (userId: number) => {
+    // 비회원 로직
+    if (isLoggedIn === false) {
+      alert('로그인 사용자만 이용할 수 있는 기능입니다.');
+    }
     navigate(`/mypage/${userId}`);
   };
   const hadleCartButtonClick = (userId: number) => {
     navigate(`/shoppingcart/${userId}`);
   };
+
+  // 비회원 로직
   return (
     <HeaderLayout>
       <HeaderContainer>
         <LoginMenuContainer>
-          <LoginButtonText onClick={handleLoginClick}>로그인</LoginButtonText>
+          {/* 로그인 시 사용자이름 나타내기 */}
+          {isLoggedIn ? (
+            <LoginButtonText>{userName}</LoginButtonText>
+          ) : (
+            <LoginButtonText onClick={handleLoginClick}>로그인</LoginButtonText>
+          )}
           <TextBox>|</TextBox>
           <LoginButtonText>회원가입</LoginButtonText>
         </LoginMenuContainer>
