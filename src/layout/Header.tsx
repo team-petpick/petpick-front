@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Like, Cart, Search } from '@assets/svg/index';
+import { PETPICK_COLORS } from '@constants/colors';
 
 const Header = () => {
   return (
@@ -48,7 +49,7 @@ const HeaderContainer = styled.div`
 `;
 const TextBox = styled.span`
   font-size: 12px;
-  color: ${({ theme }) => theme.color.grayLight};
+  color: ${PETPICK_COLORS.GRAY[400]};
 `;
 const LoginMenuContainer = styled.div`
   height: 36px;
@@ -77,13 +78,13 @@ const SearchContainer = styled.div`
   border: 1px solid gray;
   border-radius: 6px;
   font-size: 16px;
-  color: ${({ theme }) => theme.color.black};
+  color: ${PETPICK_COLORS.GRAY[900]};
 `;
 const SearchBox = styled.input`
   width: 100%;
   outline: none;
   ::placeholder {
-    color: ${({ theme }) => theme.color.gray};
+    color: ${PETPICK_COLORS.GRAY[600]};
     font-size: 16px;
   }
 `;
