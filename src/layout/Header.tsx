@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Like, Cart, Search } from '@assets/svg/index';
+import { Like, Cart, Search, Petpick } from '@assets/svg/index';
 
 const Header = () => {
   return (
@@ -11,7 +11,7 @@ const Header = () => {
           <LoginButtonText>회원가입</LoginButtonText>
         </LoginMenuContainer>
         <ContentContainer>
-          <div>Logo</div>
+          <Petpick width="115" height="100" />
           <SearchContainer>
             <SearchBox type="text" placeholder="검색어를 입력해주세요" />
             <SearchButton>
@@ -45,6 +45,7 @@ const HeaderContainer = styled.div`
   width: 1050px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 30px;
 `;
 const TextBox = styled.span`
   font-size: 12px;
