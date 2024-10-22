@@ -57,7 +57,9 @@ export const CategoryButton = styled.div`
 export const CategoryText = styled.div`
   width: auto;
   color: #000;
-  font-weight: 700;
   display: flex;
   align-items: center;
+  &:hover {
+    font-weight: 700;
+  }
 `;
