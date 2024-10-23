@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-
+import { PETPICK_COLORS } from '@constants/colors';
+import { TextStyles } from '@styles/textStyles';
 const Footer = () => {
   return (
     <FooterLayout>
@@ -50,7 +51,7 @@ const FooterBody = styled.body`
   display: flex;
   justify-content: space-between;
   padding: 26px 33px;
-  border-top: 1px solid ${({ theme }) => theme.color.grayLine};
+  border-top: 1px solid ${PETPICK_COLORS.GRAY[700]};
 `;
 const ButtonImage = styled.img`
   width: 34px;
@@ -59,9 +60,8 @@ const BodyButton = styled.button`
   display: flex;
   text-align: left;
   gap: 10px;
-  color: ${({ theme }) => theme.color.gray};
-  font-size: 10px;
-  line-height: 14.5px;
+  color: ${PETPICK_COLORS.GRAY[600]};
+  ${TextStyles.caption.xsmallR}
 `;
 const FooterBottom = styled.div`
   background: #f6f6f6;
@@ -69,7 +69,7 @@ const FooterBottom = styled.div`
   flex-direction: column;
   padding: 20px 0px 30px;
   text-align: center;
-  color: ${({ theme }) => theme.color.gray};
-  font-size: 10px;
+  color: ${PETPICK_COLORS.GRAY[600]};
+  ${TextStyles.caption.xsmallR}
   line-height: 15px;
 `;
