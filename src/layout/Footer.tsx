@@ -44,8 +44,6 @@ export default Footer;
 
 const FooterLayout = styled.footer`
   width: 100%;
-  position: fixed;
-  bottom: 0;
 `;
 const FooterBody = styled.body`
   display: flex;

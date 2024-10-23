@@ -101,7 +101,7 @@ export const TextStyles = {
       font-family: Pretendard;
       font-size: 16px;
       font-style: normal;
-      font-weight: 600;
+      font-weight: 500;
       line-height: 22px; /* 137.5% */
       letter-spacing: -0.32px;
     `,
