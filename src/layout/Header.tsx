@@ -115,7 +115,7 @@ const SearchContainer = styled.div`
   padding: 0 10px 0 14px;
   display: flex;
   align-items: center;
-  border: 1px solid gray;
+  border: 1px solid ${PETPICK_COLORS.BLUE[300]};
   border-radius: 6px;
   ${TextStyles.body.mediumR}
   color: ${PETPICK_COLORS.GRAY[900]};
