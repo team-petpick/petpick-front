@@ -4,35 +4,40 @@ import { PETPICK_COLORS } from '@constants/colors';
 import { TextStyles } from '@styles/textStyles';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
+import { useAuthStore } from '@store/authStore';
 
 interface HeaderProps {
-  userId: number;
+  userId: string;
   userName: string;
-  isLoggedIn: boolean;
 }
-const Header = ({ userId, userName, isLoggedIn }: HeaderProps) => {
+const Header = ({ userId, userName }: HeaderProps) => {
+  // 로그인 상태 관리
+  const { isLoggedIn, login } = useAuthStore();
+
   // router 설정
   const navigate = useNavigate();
   const handleHomeClick = () => {
     navigate('/');
   };
   const handleClickNavigateToLoginPage = () => {
+    login();
     navigate(ROUTE.LOGINPAGE);
   };
   const handleClickNavigateToSignUpPage = () => {
     navigate(ROUTE.SIGNUPPAGE);
   };
-  const handleLMyPageButtonClick = (userId: number) => {
+  const handleLMyPageButtonClick = (isLoggedIn: boolean, userId: string) => {
     // 비회원 로직
-    if (isLoggedIn === false) {
+
+    if (!isLoggedIn) {
       alert('로그인 사용자만 이용할 수 있는 기능입니다.');
+    } else {
+      navigate(`/mypage/${userId}`);
     }
-    navigate(`/mypage/${userId}`);
   };
-  const hadleCartButtonClick = (userId: number) => {
+  const hadleCartButtonClick = (userId: string) => {
     navigate(`/shoppingcart/${userId}`);
   };
-
   // 비회원 로직
   return (
     <HeaderLayout>
@@ -40,7 +45,7 @@ const Header = ({ userId, userName, isLoggedIn }: HeaderProps) => {
         <LoginMenuContainer>
           {/* 로그인 시 사용자이름 나타내기 */}
           {isLoggedIn ? (
-            <LoginButtonText>{userName}</LoginButtonText>
+            <LoginButtonText>김윤일 님</LoginButtonText>
           ) : (
             <LoginButtonText onClick={handleClickNavigateToLoginPage}>로그인</LoginButtonText>
           )}
@@ -61,7 +66,7 @@ const Header = ({ userId, userName, isLoggedIn }: HeaderProps) => {
             <button onClick={() => hadleCartButtonClick(userId)}>
               <Cart width="30" height="30" />
             </button>
-            <button onClick={() => handleLMyPageButtonClick(userId)}>
+            <button onClick={() => handleLMyPageButtonClick(isLoggedIn, userId)}>
               <User width="30" height="30" />
             </button>
           </ButtonContainer>

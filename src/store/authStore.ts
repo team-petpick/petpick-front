@@ -11,14 +11,16 @@ export const useAuthStore = create(
     (set) => ({
       isLoggedIn: false,
       login: () => {
-        const userLocalStorage = localStorage.getItem('accessToken');
-        if (userLocalStorage) {
+        // 테스트를 위한 임시 토큰
+        const mockAccessToken = 'your-mock-access-token';
+        // const userLocalStorage = localStorage.getItem('accessToken');  // 원래 코드
+        if (mockAccessToken) {
           set({ isLoggedIn: true });
         }
       },
       logout: () => {
         set({ isLoggedIn: false });
-        localStorage.clear();
+        localStorage.removeItem('accessToken');
       },
     }),
     {
