@@ -16,12 +16,12 @@ export const LoginLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 150px;
+  margin-top: 10vh;
 `;
 
 export const SignUpText = styled.div`
   ${TextStyles.bigTitle.xxlargeSB}
-  font-size: 40px;
+  font-size: 2rem;
   color: ${PETPICK_COLORS.GRAY[900]};
 `;
 
