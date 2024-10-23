@@ -1,3 +1,5 @@
+export { default as GoogleLogin } from './GoogleLogin';
+export { default as PetpickLogo } from './PetpickLogo';
 export { default as Bell } from './Bell';
 export { default as Cart } from './Cart';
 export { default as Cat } from './Cat';

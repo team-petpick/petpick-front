@@ -1,14 +1,24 @@
 import styled from 'styled-components';
 import { Like, Cart, Search } from '@assets/svg/index';
-
+import { PETPICK_COLORS } from '@constants/colors';
+import { TextStyles } from '@styles/textStyles';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@constants/ROUTE';
 const Header = () => {
+  const navigate = useNavigate();
+  const handleClickNavigateToLoginPage = () => {
+    navigate(ROUTE.LOGINPAGE);
+  };
+  const handleClickNavigateToSignUpPage = () => {
+    navigate(ROUTE.SIGNUPPAGE);
+  };
   return (
     <HeaderLayout>
       <HeaderContainer>
         <LoginMenuContainer>
-          <LoginButtonText>로그인</LoginButtonText>
+          <LoginButtonText onClick={handleClickNavigateToLoginPage}>로그인</LoginButtonText>
           <TextBox>|</TextBox>
-          <LoginButtonText>회원가입</LoginButtonText>
+          <LoginButtonText onClick={handleClickNavigateToSignUpPage}>회원가입</LoginButtonText>
         </LoginMenuContainer>
         <ContentContainer>
           <div>Logo</div>
@@ -34,7 +44,7 @@ const Header = () => {
 
 export default Header;
 const LoginButtonText = styled.button`
-  font-size: 12px;
+  ${TextStyles.caption.xsmallR}
 `;
 const HeaderLayout = styled.header`
   display: flex;
@@ -47,8 +57,8 @@ const HeaderContainer = styled.div`
   flex-direction: column;
 `;
 const TextBox = styled.span`
-  font-size: 12px;
-  color: ${({ theme }) => theme.color.grayLight};
+  ${TextStyles.caption.xsmallR}
+  color: ${PETPICK_COLORS.GRAY[400]};
 `;
 const LoginMenuContainer = styled.div`
   height: 36px;
@@ -76,15 +86,15 @@ const SearchContainer = styled.div`
   align-items: center;
   border: 1px solid gray;
   border-radius: 6px;
-  font-size: 16px;
-  color: ${({ theme }) => theme.color.black};
+  ${TextStyles.body.mediumR}
+  color: ${PETPICK_COLORS.GRAY[900]};
 `;
 const SearchBox = styled.input`
   width: 100%;
   outline: none;
   ::placeholder {
-    color: ${({ theme }) => theme.color.gray};
-    font-size: 16px;
+    color: ${PETPICK_COLORS.GRAY[600]};
+    ${TextStyles.body.mediumR}
   }
 `;
 const SearchButton = styled.button`
