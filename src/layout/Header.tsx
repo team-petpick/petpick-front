@@ -35,7 +35,7 @@ const Header = () => {
 
 export default Header;
 const LoginButtonText = styled.button`
-  ${TextStyles.caption.xsmallR}
+  ${TextStyles.caption.xmsallR}
 `;
 const HeaderLayout = styled.header`
   display: flex;
@@ -48,7 +48,7 @@ const HeaderContainer = styled.div`
   flex-direction: column;
 `;
 const TextBox = styled.span`
-  ${TextStyles.caption.xsmallR}
+  ${TextStyles.caption.xmsallR}
   color: ${PETPICK_COLORS.GRAY[400]};
 `;
 const LoginMenuContainer = styled.div`

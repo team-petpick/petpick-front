@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 export const TextStyles = {
   bigTitle: {
-    xlargeB: css`
+    xxlargeB: css`
       font-family: Pretendard;
       font-size: 32px;
       font-style: normal;
@@ -10,7 +10,7 @@ export const TextStyles = {
       line-height: 36px; /* 112.5% */
       letter-spacing: -0.64px;
     `,
-    xlargeSB: css`
+    xxlargeSB: css`
       font-family: Pretendard;
       font-size: 32px;
       font-style: normal;
@@ -18,7 +18,7 @@ export const TextStyles = {
       line-height: 36px; /* 112.5% */
       letter-spacing: -0.64px;
     `,
-    xlargeR: css`
+    xxlargeR: css`
       color: var(--Gray-900, #101010);
       font-family: Pretendard;
       font-size: 32px;
@@ -55,7 +55,7 @@ export const TextStyles = {
     `,
   },
   subTitle: {
-    LargeB: css`
+    largeB: css`
       font-family: Pretendard;
       font-size: 20px;
       font-style: normal;
@@ -63,7 +63,7 @@ export const TextStyles = {
       line-height: 28px; /* 140% */
       letter-spacing: -0.4px;
     `,
-    LargeSB: css`
+    largeSB: css`
       font-family: Pretendard;
       font-size: 16px;
       font-style: normal;
@@ -71,7 +71,7 @@ export const TextStyles = {
       line-height: 22px; /* 137.5% */
       letter-spacing: -0.32px;
     `,
-    LargeR: css`
+    largeR: css`
       font-family: Pretendard;
       font-size: 16px;
       font-style: normal;
