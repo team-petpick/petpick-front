@@ -67,7 +67,7 @@ const Footer = () => {
 
 export default Footer;
 const CompanyInfo = styled.div`
-  color: ${({ theme }) => theme.color.gray};
+  color: ${PETPICK_COLORS.GRAY[700]};
   font-size: 12px;
   font-weight: 400;
 `;
@@ -77,7 +77,7 @@ const MenuList = styled.ul`
   gap: 14px;
   font-size: 14px;
   line-height: 18px;
-  color: ${({ theme }) => theme.color.black};
+  color: ${PETPICK_COLORS.GRAY[700]};
 `;
 const FooterLayout = styled.footer`
   width: 100%;
@@ -86,7 +86,7 @@ const FooterLayout = styled.footer`
   align-items: center;
   position: fixed;
   bottom: 0;
-  border-top: 1px solid ${({ theme }) => theme.color.grayLine};
+  border-top: 1px solid ${PETPICK_COLORS.GRAY[400]};
 `;
 const FooterContainer = styled.div`
   width: 1050px;
@@ -106,7 +106,7 @@ const FooterBody = styled.body`
   /* justify-content: space-between; */
   gap: 30px;
   padding: 26px 33px;
-  border-top: 1px solid ${PETPICK_COLORS.GRAY[700]};
+  border-top: 1px solid ${PETPICK_COLORS.GRAY[400]};
 `;
 const ButtonImage = styled.img`
   height: 34px;
