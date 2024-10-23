@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PETPICK_COLORS } from '@constants/colors';
-import { TextStyles } from '@styles/textStyles';
+import { TextStyles } from '../styles/textStyles';
 const Footer = () => {
   return (
     <FooterLayout>

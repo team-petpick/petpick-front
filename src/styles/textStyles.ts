@@ -65,7 +65,7 @@ export const TextStyles = {
     `,
     largeSB: css`
       font-family: Pretendard;
-      font-size: 16px;
+      font-size: 20px;
       font-style: normal;
       font-weight: 600;
       line-height: 22px; /* 137.5% */
@@ -73,7 +73,7 @@ export const TextStyles = {
     `,
     largeR: css`
       font-family: Pretendard;
-      font-size: 16px;
+      font-size: 20px;
       font-style: normal;
       font-weight: 400;
       line-height: 22px; /* 137.5% */
@@ -183,7 +183,7 @@ export const TextStyles = {
       line-height: 18px; /* 150% */
       letter-spacing: -0.24px;
     `,
-    xmsallR: css`
+    xsmallR: css`
       font-family: Pretendard;
       font-size: 10px;
       font-style: normal;
