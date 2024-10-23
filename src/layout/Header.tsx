@@ -2,14 +2,23 @@ import styled from 'styled-components';
 import { Like, Cart, Search } from '@assets/svg/index';
 import { PETPICK_COLORS } from '@constants/colors';
 import { TextStyles } from '@styles/textStyles';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@constants/ROUTE';
 const Header = () => {
+  const navigate = useNavigate();
+  const handleClickNavigateToLoginPage = () => {
+    navigate(ROUTE.LOGINPAGE);
+  };
+  const handleClickNavigateToSignUpPage = () => {
+    navigate(ROUTE.SIGNUPPAGE);
+  };
   return (
     <HeaderLayout>
       <HeaderContainer>
         <LoginMenuContainer>
-          <LoginButtonText>로그인</LoginButtonText>
+          <LoginButtonText onClick={handleClickNavigateToLoginPage}>로그인</LoginButtonText>
           <TextBox>|</TextBox>
-          <LoginButtonText>회원가입</LoginButtonText>
+          <LoginButtonText onClick={handleClickNavigateToSignUpPage}>회원가입</LoginButtonText>
         </LoginMenuContainer>
         <ContentContainer>
           <div>Logo</div>
@@ -35,7 +44,7 @@ const Header = () => {
 
 export default Header;
 const LoginButtonText = styled.button`
-  ${TextStyles.caption.xmsallR}
+  ${TextStyles.caption.xsmallR}
 `;
 const HeaderLayout = styled.header`
   display: flex;
@@ -48,7 +57,7 @@ const HeaderContainer = styled.div`
   flex-direction: column;
 `;
 const TextBox = styled.span`
-  ${TextStyles.caption.xmsallR}
+  ${TextStyles.caption.xsmallR}
   color: ${PETPICK_COLORS.GRAY[400]};
 `;
 const LoginMenuContainer = styled.div`
