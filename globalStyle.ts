@@ -13,6 +13,7 @@ http://scripts.sil.org/OFL
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overscroll-behavior: none;
 }
   html,
   body,
