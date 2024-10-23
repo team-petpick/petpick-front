@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { Cart, Search, Petpick, User } from '@assets/svg/index';
+import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import { PETPICK_COLORS } from '@constants/colors';
 import { TextStyles } from '@styles/textStyles';
 import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@constants/ROUTE';
+
 interface HeaderProps {
   userId: number;
   userName: string;
@@ -14,8 +16,11 @@ const Header = ({ userId, userName, isLoggedIn }: HeaderProps) => {
   const handleHomeClick = () => {
     navigate('/');
   };
-  const handleLoginClick = () => {
-    navigate('/login');
+  const handleClickNavigateToLoginPage = () => {
+    navigate(ROUTE.LOGINPAGE);
+  };
+  const handleClickNavigateToSignUpPage = () => {
+    navigate(ROUTE.SIGNUPPAGE);
   };
   const handleLMyPageButtonClick = (userId: number) => {
     // 비회원 로직
@@ -37,14 +42,14 @@ const Header = ({ userId, userName, isLoggedIn }: HeaderProps) => {
           {isLoggedIn ? (
             <LoginButtonText>{userName}</LoginButtonText>
           ) : (
-            <LoginButtonText onClick={handleLoginClick}>로그인</LoginButtonText>
+            <LoginButtonText onClick={handleClickNavigateToLoginPage}>로그인</LoginButtonText>
           )}
           <TextBox>|</TextBox>
-          <LoginButtonText>회원가입</LoginButtonText>
+          <LoginButtonText onClick={handleClickNavigateToSignUpPage}>회원가입</LoginButtonText>
         </LoginMenuContainer>
         <ContentContainer>
           <button onClick={handleHomeClick}>
-            <Petpick width="115" height="100" />
+            <PetpickLogo width="115" height="100" />
           </button>
           <SearchContainer>
             <SearchBox type="text" placeholder="검색어를 입력해주세요" />
@@ -69,7 +74,7 @@ const Header = ({ userId, userName, isLoggedIn }: HeaderProps) => {
 export default Header;
 
 const LoginButtonText = styled.button`
-  ${TextStyles.caption.xmsallR}
+  ${TextStyles.caption.xsmallR}
 `;
 const HeaderLayout = styled.header`
   display: flex;
@@ -83,7 +88,7 @@ const HeaderContainer = styled.div`
   padding-bottom: 30px;
 `;
 const TextBox = styled.span`
-  ${TextStyles.caption.xmsallR}
+  ${TextStyles.caption.xsmallR}
   color: ${PETPICK_COLORS.GRAY[400]};
 `;
 const LoginMenuContainer = styled.div`
