@@ -1,13 +1,11 @@
-import styled from 'styled-components';
-import { PETPICK_COLORS } from '@constants/colors';
-import { TextStyles } from '../styles/textStyles';
+import * as S from './Footer.style';
 const Footer = () => {
   return (
-    <FooterLayout>
-      <FooterContainer>
-        <FooterHeader>
+    <S.FooterLayout>
+      <S.FooterContainer>
+        <S.FooterHeader>
           <div>
-            <MenuList>
+            <S.MenuList>
               <li>펫픽 소개</li>
               <li>펫픽소개영상</li>
               <li>투자정보</li>
@@ -15,9 +13,9 @@ const Footer = () => {
               <li>이용약관</li>
               <li>개인정보처리방침</li>
               <li>이용안내</li>
-            </MenuList>
+            </S.MenuList>
           </div>
-          <CompanyInfo>
+          <S.CompanyInfo>
             법인명 (상호) : 주식회사 펫픽 | 사업자등록번호 : 261-81-23567
             <br />
             통신판매업 : 제 2018-서울강남-01646 호<br />
@@ -26,11 +24,11 @@ const Footer = () => {
             <br />
             채용문의 : kyoul10121@gmail.com
             <br />
-          </CompanyInfo>
-        </FooterHeader>
-        <FooterBody>
-          <BodyButton>
-            <ButtonImage
+          </S.CompanyInfo>
+        </S.FooterHeader>
+        <S.FooterBody>
+          <S.BodyButton>
+            <S.ButtonImage
               src="https://res.kurly.com/pc/ico/2208/logo_tosspayments.svg"
               alt="payments 로고"
             />
@@ -39,9 +37,9 @@ const Footer = () => {
               <br />
               서비스를 이용하실 수 있습니다.
             </p>
-          </BodyButton>
-          <BodyButton>
-            <ButtonImage
+          </S.BodyButton>
+          <S.BodyButton>
+            <S.ButtonImage
               src="https://www.eprivacy.or.kr/images/mng/sub/mark1_eprivacy_plus.png"
               alt="eprivacy plus 로고"
             />
@@ -50,82 +48,19 @@ const Footer = () => {
               <br />
               개인정보처리시스템 인증 (ePRIVACY PLUS)
             </p>
-          </BodyButton>
-        </FooterBody>
-      </FooterContainer>
-      <CopyrightInfo>
+          </S.BodyButton>
+        </S.FooterBody>
+      </S.FooterContainer>
+      <S.CopyrightInfo>
         컬리에서 판매되는 상품 중에는 컬리에 입점한 개별 판매자가 판매하는 마켓플레이스(오픈마켓)
         상품이 포함되어 있습니다.
         <br />
         마켓플레이스(오픈마켓) 상품의 경우 컬리는 통신판매중개자로서 통신판매의 당사자가 아닙니다.
         컬리는 해당 상품의 주문, 품질, 교환/환불 등 의무와 책임을 부담하지 않습니다.
         <span>CompanyName @ 202X. All rights reserved.</span>
-      </CopyrightInfo>
-    </FooterLayout>
+      </S.CopyrightInfo>
+    </S.FooterLayout>
   );
 };
 
 export default Footer;
-const CompanyInfo = styled.div`
-  color: ${PETPICK_COLORS.GRAY[700]};
-  font-size: 12px;
-  font-weight: 400;
-`;
-const MenuList = styled.ul`
-  display: flex;
-  padding-bottom: 29px;
-  gap: 14px;
-  font-size: 14px;
-  line-height: 18px;
-  color: ${PETPICK_COLORS.GRAY[700]};
-`;
-const FooterLayout = styled.footer`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  border-top: 1px solid ${PETPICK_COLORS.GRAY[400]};
-`;
-const FooterContainer = styled.div`
-  width: 1050px;
-  display: flex;
-  flex-direction: column;
-`;
-const FooterHeader = styled.header`
-  width: 100%;
-  padding: 30px 0;
-  display: flex;
-  flex-direction: column;
-`;
-const FooterBody = styled.body`
-  width: 100%;
-  display: flex;
-  align-self: center;
-  /* justify-content: space-between; */
-  gap: 30px;
-  padding: 26px 33px;
-  border-top: 1px solid ${PETPICK_COLORS.GRAY[400]};
-`;
-const ButtonImage = styled.img`
-  height: 34px;
-`;
-const BodyButton = styled.button`
-  display: flex;
-  text-align: left;
-  gap: 10px;
-  color: ${PETPICK_COLORS.GRAY[600]};
-  ${TextStyles.caption.xsmallR}
-`;
-const CopyrightInfo = styled.div`
-  width: 100%;
-  background: #f6f6f6;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0px 30px;
-  text-align: center;
-  color: ${PETPICK_COLORS.GRAY[600]};
-  ${TextStyles.caption.xsmallR}
-  line-height: 15px;
-`;
