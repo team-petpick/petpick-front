@@ -8,4 +8,5 @@ export { default as Minus } from './Minus';
 export { default as Plus } from './Plus';
 export { default as RightArrow } from './RightArrow';
 export { default as Search } from './Search';
+export { default as ShoppingCart } from './ShoppingCart';
 export { default as Vite } from './Vite';
