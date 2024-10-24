@@ -3,8 +3,8 @@ import { persist } from 'zustand/middleware';
 
 interface IAuthStore {
   isLoggedIn: boolean;
-  accessToken: string | null;
-  refreshToken: string | null;
+  accessToken?: string | null;
+  refreshToken?: string | null;
   login: (accessToken: string, refreshToken: string) => void;
   logout: () => void;
 }

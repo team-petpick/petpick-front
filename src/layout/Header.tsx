@@ -8,7 +8,7 @@ import * as S from './Header.style';
 
 const Header = () => {
   // 로그인 상태 관리
-  const { isLoggedIn, login } = useAuthStore();
+  const { isLoggedIn, login, accessToken, refreshToken } = useAuthStore();
   const { userId, setUserId } = useUserStore();
   const { userId: paramUserId } = useParams(); //URL에서 userId 가져오기
 
@@ -18,7 +18,11 @@ const Header = () => {
     navigate('/');
   };
   const handleClickNavigateToLoginPage = () => {
-    login();
+    if (accessToken && refreshToken) {
+      login(accessToken, refreshToken);
+    } else {
+      console.log('유효한 토큰이 없습니다.');
+    }
     navigate(ROUTE.LOGINPAGE);
   };
   const handleClickNavigateToSignUpPage = () => {
