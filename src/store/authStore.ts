@@ -3,28 +3,28 @@ import { persist } from 'zustand/middleware';
 
 interface IAuthStore {
   isLoggedIn: boolean;
-  login: () => void;
+  accessToken: string | null;
+  refreshToken: string | null;
+  login: (accessToken: string, refreshToken: string) => void;
   logout: () => void;
 }
 export const useAuthStore = create(
   persist<IAuthStore>(
     (set) => ({
       isLoggedIn: false,
-      login: () => {
-        // 테스트를 위한 임시 토큰
-        const mockAccessToken = 'your-mock-access-token';
-        // const userLocalStorage = localStorage.getItem('accessToken');  // 원래 코드
-        if (mockAccessToken) {
-          set({ isLoggedIn: true });
+      accessToken: null,
+      refreshToken: null,
+      login: (accessToken, refreshToken) => {
+        if (accessToken && refreshToken) {
+          set({ isLoggedIn: true, accessToken, refreshToken });
         }
       },
       logout: () => {
-        set({ isLoggedIn: false });
-        localStorage.removeItem('accessToken');
+        set({ isLoggedIn: false, accessToken: null, refreshToken: null });
       },
     }),
     {
-      name: 'userLocalStorage',
+      name: 'userAuthStore',
     },
   ),
 );
