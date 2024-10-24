@@ -49,13 +49,13 @@ export const CategoryButton = styled.div`
   width: 88px;
   display: flex;
   justify-content: center;
-  color: ${PETPICK_COLORS.GRAY[800]};
   cursor: pointer;
 `;
-export const CategoryText = styled.div`
+export const CategoryText = styled.div<{ isActive: boolean }>`
   ${TextStyles.body.mediumM}
   display: flex;
   align-items: center;
+  color: ${({ isActive }) => (isActive ? PETPICK_COLORS.BLUE[300] : PETPICK_COLORS.GRAY[800])};
   &:hover {
     font-weight: 700;
     color: ${PETPICK_COLORS.BLUE[300]};
