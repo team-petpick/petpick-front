@@ -1,18 +1,16 @@
-import styled from 'styled-components';
-import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
-import { PETPICK_COLORS } from '@constants/colors';
-import { TextStyles } from '@styles/textStyles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
+import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import { useAuthStore } from '@store/authStore';
+import { useUserStore } from '@store/userStore';
+import { useEffect } from 'react';
+import * as S from './Header.style';
 
-interface HeaderProps {
-  userId: string;
-  userName: string;
-}
-const Header = ({ userId, userName }: HeaderProps) => {
+const Header = () => {
   // 로그인 상태 관리
   const { isLoggedIn, login } = useAuthStore();
+  const { userId, setUserId } = useUserStore();
+  const { userId: paramUserId } = useParams(); //URL에서 userId 가져오기
 
   // router 설정
   const navigate = useNavigate();
@@ -26,114 +24,67 @@ const Header = ({ userId, userName }: HeaderProps) => {
   const handleClickNavigateToSignUpPage = () => {
     navigate(ROUTE.SIGNUPPAGE);
   };
-  const handleLMyPageButtonClick = (isLoggedIn: boolean, userId: string) => {
+  const handleLMyPageButtonClick = () => {
     // 비회원 로직
-
     if (!isLoggedIn) {
       alert('로그인 사용자만 이용할 수 있는 기능입니다.');
     } else {
-      navigate(`/mypage/${userId}`);
+      if (userId !== null) {
+        navigate(ROUTE.MYPAGE.replace(':userId', userId.toString()));
+      } else {
+        alert('사용자 ID를 불러오는 중입니다.');
+      }
     }
   };
-  const hadleCartButtonClick = (userId: string) => {
-    navigate(`/shoppingcart/${userId}`);
+  const handleCartButtonClick = () => {
+    if (userId !== null) {
+      navigate(ROUTE.SHOPPINGCART.replace(':userId', userId.toString()));
+    } else {
+      alert('사용자 ID를 불러오는 중입니다.');
+    }
   };
+  // useEffect를 사용하여 URL의 userId가 있을 경우 store에 설정
+  useEffect(() => {
+    if (paramUserId) {
+      setUserId(Number(paramUserId));
+    }
+  }, [paramUserId, setUserId]);
+
   // 비회원 로직
   return (
-    <HeaderLayout>
-      <HeaderContainer>
-        <LoginMenuContainer>
+    <S.HeaderLayout>
+      <S.HeaderContainer>
+        <S.LoginMenuContainer>
           {/* 로그인 시 사용자이름 나타내기 */}
           {isLoggedIn ? (
-            <LoginButtonText>김윤일 님</LoginButtonText>
+            <S.LoginButtonText>김윤일 님</S.LoginButtonText>
           ) : (
-            <LoginButtonText onClick={handleClickNavigateToLoginPage}>로그인</LoginButtonText>
+            <S.LoginButtonText onClick={handleClickNavigateToLoginPage}>로그인</S.LoginButtonText>
           )}
-          <TextBox>|</TextBox>
-          <LoginButtonText onClick={handleClickNavigateToSignUpPage}>회원가입</LoginButtonText>
-        </LoginMenuContainer>
-        <ContentContainer>
+          <S.TextBox>|</S.TextBox>
+          <S.LoginButtonText onClick={handleClickNavigateToSignUpPage}>회원가입</S.LoginButtonText>
+        </S.LoginMenuContainer>
+        <S.ContentContainer>
           <button onClick={handleHomeClick}>
             <PetpickLogo width="115" height="100" />
           </button>
-          <SearchContainer>
-            <SearchBox type="text" placeholder="검색어를 입력해주세요" />
-            <SearchButton>
+          <S.SearchContainer>
+            <S.SearchBox type="text" placeholder="검색어를 입력해주세요" />
+            <S.SearchButton>
               <Search width="30" height="30" />
-            </SearchButton>
-          </SearchContainer>
-          <ButtonContainer>
-            <button onClick={() => hadleCartButtonClick(userId)}>
+            </S.SearchButton>
+          </S.SearchContainer>
+          <S.ButtonContainer>
+            <button onClick={handleCartButtonClick}>
               <Cart width="30" height="30" />
             </button>
-            <button onClick={() => handleLMyPageButtonClick(isLoggedIn, userId)}>
+            <button onClick={handleLMyPageButtonClick}>
               <User width="30" height="30" />
             </button>
-          </ButtonContainer>
-        </ContentContainer>
-      </HeaderContainer>
-    </HeaderLayout>
+          </S.ButtonContainer>
+        </S.ContentContainer>
+      </S.HeaderContainer>
+    </S.HeaderLayout>
   );
 };
-
 export default Header;
-
-const LoginButtonText = styled.button`
-  ${TextStyles.caption.xsmallR}
-`;
-const HeaderLayout = styled.header`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-const HeaderContainer = styled.div`
-  width: 1050px;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 30px;
-`;
-const TextBox = styled.span`
-  ${TextStyles.caption.xsmallR}
-  color: ${PETPICK_COLORS.GRAY[400]};
-`;
-const LoginMenuContainer = styled.div`
-  height: 36px;
-  display: flex;
-  align-items: center;
-  align-self: flex-end;
-  gap: 12px;
-`;
-const ContentContainer = styled.div`
-  height: 63px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const ButtonContainer = styled.div`
-  display: flex;
-  align-self: center;
-  gap: 26px;
-`;
-const SearchContainer = styled.div`
-  width: 400px;
-  height: 48px;
-  padding: 0 10px 0 14px;
-  display: flex;
-  align-items: center;
-  border: 1px solid ${PETPICK_COLORS.BLUE[300]};
-  border-radius: 6px;
-  ${TextStyles.body.mediumR}
-  color: ${PETPICK_COLORS.GRAY[900]};
-`;
-const SearchBox = styled.input`
-  width: 100%;
-  margin-top: 3px;
-  outline: none;
-  ::placeholder {
-    color: ${PETPICK_COLORS.GRAY[600]};
-    ${TextStyles.body.mediumR}
-  }
-`;
-const SearchButton = styled.button`
-  padding: 4px 0 0;
-`;
