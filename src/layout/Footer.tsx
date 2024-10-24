@@ -44,14 +44,13 @@ export default Footer;
 
 const FooterLayout = styled.footer`
   width: 100%;
-  position: fixed;
-  bottom: 0;
 `;
 const FooterBody = styled.body`
   display: flex;
   justify-content: space-between;
   padding: 26px 33px;
   border-top: 1px solid ${PETPICK_COLORS.GRAY[700]};
+  background-color: #fff;
 `;
 const ButtonImage = styled.img`
   width: 34px;
