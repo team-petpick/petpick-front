@@ -168,7 +168,7 @@ export default MainPage;
 
 const ProductList = styled.div`
   height: 100%;
-  background-color: aliceblue;
+  background-color: #fff;
   overflow-y: scroll;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -185,5 +185,5 @@ const Body = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 300px;
 `;

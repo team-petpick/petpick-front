@@ -2,6 +2,7 @@ import { Like, ShoppingCart } from '@assets/svg';
 import { PETPICK_COLORS } from '@constants/colors';
 import { TextStyles } from '@styles/textStyles';
 import { IProductInfo } from '@types';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
 import styled from 'styled-components';
 
 interface IProductProps {
@@ -9,9 +10,13 @@ interface IProductProps {
 }
 
 const Product = ({ productInfo }: IProductProps) => {
+  const formattedOriginalPrice = addCommaToPrice(productInfo.productPrice);
+  const formattedSalePrice = addCommaToPrice(
+    productInfo.productPrice * (1 - productInfo.productSale / 100),
+  );
   return (
     <ProductContainer>
-      <ProductImage />
+      <ProductImage src={productInfo.productImageUrl} />
       <LikeCartButtonWrapper>
         <Like width={30} height={30} />
         <AddShoppingCartButton>
@@ -21,10 +26,10 @@ const Product = ({ productInfo }: IProductProps) => {
       <ProductInfo>
         <SellerName> {productInfo.sellerName}</SellerName>
         <ProductName>{productInfo.productTitle}</ProductName>
-        <ProductOriginalPrice>{productInfo.productPrice}원</ProductOriginalPrice>
+        <ProductOriginalPrice>{formattedOriginalPrice}원</ProductOriginalPrice>
         <ProductSalePrice>
           <ProductSalePercent>{productInfo.productSale}%</ProductSalePercent>
-          <ProductSalePrice>{productInfo.productPrice}원</ProductSalePrice>
+          <ProductSalePrice>{formattedSalePrice}원</ProductSalePrice>
         </ProductSalePrice>
       </ProductInfo>
     </ProductContainer>
@@ -44,7 +49,10 @@ const ProductContainer = styled.div`
 const ProductImage = styled.img`
   width: 250px;
   height: 320px;
-  background-color: red;
+  background-color: <div id="fff"></div>;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  object-fit: cover;
 `;
 const LikeCartButtonWrapper = styled.div`
   display: flex;
