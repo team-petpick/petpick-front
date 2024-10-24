@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  padding-top: 74px;
 `;
 export const AnimalTypeWrapper = styled.div`
   max-width: 1050px;
