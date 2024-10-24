@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { PETPICK_COLORS } from '@constants/colors';
 import { TextStyles } from '@styles/textStyles';
-
+interface IStyleProps {
+  isThrough: boolean;
+  isDiscounted: boolean;
+}
 export const ActionGoToCartButton = styled.button`
   padding: 0 10px;
   text-align: center;
@@ -21,7 +24,7 @@ export const ActionButtonContainer = styled.div`
   margin-top: 20px;
 `;
 export const ActionButtons = styled.button`
-  border: 1px solid ${PETPICK_COLORS.BLUE[300]};
+  border: 1px solid ${PETPICK_COLORS.GRAY[300]};
   border-radius: 3px;
   width: 56px;
 `;

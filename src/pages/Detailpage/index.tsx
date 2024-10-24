@@ -1,36 +1,54 @@
+import { IProductInfo } from '@types';
 import Layout from '@layout/Layout';
 import * as S from './index.style';
-import Test from '@assets/svg/test.jpg';
 import Test2 from '@assets/svg/test-2.jpg';
-import { Bell, Like, Minus, Plus } from '@assets/svg/index';
+import { Bell, Like, LikeFill, Minus, Plus } from '@assets/svg/index';
+import { useEffect, useState } from 'react';
 
-interface IStyleProps {
-  isThrough: boolean;
-  isDiscounted: boolean;
-}
 const DetailPage = () => {
   const isThrough = true;
   const isDiscounted = true;
+  const [liked, setLiked] = useState(false);
+
+  const handleLikeClick = () => {
+    setLiked(!liked);
+  };
+  useEffect(() => {}, []);
+  const ProductInfo: IProductInfo = {
+    productId: 1,
+    sellerId: 1,
+    categoryId: 1,
+    productTitle: '사료1',
+    productCnt: 1,
+    productPrice: 10000,
+    productType: 'DOG',
+    productStatus: 'ON',
+    productSale: 10,
+    productImageUrl: '@assets/svg/test.jpg',
+    sellerStoreName: '효린이네 제주농장',
+  };
   return (
     <Layout>
       <S.DetailLayout>
         <S.ProductContainer>
           <S.ProductImageContainer>
-            <S.ProductImage src={Test} />
+            <S.ProductImage src={ProductInfo.productImageUrl} />
           </S.ProductImageContainer>
           <S.ProductInfoContainer>
             <div>
-              <S.ProductTitle>[가게명] 판매명(떡볶이)</S.ProductTitle>
+              <S.ProductTitle>
+                [{ProductInfo.sellerStoreName}] {ProductInfo.productTitle}
+              </S.ProductTitle>
               <S.ProductTitleInfo> 40년 전통의 부산식 떡볶이</S.ProductTitleInfo>
 
               <div>
                 <S.PriceContainer>
-                  <S.DiscountText>10%</S.DiscountText>
+                  <S.DiscountText>{ProductInfo.productSale}%</S.DiscountText>
                   <S.DiscountPrice>7,560</S.DiscountPrice>
                   <S.PriceText>원</S.PriceText>
                 </S.PriceContainer>
                 <S.PriceBox>
-                  <S.RegularPrice>8,400원</S.RegularPrice>
+                  <S.RegularPrice>{ProductInfo.productPrice}</S.RegularPrice>
                 </S.PriceBox>
               </div>
             </div>
@@ -48,7 +66,7 @@ const DetailPage = () => {
               <S.InfoListItem>
                 <S.InfoTitle>판매자</S.InfoTitle>
                 <S.InfoText>
-                  <S.Title>이효린</S.Title>
+                  <S.Title>{ProductInfo.sellerStoreName}</S.Title>
                 </S.InfoText>
               </S.InfoListItem>
               <S.InfoListItem>
@@ -64,20 +82,22 @@ const DetailPage = () => {
                   <S.InfoTitle>상품선택</S.InfoTitle>
                   <S.InfoText>
                     <S.SelectLayout>
-                      <div>[부산 상국이네] 떡볶이</div>
+                      <div>
+                        [{ProductInfo.sellerStoreName}] {ProductInfo.productTitle}
+                      </div>
                       <S.SelectContainer>
                         <S.IncreaseButton>
                           <button>
                             <Minus width="28px" height="28px" />
                           </button>
-                          <S.CountText>5</S.CountText>
+                          <S.CountText>{ProductInfo.productCnt}</S.CountText>
                           <button>
                             <Plus width="28px" height="28px" />
                           </button>
                         </S.IncreaseButton>
                         <S.SelectPriceContainer>
                           <S.PriceSpan isThrough={isThrough} isDiscounted={isDiscounted}>
-                            8,400원
+                            {ProductInfo.productPrice}원
                           </S.PriceSpan>
                           <S.PriceSpan isThrough={!isThrough} isDiscounted={!isDiscounted}>
                             7,560원
@@ -95,8 +115,12 @@ const DetailPage = () => {
                 <S.TotalWon>원</S.TotalWon>
               </S.TotalContainer>
               <S.ActionButtonContainer>
-                <S.ActionButtons>
-                  <Like width="32px" height="32px" />
+                <S.ActionButtons onClick={handleLikeClick}>
+                  {liked ? (
+                    <Like width="32px" height="32px" />
+                  ) : (
+                    <LikeFill width="32px" height="32px" />
+                  )}
                 </S.ActionButtons>
                 <S.ActionButtons>
                   <Bell width="32px" height="32px" />
@@ -125,7 +149,7 @@ const DetailPage = () => {
             </S.DescriptionImageBox>
             {/* 상품 설명 텍스트 */}
             <S.DescriptionText>
-              <h1>상품 제목</h1>
+              <h1>{ProductInfo.productTitle}</h1>
               <span>상품 세부 정보</span>
             </S.DescriptionText>
           </S.ProductDescriptionLayout>
