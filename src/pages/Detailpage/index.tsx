@@ -3,17 +3,29 @@ import Layout from '@layout/Layout';
 import * as S from './index.style';
 import Test2 from '@assets/svg/test-2.jpg';
 import { Bell, Like, LikeFill, Minus, Plus } from '@assets/svg/index';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const DetailPage = () => {
   const isThrough = true;
   const isDiscounted = true;
   const [liked, setLiked] = useState(false);
+  const [productCount, setProductCount] = useState(1);
 
   const handleLikeClick = () => {
     setLiked(!liked);
   };
-  useEffect(() => {}, []);
+
+  const handlePlusClick = () => {
+    if (productCount >= 0) {
+      setProductCount(productCount + 1);
+    }
+  };
+  const handleMinusClick = () => {
+    if (productCount >= 1) {
+      setProductCount(productCount - 1);
+    }
+  };
+
   const ProductInfo: IProductInfo = {
     productId: 1,
     sellerId: 1,
@@ -87,11 +99,11 @@ const DetailPage = () => {
                       </div>
                       <S.SelectContainer>
                         <S.IncreaseButton>
-                          <button>
+                          <button onClick={handleMinusClick}>
                             <Minus width="28px" height="28px" />
                           </button>
-                          <S.CountText>{ProductInfo.productCnt}</S.CountText>
-                          <button>
+                          <S.CountText>{productCount}</S.CountText>
+                          <button onClick={handlePlusClick}>
                             <Plus width="28px" height="28px" />
                           </button>
                         </S.IncreaseButton>
