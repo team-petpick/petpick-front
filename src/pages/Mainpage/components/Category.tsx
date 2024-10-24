@@ -22,11 +22,12 @@ const Category = () => {
       <S.AnimalTypeWrapper>
         {anymalType.map((type, index) => (
           <S.AnimalTypeButton
-            key={type}
+            key={type.name}
             onClick={() => handleClickAnimalType(index)}
             isActive={activeButton === index}
           >
-            <S.AnimalTypeText>{type}</S.AnimalTypeText>
+            {/* <type.icon width={30} height={30} /> */}
+            <S.AnimalTypeText>{type.name}</S.AnimalTypeText>
           </S.AnimalTypeButton>
         ))}
       </S.AnimalTypeWrapper>
