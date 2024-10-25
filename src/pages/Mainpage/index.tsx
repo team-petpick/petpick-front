@@ -3,6 +3,7 @@ import Category from './components/Category';
 import Product from './components/Product';
 import { IProductInfo } from '@types';
 import styled from 'styled-components';
+import ProductFilter from './components/ProductFilter';
 
 const MainPage = () => {
   const ProductInfo: IProductInfo[] = [
@@ -153,6 +154,7 @@ const MainPage = () => {
   return (
     <Layout>
       <Category />
+      <ProductFilter />
       <Body>
         <ProductList>
           {ProductInfo.map((product) => (
