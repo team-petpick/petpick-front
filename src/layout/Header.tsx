@@ -4,7 +4,7 @@ import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import { useAuthStore } from '@store/authStore';
 import { useUserStore } from '@store/userStore';
 import { useEffect } from 'react';
-import * as S from './Header.style';
+import * as S from './styles/Header.style';
 
 const Header = () => {
   // 로그인 상태 관리

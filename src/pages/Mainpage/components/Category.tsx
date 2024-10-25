@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as S from './Category.style';
+import * as S from '../styles/Category.style';
 import { anymalType } from '@constants';
 import { categories } from '@constants';
 

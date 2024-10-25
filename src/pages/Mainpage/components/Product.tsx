@@ -1,7 +1,7 @@
 import { Like, ShoppingCart } from '@assets/svg';
-import { IProductInfo } from '@types';
+import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import * as S from './Product.style';
+import { IProductInfo } from '@types';
 
 interface IProductProps {
   productInfo: IProductInfo;
@@ -22,7 +22,7 @@ const Product = ({ productInfo }: IProductProps) => {
         </S.AddShoppingCartButton>
       </S.LikeCartButtonWrapper>
       <S.ProductInfo>
-        <S.SellerName> {productInfo.sellerName}</S.SellerName>
+        <S.SellerName> {productInfo.sellerStoreName}</S.SellerName>
         <S.ProductName>{productInfo.productTitle}</S.ProductName>
         <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
         <S.ProductSalePrice>

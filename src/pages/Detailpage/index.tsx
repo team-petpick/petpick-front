@@ -1,6 +1,6 @@
 import { IProductInfo } from '@types';
 import Layout from '@layout/Layout';
-import * as S from './index.style';
+import * as S from './styles/index.style';
 import { useState } from 'react';
 import { ProductImage } from './components/ProductImage';
 import { ProductBasicInfo } from './components/ProductBasicInfo';

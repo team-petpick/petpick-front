@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PETPICK_COLORS } from '@constants/colors';
-import { TextStyles } from '../styles/textStyles';
+import { TextStyles } from '../../styles/textStyles';
 
 export const CompanyInfo = styled.div`
   color: ${PETPICK_COLORS.GRAY[700]};
@@ -20,7 +20,6 @@ export const FooterLayout = styled.footer`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
   bottom: 0;
   border-top: 1px solid ${PETPICK_COLORS.GRAY[400]};
 `;
