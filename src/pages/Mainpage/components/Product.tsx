@@ -1,5 +1,5 @@
 import { Like, ShoppingCart } from '@assets/svg';
-import * as S from './Product.style';
+import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { IProductInfo } from '@types';
 

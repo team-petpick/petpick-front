@@ -16,7 +16,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -29,7 +29,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -42,7 +42,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -55,7 +55,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -68,7 +68,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -81,7 +81,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -94,7 +94,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -107,7 +107,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -120,7 +120,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -133,7 +133,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
     {
@@ -146,7 +146,7 @@ const MainPage = () => {
       productType: 'DOG',
       productStatus: 'ON',
       productSale: 10,
-      sellerName: '윤일이네 농장',
+      sellerStoreName: '윤일이네 농장',
       productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
     },
   ];
