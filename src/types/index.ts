@@ -8,8 +8,8 @@ export interface IProductInfo {
   productType: ProductType;
   productStatus: ProductStatus;
   productSale: number;
-  sellerName: string;
   productImageUrl: string;
+  sellerStoreName: string;
 }
 
 type ProductType = 'DOG' | 'CAT' | 'ETC';

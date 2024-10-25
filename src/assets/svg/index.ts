@@ -2,6 +2,7 @@ export { default as Bell } from './Bell';
 export { default as Cart } from './Cart';
 export { default as GoogleLogin } from './GoogleLogin';
 export { default as Like } from './Like';
+export { default as LikeFill } from './LikeFill';
 export { default as Menubar } from './Menubar';
 export { default as Minus } from './Minus';
 export { default as PetpickLogo } from './PetpickLogo';

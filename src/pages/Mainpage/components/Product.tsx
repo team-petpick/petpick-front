@@ -22,7 +22,7 @@ const Product = ({ productInfo }: IProductProps) => {
         </S.AddShoppingCartButton>
       </S.LikeCartButtonWrapper>
       <S.ProductInfo>
-        <S.SellerName> {productInfo.sellerName}</S.SellerName>
+        <S.SellerName> {productInfo.sellerStoreName}</S.SellerName>
         <S.ProductName>{productInfo.productTitle}</S.ProductName>
         <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
         <S.ProductSalePrice>
