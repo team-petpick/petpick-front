@@ -1,7 +1,8 @@
-import { Like, ShoppingCart } from '@assets/svg';
+import { Like, LikeFill, ShoppingCart } from '@assets/svg';
 import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { IProductInfo } from '@types';
+import { useState } from 'react';
 
 interface IProductProps {
   productInfo: IProductInfo;
@@ -12,11 +13,16 @@ const Product = ({ productInfo }: IProductProps) => {
   const formattedSalePrice = addCommaToPrice(
     productInfo.productPrice * (1 - productInfo.productSale / 100),
   );
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <S.ProductContainer>
       <S.ProductImage src={productInfo.productImageUrl} />
       <S.LikeCartButtonWrapper>
-        <Like width={30} height={30} />
+        {isLiked ? (
+          <LikeFill onClick={() => setIsLiked(false)} width={30} height={30} />
+        ) : (
+          <Like onClick={() => setIsLiked(true)} width={30} height={30} />
+        )}
         <S.AddShoppingCartButton>
           <ShoppingCart width={22} height={22} /> 담기
         </S.AddShoppingCartButton>
