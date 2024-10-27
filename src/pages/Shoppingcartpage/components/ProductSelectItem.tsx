@@ -112,5 +112,8 @@ const SelectBox = styled.div`
 const ProductItemContainer = styled.li`
   padding: 4px 0px 16px 34px;
   border-bottom: 1px solid ${PETPICK_COLORS.GRAY[300]};
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 const ProductItem = styled.li``;

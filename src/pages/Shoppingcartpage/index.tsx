@@ -2,7 +2,7 @@ import Layout from '@layout/Layout';
 import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 import ProductSelection from './components/ProductSelection';
-import OrderInfo from './components/OrderSummary';
+import OrderInfo from './components/OrderInfo.tsx';
 
 const ShoppingCartPage = () => {
   return (
@@ -24,8 +24,8 @@ export default ShoppingCartPage;
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
   flex-direction: row;
-  border: 1px solid red;
 `;
 const CartTitle = styled.h1`
   padding: 50px 0px 48px;
