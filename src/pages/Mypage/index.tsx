@@ -14,8 +14,18 @@ const Mypage = () => {
 
   return (
     <Layout>
-      <button onClick={() => handleSelectComponent('whishList')}>찜한 상품</button>
-      <button onClick={() => handleSelectComponent('orderHistory')}>주문내역</button>
+      <button
+        onClick={() => handleSelectComponent('whishList')}
+        style={{ width: '100px', border: '1px solid' }}
+      >
+        찜한 상품
+      </button>
+      <button
+        onClick={() => handleSelectComponent('orderHistory')}
+        style={{ width: '100px', border: '1px solid' }}
+      >
+        주문내역
+      </button>
       <div>{selectedComponent === 'whishList' ? <WishList /> : <OrderHistory />}</div>
     </Layout>
   );

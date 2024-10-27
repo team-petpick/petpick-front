@@ -1,26 +1,44 @@
 import { PETPICK_COLORS } from '@constants/colors';
-import styled from 'styled-components';
+import { TextStyles } from '@styles/textStyles';
+import styled, { CSSProp } from 'styled-components';
 
 interface IButtonProps {
   text: string;
   onClick: () => void;
   borderColor?: string;
   fontColor?: string;
+  fontStyle?: CSSProp;
 }
-const Button = ({ text, onClick, borderColor, fontColor }: IButtonProps) => {
-  const defaultBorderColor = text === '담기' ? PETPICK_COLORS.BLUE[300] : PETPICK_COLORS.GRAY[300];
-  const defaultFontColor = text === '담기' ? PETPICK_COLORS.BLUE[500] : '#000';
+const Button = ({ text, onClick, borderColor, fontColor, fontStyle }: IButtonProps) => {
+  const defaultStyles =
+    text === '담기'
+      ? {
+          borderColor: PETPICK_COLORS.BLUE[300],
+          fontColor: PETPICK_COLORS.BLUE[500],
+          fontStyle: TextStyles.body.mediumM,
+        }
+      : {
+          borderColor: PETPICK_COLORS.GRAY[300],
+          fontColor: '#000',
+          fontStyle: TextStyles.subText.smallM,
+        };
   return (
     <ButtonWrapper
       onClick={onClick}
-      $borderColor={borderColor || defaultBorderColor}
-      $fontColor={fontColor || defaultFontColor}
+      $borderColor={borderColor || defaultStyles.borderColor}
+      $fontColor={fontColor || defaultStyles.fontColor}
+      $fontStyle={fontStyle || defaultStyles.fontStyle}
     >
       {text}
     </ButtonWrapper>
   );
 };
-export const ButtonWrapper = styled.div<{ $borderColor?: string; $fontColor?: string }>`
+export const ButtonWrapper = styled.div<{
+  $borderColor?: string;
+  $fontColor?: string;
+  $fontStyle?: CSSProp;
+}>`
+  ${({ $fontStyle }) => $fontStyle};
   border-radius: 3px;
   border: 1px solid ${({ $borderColor }) => $borderColor};
   color: ${({ $fontColor }) => $fontColor};
