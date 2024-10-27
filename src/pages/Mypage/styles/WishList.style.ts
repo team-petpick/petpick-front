@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 0 auto;
+  margin: 45px auto;
   border: 1px solid ${PETPICK_COLORS.GRAY[200]};
   border-radius: 8px;
 `;
@@ -27,4 +27,13 @@ export const CountWrapper = styled.div`
   color: ${PETPICK_COLORS.GRAY[900]};
   padding: 7px 0;
   margin-top: 11px;
+`;
+export const ProductList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 22px 0;
+`;
+export const ProductItem = styled.div`
+  display: flex;
 `;
