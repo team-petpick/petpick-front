@@ -12,6 +12,9 @@ export const ProductImage = styled.img`
   width: 91px;
   object-fit: cover;
   border-radius: 4px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const DescriptionWrapper = styled.div`
   width: 100%;
@@ -35,4 +38,11 @@ export const ProductSalePercent = styled.div`
 export const ProductSalePrice = styled.div`
   ${TextStyles.subText.smallSB};
   color: ${PETPICK_COLORS.GRAY[900]};
+`;
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  heihgt: 48px;
+  padding-top: 6px;
 `;

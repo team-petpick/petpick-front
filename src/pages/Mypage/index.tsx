@@ -5,7 +5,7 @@ import OrderHistory from './components/OrderHistory';
 
 const Mypage = () => {
   const [selectedComponent, setSelectedComponent] = useState<'whishList' | 'orderHistory' | null>(
-    null,
+    'whishList',
   );
 
   const handleSelectComponent = (component: 'whishList' | 'orderHistory') => {
