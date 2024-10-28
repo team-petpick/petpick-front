@@ -1,4 +1,4 @@
-import Layout from '@layout/Layout';
+import Layout from '@layouts/Layout';
 
 const Mypage = () => {
   return <Layout>Mypage</Layout>;

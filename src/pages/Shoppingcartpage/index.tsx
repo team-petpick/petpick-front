@@ -1,4 +1,4 @@
-import Layout from '@layout/Layout';
+import Layout from '@layouts/Layout.tsx';
 import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 import ProductSelection from './components/ProductSelection';

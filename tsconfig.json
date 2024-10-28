@@ -16,7 +16,7 @@
       "@config/*": ["config/*"],
       "@store/*": ["store/*"],
       "@routes/*": ["routes/*"],
-      "@layout/*": ["layout/*"],
+      "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"]
     }
   }
