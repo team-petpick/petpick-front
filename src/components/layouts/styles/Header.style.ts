@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PETPICK_COLORS } from '@constants/colors';
+import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 
 export const LoginButtonText = styled.button`

@@ -14,6 +14,7 @@ http://scripts.sil.org/OFL
   padding: 0;
   box-sizing: border-box;
   overscroll-behavior: none;
+  scrollbar-width: none;
 }
   html,
   body,

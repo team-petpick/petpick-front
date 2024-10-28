@@ -1,4 +1,4 @@
-import { PETPICK_COLORS } from '@constants/colors';
+import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -32,15 +32,15 @@ const ProductFilter = () => {
 export default ProductFilter;
 
 const Wrapper = styled.div`
-  width: 100%;
   padding: 35px 0 14px;
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: center;
 `;
 
 const FilterLayout = styled.div`
-  width: 71vw;
+  width: 1050px;
   display: flex;
   align-items: center;
   justify-content: space-between;
