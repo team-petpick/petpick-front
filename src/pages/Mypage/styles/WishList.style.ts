@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { TextStyles } from '@styles/textStyles';
-import { PETPICK_COLORS } from '@constants/colors';
+import { PETPICK_COLORS } from '@styles/colors';
 
 export const Wrapper = styled.div`
   max-width: 745px;
