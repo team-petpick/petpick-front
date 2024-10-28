@@ -32,15 +32,15 @@ const ProductFilter = () => {
 export default ProductFilter;
 
 const Wrapper = styled.div`
-  width: 100%;
   padding: 35px 0 14px;
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: center;
 `;
 
 const FilterLayout = styled.div`
-  width: 71vw;
+  width: 1050px;
   display: flex;
   align-items: center;
   justify-content: space-between;
