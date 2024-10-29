@@ -1,4 +1,4 @@
-import { PETPICK_COLORS } from '@constants/colors';
+import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import styled, { CSSProp } from 'styled-components';
 
