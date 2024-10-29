@@ -125,7 +125,7 @@ const OrderHistory = () => {
   return (
     <>
       <Header />
-      <Container style={{ background: 'pink;' }}>
+      <Container>
         {OrderInfo.map((orderItem) => (
           <OrderHistoryItem orderInfo={orderItem} />
         ))}
