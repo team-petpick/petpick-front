@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const OrderHistory = () => {
   const OrderInfo: IOrderInfo[] = [
     {
-      orderDate: '2024.05.03',
+      orderDate: '2024.07.12',
       orderNum: '12341234',
       productInfos: [
         {
@@ -102,7 +102,7 @@ const OrderHistory = () => {
       ],
     },
     {
-      orderDate: '2024.07.12',
+      orderDate: '2024.05.12',
       orderNum: '12341234',
       productInfos: [
         {
