@@ -1,7 +1,7 @@
 import Layout from '@layout/Layout';
 import { useState } from 'react';
-import WishList from './components/WishList';
-import OrderHistory from './components/OrderHistory';
+import WishList from './wishlist';
+import OrderHistory from './orderhistory/OrderHistory';
 
 const Mypage = () => {
   const [selectedComponent, setSelectedComponent] = useState<'whishList' | 'orderHistory' | null>(
