@@ -1,6 +1,6 @@
 import { IProductInfo } from '@types';
 import * as S from '../../styles/WishListItem.style';
-import Button from '../../orderhistory/components/Button';
+import Button from './Button';
 
 interface IProductProps {
   productInfo: IProductInfo;
