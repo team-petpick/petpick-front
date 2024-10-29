@@ -1,5 +1,5 @@
 import { IProductInfo } from '@types';
-import * as S from '../styles/WishList.style';
+import * as S from './styles/WishList.style';
 import WishListItem from './components/WishListItem';
 
 const WishList = () => {
