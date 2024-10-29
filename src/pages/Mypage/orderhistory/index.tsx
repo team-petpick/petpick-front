@@ -1,4 +1,11 @@
+import Header from './components/Header';
+
 const OrderHistory = () => {
-  return <div>주문내역</div>;
+  return (
+    <>
+      <Header />
+      <div>주문내역</div>
+    </>
+  );
 };
 export default OrderHistory;
