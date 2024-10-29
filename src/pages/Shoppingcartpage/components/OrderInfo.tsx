@@ -1,15 +1,12 @@
-import { Map } from '@assets/svg';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
+import ShoppingAddress from './ShoppingAddress';
 
 const OrderInfo = () => {
   return (
     <Wrapper>
-      <ShippingAddress>
-        <h3>배송지</h3>
-        <Map width="16px" height="16px" />
-      </ShippingAddress>
+      <ShoppingAddress />
       <TotalPriceContainer>
         <Title>결제금액</Title>
         <body>
@@ -113,12 +110,7 @@ const TotalPriceContainer = styled.div`
   border-radius: 16px;
   margin-bottom: 16px;
 `;
-const ShippingAddress = styled.div`
-  padding: 20px;
-  background: ${PETPICK_COLORS.GRAY[0]};
-  border-radius: 16px;
-  margin-bottom: 16px;
-`;
+
 const Wrapper = styled.div`
   /* margin: 0 20px; */
   /* width: 565px; */
