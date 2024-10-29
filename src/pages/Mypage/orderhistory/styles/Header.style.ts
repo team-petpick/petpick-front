@@ -29,7 +29,7 @@ export const ButtonWrapper = styled.div`
   gap: 24px;
   padding: 0 22px;
 `;
-export const Button = styled.div`
+export const Button = styled.div<{ isActive: boolean }>`
   ${TextStyles.body.mediumR};
   width: 150px;
   border-radius: 20px;
@@ -37,10 +37,8 @@ export const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  &:first-child {
-    background: ${PETPICK_COLORS.BLUE[300]};
-    color: #fff;
-  }
+  background: ${({ isActive }) => (isActive ? PETPICK_COLORS.BLUE[300] : null)};
+  color: ${({ isActive }) => (isActive ? '#fff' : '#000')};
   &:hover {
     cursor: pointer;
     background: ${PETPICK_COLORS.BLUE[300]};

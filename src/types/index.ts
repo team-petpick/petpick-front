@@ -11,6 +11,11 @@ export interface IProductInfo {
   productImageUrl: string;
   sellerStoreName: string;
 }
+export interface IOrderInfo {
+  orderDate: string;
+  orderNum: string;
+  productInfos: IProductInfo[];
+}
 
 type ProductType = 'DOG' | 'CAT' | 'ETC';
 type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
