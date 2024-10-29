@@ -1,16 +1,13 @@
 import * as S from '../styles/Header.style';
 import { orderPeriods } from '@constants';
-import { useState } from 'react';
 
-const Header = () => {
-  const [activeButton, setActiveButton] = useState<number | null>(0);
-
+interface HeaderProps {
+  onPeriodChange: (index: number) => void;
+  activePeriod: number | null;
+}
+const Header = ({ onPeriodChange, activePeriod }: HeaderProps) => {
   const handleClickPeriod = (index: number) => {
-    if (activeButton === index) {
-      setActiveButton(null);
-    } else {
-      setActiveButton(index);
-    }
+    onPeriodChange(index);
   };
   return (
     <S.Wrapper>
@@ -21,7 +18,7 @@ const Header = () => {
             <S.Button
               key={period}
               onClick={() => handleClickPeriod(index)}
-              isActive={activeButton === index}
+              isActive={activePeriod === index}
             >
               {period}
             </S.Button>

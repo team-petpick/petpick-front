@@ -32,5 +32,5 @@ export const ProductList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding-top: 21px;
+  padding: 21px 0;
 `;

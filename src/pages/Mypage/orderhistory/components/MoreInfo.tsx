@@ -16,7 +16,6 @@ const Wrapper = styled.div`
   ${TextStyles.body.mediumSB}
   color: ${PETPICK_COLORS.GRAY[500]};
   width: 716px;
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
