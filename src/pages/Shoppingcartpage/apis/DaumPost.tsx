@@ -1,15 +1,17 @@
 import { PETPICK_COLORS } from '@styles/colors';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const DaumPost = ({ setAddress }) => {
+  const navigate = useNavigate();
   const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
   const open = useDaumPostcodePopup(postcodeScriptUrl);
 
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = '';
-    const localAddress = data.sido + ' ' + data.sigungu;
+    // const localAddress = data.sido + ' ' + data.sigungu;
 
     if (data.addressType === 'R') {
       if (data.bname !== '') {
@@ -18,11 +20,12 @@ export const DaumPost = ({ setAddress }) => {
       if (data.buildingName !== '') {
         extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
-      fullAddress = fullAddress.replace(localAddress, '');
+      // fullAddress = fullAddress.replace(localAddress, '');
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
     setAddress(fullAddress);
-  };
+    navigate('/addressinput/:userId', { state: { fullAddress } });
+  }; // 검색 완료 후 주소와 함께 라우팅
   const handleClick = () => {
     open({ onComplete: handleComplete });
   };

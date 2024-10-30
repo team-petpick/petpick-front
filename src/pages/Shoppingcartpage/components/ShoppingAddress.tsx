@@ -2,10 +2,13 @@ import styled from 'styled-components';
 import { PETPICK_COLORS } from '@styles/colors';
 import { Map } from '@assets/svg';
 import { DaumPost } from '../apis/DaumPost';
+import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 const ShoppingAddress = () => {
   const [address, setAddress] = useState('');
+  const location = useLocation();
+  const fullAddress = location.state?.fullAddress || '배송지를 입력해주세요';
   return (
     <ShippingAddressContainer>
       <HeaderContainer>
@@ -15,12 +18,9 @@ const ShoppingAddress = () => {
         </ImageBox>
       </HeaderContainer>
       <BodyContainer>
-        {address ? (
-          <Text isActive={true}>{address}</Text>
-        ) : (
-          <Text isActive={false}>배송지를 입력해주세요</Text>
-        )}
-        <DaumPost setAddress={setAddress} />
+        <Text isActive={fullAddress}>{fullAddress}</Text>
+
+        <DaumPost setAddress={(newAddress) => setAddress(newAddress)} />
       </BodyContainer>
     </ShippingAddressContainer>
   );
