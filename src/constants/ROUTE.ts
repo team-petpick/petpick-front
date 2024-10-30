@@ -5,5 +5,6 @@ export const ROUTE = {
   DETAILPAGE: '/detail/:productId',
   MYPAGE: '/mypage/:userId',
   SHOPPINGCART: '/shoppingcart/:userId',
+  ADDRESSINPUTPAGE: '/addressinput/:userId',
   NOTFOUND: '*',
 };
