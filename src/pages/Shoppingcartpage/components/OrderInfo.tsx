@@ -5,34 +5,36 @@ import ShoppingAddress from './ShoppingAddress';
 
 const OrderInfo = () => {
   return (
-    <Wrapper>
-      <ShoppingAddress />
-      <TotalPriceContainer>
-        <Title>결제금액</Title>
-        <body>
-          <ProductPriceContainer>
-            <ProductPriceText>상품금액</ProductPriceText>
-            <ProductPriceBox>49,890원</ProductPriceBox>
-          </ProductPriceContainer>
-          <DiscountPriceContainer>
-            <ProductPriceText>상품할인금액</ProductPriceText>
-            <DiscountContainer>
-              <DiscountPriceBox>-6,030원</DiscountPriceBox>
-              <Text>로그인 후 할인 금액 적용</Text>
-            </DiscountContainer>
-          </DiscountPriceContainer>
-          <DeliveryPriceContainer>
-            <ProductPriceText>배송비</ProductPriceText>
-            <ProductPriceBox>0원</ProductPriceBox>
-          </DeliveryPriceContainer>
-          <PaymentPriceContainer>
-            <ProductPriceText>결제예정금액</ProductPriceText>
-            <PaymentPrice>43,840원</PaymentPrice>
-          </PaymentPriceContainer>
-        </body>
-      </TotalPriceContainer>
-      <PaymentButton>결제하기</PaymentButton>
-    </Wrapper>
+    <Container>
+      <Wrapper>
+        <ShoppingAddress />
+        <TotalPriceContainer>
+          <Title>결제금액</Title>
+          <body>
+            <ProductPriceContainer>
+              <ProductPriceText>상품금액</ProductPriceText>
+              <ProductPriceBox>49,890원</ProductPriceBox>
+            </ProductPriceContainer>
+            <DiscountPriceContainer>
+              <ProductPriceText>상품할인금액</ProductPriceText>
+              <DiscountContainer>
+                <DiscountPriceBox>-6,030원</DiscountPriceBox>
+                <Text>로그인 후 할인 금액 적용</Text>
+              </DiscountContainer>
+            </DiscountPriceContainer>
+            <DeliveryPriceContainer>
+              <ProductPriceText>배송비</ProductPriceText>
+              <ProductPriceBox>0원</ProductPriceBox>
+            </DeliveryPriceContainer>
+            <PaymentPriceContainer>
+              <ProductPriceText>결제예정금액</ProductPriceText>
+              <PaymentPrice>43,840원</PaymentPrice>
+            </PaymentPriceContainer>
+          </body>
+        </TotalPriceContainer>
+        <PaymentButton>결제하기</PaymentButton>
+      </Wrapper>
+    </Container>
   );
 };
 
@@ -114,6 +116,13 @@ const TotalPriceContainer = styled.div`
 const Wrapper = styled.div`
   /* margin: 0 20px; */
   /* width: 565px; */
+  width: 375px;
+  width: 375px;
+  position: sticky;
+  top: 100px;
+  right: 0px;
+`;
+const Container = styled.div`
   width: 375px;
   min-height: 545px;
 `;

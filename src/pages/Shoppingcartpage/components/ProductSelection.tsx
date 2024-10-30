@@ -23,13 +23,28 @@ const ProductSelection = () => {
         <ProductSelectItem />
         <ProductSelectItem />
         <ProductSelectItem />
+        <ProductFooter>
+          <SubText>가격</SubText>
+        </ProductFooter>
       </ProductList>
     </Wrapper>
   );
 };
 
 export default ProductSelection;
-
+const SubText = styled.span`
+  color: ${PETPICK_COLORS.GRAY[800]};
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+`;
+const ProductFooter = styled.button`
+  width: 100%;
+  height: 50px;
+  background: ${PETPICK_COLORS.GRAY[200]};
+  border-radius: 8px;
+  margin-top: 10px;
+`;
 const DeleteButtonText = styled.span`
   ${TextStyles.subText.smallSB}
 `;
