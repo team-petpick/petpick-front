@@ -1,38 +1,6 @@
 import styled from 'styled-components';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
-export const Option = styled.option`
-  padding: 10px;
-  font-size: 16px;
-  background-color: #fff;
-  color: #333;
-
-  &:hover {
-    background-color: #f1f1f1;
-  }
-`;
-export const Dropdown = styled.select`
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  background-color: ${PETPICK_COLORS.GRAY[0]};
-  color: #333;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.3s ease;
-  border: 1px solid ${PETPICK_COLORS.GRAY[400]};
-  margin-top: 4px;
-  box-sizing: border-box;
-  &:hover {
-    border-color: #aaa;
-  }
-
-  &:focus {
-    border-color: #555;
-    box-shadow: 0 0 0 2px rgba(85, 85, 85, 0.2);
-  }
-`;
 export const Price = styled.span`
   color: ${PETPICK_COLORS.GRAY[800]};
   ${TextStyles.body.mediumM};
