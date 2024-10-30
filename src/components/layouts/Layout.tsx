@@ -3,12 +3,12 @@ import Header from './Header';
 import Banner from './Banner';
 
 import { ReactNode } from 'react';
-interface LayoutProps {
+interface ILayoutProps {
   children: ReactNode;
   footerVisible: boolean;
 }
 
-const Layout = ({ children, footerVisible }: LayoutProps) => {
+const Layout = ({ children, footerVisible }: ILayoutProps) => {
   return (
     <div>
       {/* {isLoggedIn &&  */}
