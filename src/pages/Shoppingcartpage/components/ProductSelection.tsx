@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import ProductSelectItem from './ProductSelectItem';
-
+import CheckboxLabal from './CheckboxLabal';
 const ProductSelection = () => {
   return (
     <Wrapper>
       <SelectContainer>
         <SelectBox>
-          <input type="checkbox" />
+          <CheckboxLabal text="text" />
           <SelectText> 전체 선택 </SelectText>
         </SelectBox>
         <DeleteButton>

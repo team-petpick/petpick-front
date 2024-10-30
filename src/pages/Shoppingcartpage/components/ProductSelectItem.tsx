@@ -4,12 +4,13 @@ import { Delete } from '@assets/svg';
 import { Minus, Plus } from '@assets/svg/index';
 import Test3 from '@assets/svg/test-3.jpg';
 import styled from 'styled-components';
+import CheckboxLabal from './CheckboxLabal';
 const ProductSelectItem = () => {
   return (
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
-          <input type="checkbox" />
+          <CheckboxLabal text="text" />
           <SelectText> 상품명 </SelectText>
         </SelectBox>
         <SelectButton>

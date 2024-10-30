@@ -40,6 +40,8 @@ const Text = styled.span`
 
 const BodyContainer = styled.div`
   margin: 0 0 20px;
+  display: flex;
+  justify-content: space-between;
 `;
 const ImageBox = styled.div`
   margin: 0 0 2px;
