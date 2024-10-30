@@ -1,4 +1,4 @@
-import Layout from '@layout/Layout';
+import Layout from '@layouts/Layout';
 import { useState } from 'react';
 import WishList from './wishlist';
 import OrderHistory from './orderhistory';

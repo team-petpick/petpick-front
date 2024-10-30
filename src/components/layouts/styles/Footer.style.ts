@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { PETPICK_COLORS } from '@constants/colors';
-import { TextStyles } from '../../styles/textStyles';
+import { PETPICK_COLORS } from '@styles/colors';
+import { TextStyles } from '../../../styles/textStyles';
 
 export const CompanyInfo = styled.div`
   color: ${PETPICK_COLORS.GRAY[700]};

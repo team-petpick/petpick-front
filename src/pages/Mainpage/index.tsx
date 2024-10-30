@@ -1,4 +1,4 @@
-import Layout from '@layout/Layout';
+import Layout from '@layouts/Layout';
 import Category from './components/Category';
 import Product from './components/Product';
 import { IProductInfo } from '@types';

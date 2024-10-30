@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PETPICK_COLORS } from '@constants/colors';
+import { PETPICK_COLORS } from '@styles/colors';
 import { IStyleProps } from '../../../types/style.types';
 
 export const PurchaseContainer = styled.div`

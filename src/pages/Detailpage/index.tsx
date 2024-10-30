@@ -1,5 +1,5 @@
 import { IProductInfo } from '@types';
-import Layout from '@layout/Layout';
+import Layout from '@layouts/Layout';
 import * as S from './styles/index.style';
 import { useState } from 'react';
 import { ProductImage } from './components/ProductImage';

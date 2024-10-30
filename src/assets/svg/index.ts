@@ -1,11 +1,14 @@
+export { default as GoogleLogin } from './GoogleLogin';
+export { default as LikeFill } from './LikeFill';
+export { default as PetpickLogo } from './PetpickLogo';
 export { default as Bell } from './Bell';
 export { default as BottomArrow } from './BottomArrow';
 export { default as Cart } from './Cart';
-export { default as GoogleLogin } from './GoogleLogin';
+export { default as Delete } from './Delete';
 export { default as Like } from './Like';
+export { default as Map } from './Map';
 export { default as Menubar } from './Menubar';
 export { default as Minus } from './Minus';
-export { default as PetpickLogo } from './PetpickLogo';
 export { default as Plus } from './Plus';
 export { default as RightArrow } from './RightArrow';
 export { default as Search } from './Search';
