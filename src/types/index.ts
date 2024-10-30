@@ -17,5 +17,16 @@ export interface IOrderInfo {
   productInfos: IProductInfo[];
 }
 
+export interface IAddressInfo {
+  addressId: number;
+  userId: number;
+  addressName: string;
+  addressZipCode: string;
+}
+
 type ProductType = 'DOG' | 'CAT' | 'ETC';
 type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+
+export interface ITitleProps {
+  titleText: string;
+}
