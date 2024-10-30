@@ -104,7 +104,7 @@ const SelectWrapper = styled.div`
   border-radius: 16px;
 `;
 const SelectText = styled.div`
-  margin-left: 16px;
+  margin-left: 6px;
   align-self: center;
 `;
 const SelectBox = styled.div`

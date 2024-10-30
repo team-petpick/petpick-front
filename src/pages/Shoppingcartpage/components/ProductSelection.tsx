@@ -40,7 +40,7 @@ const DeleteButton = styled.button`
   height: 32px;
 `;
 const SelectText = styled.div`
-  margin-left: 16px;
+  margin-left: 6px;
   align-self: center;
 `;
 const SelectBox = styled.div`
