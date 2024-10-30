@@ -1,4 +1,5 @@
 import instance from '@apis';
+import Loading from '@components/Loading';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,6 +38,6 @@ const GoogleCallbackPage = () => {
     }
   }, [code, navigate]);
 
-  return <div>로그인 중...</div>;
+  return <Loading />;
 };
 export default GoogleCallbackPage;
