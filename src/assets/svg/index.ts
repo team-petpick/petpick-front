@@ -15,4 +15,3 @@ export { default as Search } from './Search';
 export { default as ShoppingCart } from './ShoppingCart';
 export { default as TopArrow } from './TopArrow';
 export { default as User } from './User';
-export { default as LikeFill } from './LikeFill';
