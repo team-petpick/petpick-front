@@ -3,10 +3,11 @@ import { ROUTE } from '@constants/ROUTE';
 import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import { useEffect, useState } from 'react';
 import * as S from './styles/Header.style';
+import { useUserStore } from '@store/userStore';
 
 const Header = () => {
   // 로그인 상태 관리
-
+  const { userName } = useUserStore();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   // router 설정
@@ -54,7 +55,7 @@ const Header = () => {
           {/* 로그인 시 사용자이름 나타내기 */}
           {isLoggedIn ? (
             <>
-              <S.LoginButtonText>김윤일 님</S.LoginButtonText>
+              <S.LoginButtonText>{userName}님</S.LoginButtonText>
               <S.TextBox>|</S.TextBox>
               <S.LoginButtonText onClick={handleClickNavigateToLoginPage}>
                 로그아웃

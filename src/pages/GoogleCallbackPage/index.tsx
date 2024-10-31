@@ -1,5 +1,6 @@
 import instance from '@apis';
 import Loading from '@components/Loading';
+import { useUserStore } from '@store/userStore';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,10 +15,11 @@ const GoogleCallbackPage = () => {
       code: code,
     };
     try {
-      const res = await instance.post('/auth/google', data);
+      const res = await instance.post('/api/v1/auth/google', data);
       console.log(res);
+      const userName = res.data.user_name[0];
+      useUserStore.getState().setUserName(userName);
       const accessToken = res.data.access_token;
-      console.log('accesstoken>>', accessToken);
       if (accessToken) {
         localStorage.setItem('accessToken', accessToken);
         navigate('/');

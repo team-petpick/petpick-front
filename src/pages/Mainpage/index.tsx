@@ -4,7 +4,6 @@ import Product from './components/Product';
 import { IProductInfo } from '@types';
 import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
-import instance from '@apis';
 
 const MainPage = () => {
   const ProductInfo: IProductInfo[] = [
@@ -153,19 +152,10 @@ const MainPage = () => {
     },
   ];
 
-  const handleButtonClick = async () => {
-    try {
-      const response = await instance.get('/pets/1');
-      console.log('api response:', response.data);
-    } catch (error) {
-      console.log('api error:', error);
-    }
-  };
   return (
     <Layout>
       <Category />
       <ProductFilter />
-      <button onClick={handleButtonClick}>인터셉터 버튼</button>
       <Body>
         <ProductList>
           {ProductInfo.map((product) => (

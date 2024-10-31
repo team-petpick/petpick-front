@@ -36,7 +36,6 @@ instance.interceptors.response.use(
         });
 
         const newAccessToken = refreshResponse.data.accessToken;
-        console.log('new access token>>', newAccessToken);
         localStorage.setItem('accessToken', newAccessToken);
 
         instance.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
