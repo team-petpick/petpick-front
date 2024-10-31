@@ -1,7 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import * as S from '../styles/MyPetMenu';
+import { ROUTE } from '@constants/ROUTE';
 const MyPetInfo = () => {
+  const navigate = useNavigate();
+  const userId = '1';
+  const handleClickNavigateToRegisterMyPet = () => {
+    const link = ROUTE.REGISTERMYPET.replace(':userId', userId);
+    navigate(link);
+  };
   return (
-    <S.MyPetMenuWrapper>
+    <S.MyPetMenuWrapper onClick={handleClickNavigateToRegisterMyPet}>
       <S.MyPetMenuText>우리 집 아이</S.MyPetMenuText>
       <S.MyPetImageInfoWrapper>
         <S.MyPetProfileImage src="https://cdn.pixabay.com/photo/2016/11/22/23/44/dog-1850463_960_720.jpg" />
