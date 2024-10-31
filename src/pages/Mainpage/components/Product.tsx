@@ -3,7 +3,7 @@ import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { IProductInfo } from '@types';
 import { useState } from 'react';
-import DeleteModal from '../../../modal/DeleteModal';
+import DeleteModal from '../../../components/modal/DeleteModal';
 
 interface IProductProps {
   productInfo: IProductInfo;
