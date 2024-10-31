@@ -1,5 +1,5 @@
 import { BottomArrow, TopArrow } from '@assets/svg';
-import { PETPICK_COLORS } from '@constants/colors';
+import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 

@@ -4,13 +4,13 @@ import Banner from './Banner';
 
 import { ReactNode } from 'react';
 interface ILayoutProps {
-  children: ReactNode;
-  footerVisible: boolean;
+  children?: ReactNode;
+  footerVisible?: boolean;
 }
 
 const Layout = ({ children, footerVisible }: ILayoutProps) => {
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
       {/* {isLoggedIn &&  */}
       <Banner />
       {/* } */}

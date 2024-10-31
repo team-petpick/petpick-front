@@ -28,6 +28,7 @@ export const LoginMenuContainer = styled.div`
   gap: 12px;
 `;
 export const ContentContainer = styled.div`
+  width: 100%;
   height: 63px;
   display: flex;
   align-items: center;
