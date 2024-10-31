@@ -23,8 +23,8 @@ export const FrequentlyUsedMenuList = styled.div`
   padding-left: 8px;
 `;
 
-export const FrequentlyUsedMenuText = styled.div`
-  color: ${PETPICK_COLORS.GRAY[800]};
+export const FrequentlyUsedMenuText = styled.div<{ isSelected: boolean }>`
+  color: ${({ isSelected }) => (isSelected ? PETPICK_COLORS.BLUE[500] : PETPICK_COLORS.GRAY[800])};
   ${TextStyles.body.mediumM};
   padding: 15px 0 13px 8px;
 `;
