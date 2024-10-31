@@ -22,6 +22,6 @@ export const MyInfoGreetingText = styled.div`
 `;
 
 export const MyInfoNameText = styled.div`
-  color: ${PETPICK_COLORS.BLUE[400]};
-  ${TextStyles.subTitle.largeSB}
+  color: ${PETPICK_COLORS.GRAY[900]};
+  ${TextStyles.body.mediumR}
 `;
