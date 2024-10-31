@@ -11,6 +11,22 @@ export interface IProductInfo {
   productImageUrl: string;
   sellerStoreName: string;
 }
+export interface IOrderInfo {
+  orderDate: string;
+  orderNum: string;
+  productInfos: IProductInfo[];
+}
+
+export interface IAddressInfo {
+  addressId: number;
+  userId: number;
+  addressName: string;
+  addressZipCode: string;
+}
 
 type ProductType = 'DOG' | 'CAT' | 'ETC';
 type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+
+export interface ITitleProps {
+  titleText: string;
+}

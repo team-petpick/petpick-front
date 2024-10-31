@@ -3,8 +3,12 @@ import Header from './Header';
 import Banner from './Banner';
 
 import { ReactNode } from 'react';
+interface ILayoutProps {
+  children: ReactNode;
+  footerVisible: boolean;
+}
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({ children, footerVisible }: ILayoutProps) => {
   return (
     <div>
       {/* {isLoggedIn &&  */}
@@ -12,7 +16,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       {/* } */}
       <Header />
       <main>{children}</main>
-      <Footer />
+      {footerVisible && <Footer />}
     </div>
   );
 };
