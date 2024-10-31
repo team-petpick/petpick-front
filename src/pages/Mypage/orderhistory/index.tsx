@@ -132,7 +132,7 @@ const OrderHistory = () => {
     setAcrivePeriod(index);
   };
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Header onPeriodChange={handlePeriodChange} activePeriod={activePeriod} />
       <Container>
         {OrderInfo.length > 0 ? (
@@ -145,7 +145,7 @@ const OrderHistory = () => {
           </Message>
         )}
       </Container>
-    </>
+    </div>
   );
 };
 

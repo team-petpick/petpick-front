@@ -1,19 +1,18 @@
+// Layout.tsx
 import Footer from './Footer';
 import Header from './Header';
 import Banner from './Banner';
+import { ReactNode, memo } from 'react';
 
-import { ReactNode } from 'react';
 interface ILayoutProps {
-  children?: ReactNode;
+  children: ReactNode;
   footerVisible?: boolean;
 }
 
 const Layout = ({ children, footerVisible }: ILayoutProps) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-      {/* {isLoggedIn &&  */}
       <Banner />
-      {/* } */}
       <Header />
       <main>{children}</main>
       {footerVisible && <Footer />}
@@ -21,4 +20,4 @@ const Layout = ({ children, footerVisible }: ILayoutProps) => {
   );
 };
 
-export default Layout;
+export default memo(Layout); // Layout을 memo로 감싸기
