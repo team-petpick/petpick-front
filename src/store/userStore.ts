@@ -6,7 +6,7 @@ interface IUserStore {
   clearUserId: () => void;
 }
 export const useUserStore = create<IUserStore>((set) => ({
-  userId: null,
+  userId: 0,
   setUserId: (id) => set({ userId: id }),
   clearUserId: () => set({ userId: null }), //로그아웃 시에 userId 초기화
 }));
