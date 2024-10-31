@@ -4,12 +4,13 @@ import { Delete } from '@assets/svg';
 import { Minus, Plus } from '@assets/svg/index';
 import Test3 from '@assets/svg/test-3.jpg';
 import styled from 'styled-components';
+import CheckboxLabal from './CheckboxLabal';
 const ProductSelectItem = () => {
   return (
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
-          <input type="checkbox" />
+          <CheckboxLabal text="text" />
           <SelectText> 상품명 </SelectText>
         </SelectBox>
         <SelectButton>
@@ -103,7 +104,7 @@ const SelectWrapper = styled.div`
   border-radius: 16px;
 `;
 const SelectText = styled.div`
-  margin-left: 16px;
+  margin-left: 6px;
   align-self: center;
 `;
 const SelectBox = styled.div`
@@ -111,6 +112,7 @@ const SelectBox = styled.div`
 `;
 const ProductItemContainer = styled.li`
   padding: 4px 0px 16px 34px;
-  border-bottom: 1px solid ${PETPICK_COLORS.GRAY[300]};
 `;
-const ProductItem = styled.li``;
+const ProductItem = styled.li`
+  margin: 0 0 40px;
+`;

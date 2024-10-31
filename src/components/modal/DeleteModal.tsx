@@ -21,7 +21,7 @@ const BasicModal = ({ isOpen, onRequestClose, children }) => {
       justifyContent: 'center',
       transform: 'translate(-50%, -50%)', // 모달을 중앙에 위치
       width: '440px',
-      height: 'auto',
+      height: 'fit-content',
       padding: '0',
       border: 'none',
       borderRadius: '12px',

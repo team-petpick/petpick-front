@@ -1,3 +1,6 @@
+type ProductType = 'DOG' | 'CAT' | 'ETC';
+type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+
 export interface IProductInfo {
   productId: number;
   sellerId: number;
@@ -23,9 +26,6 @@ export interface IAddressInfo {
   addressName: string;
   addressZipCode: string;
 }
-
-type ProductType = 'DOG' | 'CAT' | 'ETC';
-type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
 
 export interface ITitleProps {
   titleText: string;

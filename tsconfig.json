@@ -18,6 +18,7 @@
       "@routes/*": ["routes/*"],
       "@layouts/*": ["components/layouts/*"],
       "@pages/*": ["pages/*"]
-    }
+    },
+    "module": "esnext" // 모듈 타입을 설정
   }
 }

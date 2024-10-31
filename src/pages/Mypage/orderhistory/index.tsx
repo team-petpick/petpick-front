@@ -4,7 +4,7 @@ import OrderHistoryItem from './components/OrderHistoryItem';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { orderPeriods } from '@constants';
-import { PETPICK_COLORS } from '@constants/colors';
+import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 
 const OrderHistory = () => {
