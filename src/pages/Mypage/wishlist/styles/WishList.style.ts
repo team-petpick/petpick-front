@@ -3,13 +3,12 @@ import { TextStyles } from '@styles/textStyles';
 import { PETPICK_COLORS } from '@styles/colors';
 
 export const Wrapper = styled.div`
-  max-width: 745px;
-  width: 100%;
   display: flex;
   justify-content: center;
-  margin: 45px auto;
-  border: 1px solid ${PETPICK_COLORS.GRAY[200]};
+  width: 745px;
+  min-width: fit-content;
   border-radius: 8px;
+  border: 1px solid ${PETPICK_COLORS.GRAY[200]};
 `;
 export const ContentWrapper = styled.div`
   max-width: 718px;
