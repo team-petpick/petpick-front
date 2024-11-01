@@ -16,7 +16,6 @@ const GoogleCallbackPage = () => {
     };
     try {
       const res = await instance.post('/api/v1/auth/google', data);
-      console.log(res);
       const userName = res.data.user_name[0];
       useUserStore.getState().setUserName(userName);
       const accessToken = res.data.access_token;

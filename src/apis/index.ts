@@ -29,11 +29,16 @@ instance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshResponse = await instance.post('/api/v1/auth/token', null, {
-          headers: {
-            'Content-Type': 'application/json',
+        const refreshResponse = await instance.post(
+          '/api/v1/auth/token',
+          {},
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
           },
-        });
+        );
 
         const newAccessToken = refreshResponse.data.accessToken;
         localStorage.setItem('accessToken', newAccessToken);

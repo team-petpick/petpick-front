@@ -4,6 +4,7 @@ import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import { useEffect, useState } from 'react';
 import * as S from './styles/Header.style';
 import { useUserStore } from '@store/userStore';
+import { logout } from '@apis/auth/logout';
 
 const Header = () => {
   // 로그인 상태 관리
@@ -46,6 +47,14 @@ const Header = () => {
       alert('로그인 사용자만 이용할 수 있는 기능입니다.');
     }
   };
+  const handleLogout = async () => {
+    try {
+      await logout();
+      useUserStore.getState().clearUserName();
+    } catch (error) {
+      console.log(error, '로그아웃 실패');
+    }
+  };
 
   // 비회원 로직
   return (
@@ -57,9 +66,7 @@ const Header = () => {
             <>
               <S.LoginButtonText>{userName}님</S.LoginButtonText>
               <S.TextBox>|</S.TextBox>
-              <S.LoginButtonText onClick={handleClickNavigateToLoginPage}>
-                로그아웃
-              </S.LoginButtonText>
+              <S.LoginButtonText onClick={handleLogout}>로그아웃</S.LoginButtonText>
             </>
           ) : (
             <>
