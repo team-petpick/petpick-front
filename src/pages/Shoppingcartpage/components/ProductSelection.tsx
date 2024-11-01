@@ -3,7 +3,10 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import ProductSelectItem from './ProductSelectItem';
 import CheckboxLabal from './CheckboxLabal';
+import { useState } from 'react';
+
 const ProductSelection = () => {
+  const [product, setProduct] = useState();
   return (
     <Wrapper>
       <SelectContainer>

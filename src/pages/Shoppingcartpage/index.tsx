@@ -5,6 +5,7 @@ import ProductSelection from './components/ProductSelection';
 import OrderInfo from './components/OrderInfo.tsx';
 
 const ShoppingCartPage = () => {
+  const userId = 1; // 임시 데이터
   return (
     <Layout footerVisible={false}>
       <CartLayout>
@@ -12,7 +13,7 @@ const ShoppingCartPage = () => {
           <CartTitle>Shopping Cart Page</CartTitle>
           <Wrapper>
             <ProductSelection />
-            <OrderInfo />
+            <OrderInfo userId={userId} />
           </Wrapper>
         </CartContainer>
       </CartLayout>
