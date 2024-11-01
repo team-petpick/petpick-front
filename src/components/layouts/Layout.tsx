@@ -11,7 +11,7 @@ interface ILayoutProps {
 
 const Layout = ({ children, footerVisible }: ILayoutProps) => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+    <div>
       <Banner />
       <Header />
       <main>{children}</main>

@@ -1,16 +1,47 @@
 import Layout from '@components/layouts/Layout';
-import Button from './components/button';
+import LeftSide from './components/LeftSide';
+import RightSide from './components/RightSide';
+import styled from 'styled-components';
+import Header from './components/Header';
+import { BANNER_HEIGHT, HEADER_HEIGHT } from '@constants/styles';
+import { PETPICK_COLORS } from '@styles/colors';
 
 const RegisterMyPet = () => {
   return (
     <Layout footerVisible={false}>
-      <div>RegisterMyPet</div>
-      <Button buttonDirection={'next'} isActive={true} buttonName={'다음 활성화'} />
-      <Button buttonDirection={'next'} isActive={false} buttonName={'다음 비활성화'} />
-      <Button buttonDirection={'prev'} isActive={false} buttonName={'이전'} />
-      <Button buttonDirection={'prev'} isActive={true} buttonName={'이전'} />
+      <RegisterMyPetWrapper>
+        <Header />
+        <RegisterContent>
+          <LeftSide />
+          <RightSide />
+        </RegisterContent>
+      </RegisterMyPetWrapper>
     </Layout>
   );
 };
 
 export default RegisterMyPet;
+
+const RegisterMyPetWrapper = styled.div`
+  width: 100%;
+  height: calc(100vh - ${HEADER_HEIGHT + BANNER_HEIGHT}) px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const RegisterContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 100%;
+  border: 1px solid ${PETPICK_COLORS.GRAY[200]};
+  border-radius: 10px;
+  padding: 100px 70px;
+  margin-top: 28px;
+  box-sizing: border-box;
+`;
