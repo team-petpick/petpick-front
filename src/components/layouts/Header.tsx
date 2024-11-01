@@ -14,14 +14,13 @@ const Header = () => {
   // router 설정
   const navigate = useNavigate();
 
-  const checkLoginStatus = () => {
-    const accessToken = localStorage.getItem('accessToken');
-    setIsLoggedIn(!!accessToken);
-  };
-
   useEffect(() => {
+    const checkLoginStatus = () => {
+      const accessToken = localStorage.getItem('accessToken');
+      setIsLoggedIn(!!accessToken);
+    };
     checkLoginStatus();
-  }, []);
+  }, [isLoggedIn]);
 
   const handleHomeClick = () => {
     navigate('/');
@@ -50,6 +49,8 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      localStorage.removeItem('accessToken');
+      setIsLoggedIn(false);
       useUserStore.getState().clearUserName();
     } catch (error) {
       console.log(error, '로그아웃 실패');
