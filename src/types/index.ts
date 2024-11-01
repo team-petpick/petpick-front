@@ -3,16 +3,29 @@ type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
 
 export interface IProductInfo {
   productId: number;
-  sellerId: number;
-  categoryId: number;
-  productTitle: string;
-  productCnt: number;
+  productName: string;
+  seller: {
+    sellerId: number;
+    sellerStoreName: string;
+    sellerNumber: string;
+    sellerAddr: string;
+    sellerAddrDetail: string;
+  };
+  productStatus: 'ON';
+  likes: {
+    likesCount: number;
+  };
+
   productPrice: number;
-  productType: ProductType;
-  productStatus: ProductStatus;
+  productShare: number;
   productSale: number;
-  productImageUrl: string;
-  sellerStoreName: string;
+  productCnt: number;
+  productImg: {
+    productImgId: number;
+    productImgThumb: number;
+    productImgUrl: string;
+    productImgName: string;
+  };
 }
 export interface IOrderInfo {
   orderDate: string;
