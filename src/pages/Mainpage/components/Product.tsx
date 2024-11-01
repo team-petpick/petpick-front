@@ -1,12 +1,12 @@
 import { Like, LikeFill, ShoppingCart } from '@assets/svg';
 import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import { IProductInfo } from '@types';
+import { IProductInfoItem } from '@types';
 import { useState } from 'react';
 import DeleteModal from '../../../components/modal/DeleteModal';
 
 interface IProductProps {
-  productInfo: IProductInfo;
+  productInfo: IProductInfoItem;
 }
 
 const Product = ({ productInfo }: IProductProps) => {
@@ -20,6 +20,7 @@ const Product = ({ productInfo }: IProductProps) => {
   const handleDeleteModalClick = () => {
     setIsOpen(true);
   };
+  console.log(productInfo);
   return (
     <S.ProductContainer>
       <S.ProductImage src={productInfo.productImageUrl} />
@@ -34,8 +35,8 @@ const Product = ({ productInfo }: IProductProps) => {
         </S.AddShoppingCartButton>
       </S.LikeCartButtonWrapper>
       <S.ProductInfo>
-        <S.SellerName> {productInfo.sellerStoreName}</S.SellerName>
-        <S.ProductName>{productInfo.productTitle}</S.ProductName>
+        <S.SellerName> {productInfo.seller.sellerStoreName}</S.SellerName>
+        <S.ProductName>{productInfo.productName}</S.ProductName>
         <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
         <S.ProductSalePrice>
           <S.ProductSalePercent>{productInfo.productSale}%</S.ProductSalePercent>

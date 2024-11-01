@@ -1,9 +1,15 @@
-type ProductType = 'DOG' | 'CAT' | 'ETC';
-type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
-
-export interface IProductInfo {
+export interface IProductInfoItem {
   productId: number;
   productName: string;
+  productCnt: number;
+  productPrice: number;
+  productSale: number;
+  productStatus: 'ON' | 'SOLDOUT';
+  productThumbnail: string | null;
+  category: {
+    categoryId: number;
+    categoryName: string;
+  };
   seller: {
     sellerId: number;
     sellerStoreName: string;
@@ -11,22 +17,16 @@ export interface IProductInfo {
     sellerAddr: string;
     sellerAddrDetail: string;
   };
-  productStatus: 'ON';
+}
+
+export interface IProductInfo {
+  content: IProductInfoItem[];
   likes: {
     likesCount: number;
   };
-
-  productPrice: number;
   productShare: number;
-  productSale: number;
-  productCnt: number;
-  productImg: {
-    productImgId: number;
-    productImgThumb: number;
-    productImgUrl: string;
-    productImgName: string;
-  };
 }
+
 export interface IOrderInfo {
   orderDate: string;
   orderNum: string;
