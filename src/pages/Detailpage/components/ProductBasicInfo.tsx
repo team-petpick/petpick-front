@@ -1,6 +1,11 @@
+import { IProductInfo } from '@types';
 import * as S from '../styles/ProductBasicInfo.style';
 
-export const ProductBasicInfo = ({ productInfo }) => (
+interface IProductBasicInfoProps {
+  productInfo: IProductInfo;
+}
+
+export const ProductBasicInfo = ({ productInfo }: IProductBasicInfoProps) => (
   <div>
     <S.ProductTitle>
       [{productInfo.seller.sellerStoreName}] {productInfo.productName}

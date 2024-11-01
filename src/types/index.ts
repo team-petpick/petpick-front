@@ -1,6 +1,11 @@
 type ProductType = 'DOG' | 'CAT' | 'ETC';
 type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
-
+export interface IPurchaseOptionsProps {
+  productInfo: IProductInfo;
+  productCount: number;
+  handlePlusClick: () => void;
+  handleMinusClick: () => void;
+}
 export interface IProductInfo {
   productId: number;
   productName: string;
@@ -11,11 +16,10 @@ export interface IProductInfo {
     sellerAddr: string;
     sellerAddrDetail: string;
   };
-  productStatus: 'ON';
+  productStatus: 'ON' | 'OFF';
   likes: {
     likesCount: number;
   };
-
   productPrice: number;
   productShare: number;
   productSale: number;
