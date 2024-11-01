@@ -6,7 +6,6 @@ const useGetProductDetails = (productId: number) => {
   const [productInfo, setProductInfo] = useState<IProductInfo | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState<boolean | null>(null);
-
   useEffect(() => {
     const loadProductDetails = async () => {
       try {

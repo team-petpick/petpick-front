@@ -11,9 +11,11 @@ import Bell from '@assets/svg/Bell';
 import { ProductDescription } from './components/ProductDescription';
 import useGetProductDetails from './hooks/useGetProductDetails';
 import Loading from '@components/Loading';
+import { useParams } from 'react-router-dom';
 
-const DetailPage = (productId: number) => {
-  const { productInfo, error, isLoading } = useGetProductDetails(productId);
+const DetailPage = () => {
+  const { productId } = useParams();
+  const { productInfo, error, isLoading } = useGetProductDetails(Number(productId));
 
   const [liked, setLiked] = useState(false);
   const [productCount, setProductCount] = useState(1);
