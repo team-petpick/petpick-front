@@ -1,6 +1,6 @@
 import Layout from '@layouts/Layout';
 import * as S from './styles/index.style';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductImage } from './components/ProductImage';
 import { ProductBasicInfo } from './components/ProductBasicInfo';
 import { ProductAdditionalInfo } from './components/ProductAdditionalInfo';
@@ -9,16 +9,14 @@ import Like from '@assets/svg/Like';
 import LikeFill from '@assets/svg/LikeFill';
 import Bell from '@assets/svg/Bell';
 import { ProductDescription } from './components/ProductDescription';
-import { fetchProductDetails } from '@apis';
-import { IProductInfo } from '@types';
-import { useParams } from 'react-router-dom';
+import useGetProductDetails from './hooks/useGetProductDetails';
+import Loading from '@components/Loading';
 
-const DetailPage = () => {
-  const [productInfo, setProductInfo] = useState<IProductInfo | null>(null);
-  const [error, setError] = useState(null);
+const DetailPage = (productId: number) => {
+  const { productInfo, error, isLoading } = useGetProductDetails(productId);
+
   const [liked, setLiked] = useState(false);
   const [productCount, setProductCount] = useState(1);
-  const { productId } = useParams();
 
   const handleLikeClick = () => {
     setLiked(!liked);
@@ -34,21 +32,9 @@ const DetailPage = () => {
       setProductCount(productCount - 1);
     }
   };
+  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <Loading />;
 
-  useEffect(() => {
-    const loadProductDetails = async () => {
-      try {
-        const response = await fetchProductDetails(productId);
-        setProductInfo(response);
-        console.log(response);
-      } catch (err) {
-        setError(err);
-        console.error('Failed to fetch product details:', err);
-      }
-    };
-
-    loadProductDetails();
-  }, [productId]);
   return (
     <Layout footerVisible={true}>
       {productInfo ? (
@@ -82,7 +68,7 @@ const DetailPage = () => {
           <ProductDescription productInfo={productInfo} />
         </S.DetailLayout>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </Layout>
   );
