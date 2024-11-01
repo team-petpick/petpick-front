@@ -1,3 +1,4 @@
+import { addCommaToPrice } from '@utils/addCommaToPrice';
 import * as S from '../styles/PurchaseOptions.style';
 import { Minus, Plus } from '@assets/svg';
 export const PurchaseOptions = ({
@@ -6,7 +7,9 @@ export const PurchaseOptions = ({
   handlePlusClick,
   handleMinusClick,
 }) => {
-  const discountedPrice = productInfo.productPrice * (1 - productInfo.productSale / 100);
+  const discountedPrice = addCommaToPrice(
+    productInfo.productPrice * (1 - productInfo.productSale / 100),
+  );
   return (
     <S.PurchaseContainer>
       <S.InfoContainer>
