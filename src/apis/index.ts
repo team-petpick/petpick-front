@@ -21,10 +21,13 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('response>>>', response);
+    return response;
+  },
   async (error) => {
+    console.log('error', error.config);
     const originalRequest = error.config;
-
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
@@ -39,8 +42,8 @@ instance.interceptors.response.use(
             withCredentials: true,
           },
         );
-
-        const newAccessToken = refreshResponse.data.accessToken;
+        console.log('REFRESH>>>>>>>', refreshResponse);
+        const newAccessToken = refreshResponse.data.access_token;
         localStorage.setItem('accessToken', newAccessToken);
 
         instance.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
@@ -49,10 +52,21 @@ instance.interceptors.response.use(
         return instance(originalRequest);
       } catch (err) {
         console.error('Token refresh failed:', err);
+        localStorage.removeItem('accessToken');
         return Promise.reject(err);
       }
     }
     return Promise.reject(error);
   },
 );
+// instance.interceptors.response.use(
+//   (res) => res,
+//   async (error) => {
+//     const {config} = error;
+//     if (error.response?.status === 401) {
+//       const res = await instance.post('/api/v1/auth/token');
+//       localStorage.setItem('accessToken', res.data.access_token);
+//     }
+//   }
+// )
 export default instance;
