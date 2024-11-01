@@ -20,7 +20,7 @@ export const Title = styled.h1`
 export const TitleWrapper = styled.header`
   width: 80%;
   height: 130px;
-  border-bottom: 1px solid ${PETPICK_COLORS.GRAY[200]};
+  border-bottom: 1px solid ${PETPICK_COLORS.GRAY[300]};
   display: flex;
   justify-content: center;
   align-items: center;

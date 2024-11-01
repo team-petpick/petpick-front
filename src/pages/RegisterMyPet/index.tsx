@@ -39,7 +39,7 @@ const RegisterContent = styled.div`
   align-items: center;
   width: 80%;
   height: 100%;
-  border: 1px solid ${PETPICK_COLORS.GRAY[200]};
+  border: 1px solid ${PETPICK_COLORS.GRAY[300]};
   border-radius: 10px;
   padding: 100px 70px;
   margin-top: 28px;
