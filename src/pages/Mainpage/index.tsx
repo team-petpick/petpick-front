@@ -5,8 +5,7 @@ import { IProductInfo } from '@types';
 import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
-import instance from '@apis/instance';
-import { AxiosError } from 'axios';
+import { fetchProducts } from '@apis';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IProductInfo>({
@@ -18,28 +17,19 @@ const MainPage = () => {
   const [category, setCategory] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchProducts = async () => {
+  const loadProducts = async () => {
     try {
-      const params: { type?: string; category?: number } = {
-        type: type || undefined,
-        ...(category !== null && category !== 0 && { category }),
-      };
-      const response = await instance.get('/api/v1/products', {
-        params,
-      });
-      setProductInfo(response.data);
+      const data = await fetchProducts(type, category);
+      setProductInfo(data);
       setError(null);
     } catch (error) {
-      const axiosError = error as AxiosError;
-      if (axiosError.response && axiosError.response.status === 404) {
-        setError('조회 가능한 상품이 없습니다.');
-        setProductInfo({ ...productInfo, content: [] });
-      }
+      setError((error as Error).message);
+      setProductInfo({ ...productInfo, content: [] });
     }
   };
 
   useEffect(() => {
-    fetchProducts();
+    loadProducts();
   }, [type, category]);
 
   const handleAnimalTypeChange = (type: string | null) => {
