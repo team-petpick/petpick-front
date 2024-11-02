@@ -13,13 +13,13 @@ import useGetProductDetails from './hooks/useGetProductDetails';
 import Loading from '@components/Loading';
 import { useParams } from 'react-router-dom';
 import { fetchToggleLike, fetchWishList } from '@apis';
-import { useUserStore } from '@store/userStore';
 
 const DetailPage = () => {
   const { productId } = useParams();
   const { productInfo, error, isLoading } = useGetProductDetails(Number(productId));
   const [productCount, setProductCount] = useState(1);
-  const { userId } = useUserStore();
+  // const { userId } = useUserStore();
+  const userId = 1; // 임시데이터 1
 
   const [liked, setLiked] = useState(false);
 
@@ -28,23 +28,27 @@ const DetailPage = () => {
     const loadProductLikes = async () => {
       try {
         if (userId !== null) {
-          const response = await fetchWishList(userId, Number(productId));
+          const response = await fetchWishList(userId);
           const likedProducts = response.data; // 좋아요한 상품 목록 데이터
-          setLiked(likedProducts.includes(Number(productId)));
+          setLiked(likedProducts.includes(Number(productId))); // productId가 목록에 있는지 확인
         }
       } catch (err) {
-        console.error('Failed to fetch product details:', err);
+        console.error('상품 정보를 가져오는데 실패했습니다:', err);
       }
     };
     loadProductLikes();
   }, [productId, userId]);
 
   const handleLikeClick = async () => {
+    console.log('Like button clicked!'); // 클릭이 감지되는지 확인
     try {
-      await fetchToggleLike(Number(productId));
-      setLiked(!liked); // 로컬 상태를 토글하여 즉시 UI 반영
+      if (userId != null) {
+        await fetchToggleLike(Number(productId), userId);
+        setLiked(!liked); // 로컬 상태를 토글하여 즉시 UI 반영
+        console.log('좋아요 상태 API 호출 성공.'); // API 호출 여부 확인
+      }
     } catch (err) {
-      console.error('Failed to update wishlist:', err);
+      console.error('찜한 상품 정보를 가져오는데 실패했습니다::', err);
     }
   };
 
