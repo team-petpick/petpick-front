@@ -7,5 +7,8 @@ export const ROUTE = {
   SHOPPINGCART: '/shoppingcart/:userId',
   ADDRESSINPUTPAGE: '/addressinput/:userId',
   PAYMENTCONFIRMATIONPAGE: '/paymentconfirm/:userId',
+  CHECKOUTPAGE: '/checkout',
+  SUCCESSPAGE: '/success',
+  FAILPAGE: '/fail',
   NOTFOUND: '*',
 };
