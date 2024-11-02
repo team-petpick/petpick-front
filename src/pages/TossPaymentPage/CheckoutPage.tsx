@@ -1,23 +1,17 @@
-import { loadTossPayments } from '@tosspayments/tosspayments-sdk';
+import { loadTossPayments, TossPaymentsPayment } from '@tosspayments/tosspayments-sdk';
 import { useEffect, useState } from 'react';
 
 // ------  SDK 초기화 ------
 // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
-const clientKey = 'test_ck_6bJXmgo28e4j1baB0A2yrLAnGKWx';
+const clientKey = import.meta.env.VITE_TOSS_CLIENT_KEY;
 const customerKey = 'apFoQd6epLlSu-1VMDPcd';
 
 export default function CheckoutPage() {
-  const [payment, setPayment] = useState(null);
+  const [payment, setPayment] = useState<TossPaymentsPayment | null>(null);
   const [amount] = useState({
     currency: 'KRW',
     value: 50000,
   });
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
-
-  function selectPaymentMethod(method) {
-    setSelectedPaymentMethod(method);
-  }
-
   useEffect(() => {
     async function fetchPayment() {
       try {
@@ -41,8 +35,13 @@ export default function CheckoutPage() {
   }, [clientKey, customerKey]);
 
   // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+
   // @docs https://docs.tosspayments.com/sdk/v2/js#paymentrequestpayment
   async function requestPayment() {
+    if (!payment) {
+      console.error('결제가 초기화되지 않았습니다.');
+      return;
+    }
     // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
     // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
     await payment.requestPayment({
