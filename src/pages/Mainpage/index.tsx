@@ -1,11 +1,12 @@
 import Layout from '@layouts/Layout';
 import Category from './components/Category';
 import Product from './components/Product';
-import { IProductInfo, IProductInfoItem } from '@types';
+import { IProductInfo } from '@types';
 import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
 import instance from '@apis/instance';
+import { AxiosError } from 'axios';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IProductInfo>({
@@ -15,18 +16,25 @@ const MainPage = () => {
   });
   const [type, setType] = useState<string | null>(null);
   const [category, setCategory] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchProducts = async () => {
     try {
+      const params: { type?: string; category?: number } = {
+        type: type || undefined,
+        ...(category !== null && category !== 0 && { category }),
+      };
       const response = await instance.get('/api/v1/products', {
-        params: {
-          type: type,
-          category: category,
-        },
+        params,
       });
       setProductInfo(response.data);
+      setError(null);
     } catch (error) {
-      console.error('failed to fetch products', error);
+      const axiosError = error as AxiosError;
+      if (axiosError.response && axiosError.response.status === 404) {
+        setError('조회 가능한 상품이 없습니다.');
+        setProductInfo({ ...productInfo, content: [] });
+      }
     }
   };
 
@@ -49,13 +57,17 @@ const MainPage = () => {
         onAnimalTypeChange={handleAnimalTypeChange}
         onCategoryChange={handleCategoryChange}
       />
-      <ProductFilter />
+      <ProductFilter productInfo={productInfo} />
       <Body>
-        <ProductList>
-          {productInfo.content.map((product) => (
-            <Product key={product.productId} productInfo={product as IProductInfoItem} />
-          ))}
-        </ProductList>
+        {error ? (
+          <div>{error}</div>
+        ) : (
+          <ProductList>
+            {productInfo.content.map((product) => (
+              <Product key={product.productId} productInfo={product} />
+            ))}
+          </ProductList>
+        )}
       </Body>
     </Layout>
   );
