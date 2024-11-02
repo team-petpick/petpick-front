@@ -37,9 +37,15 @@ const Product = ({ productInfo }: IProductProps) => {
       <S.ProductInfo>
         <S.SellerName> {productInfo.seller.sellerStoreName}</S.SellerName>
         <S.ProductName>{productInfo.productName}</S.ProductName>
-        <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
+        {productInfo.productSale ? (
+          <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
+        ) : (
+          <S.ProductOriginalPricePlaceholder />
+        )}
         <S.ProductSalePrice>
-          <S.ProductSalePercent>{productInfo.productSale}%</S.ProductSalePercent>
+          {productInfo.productSale ? (
+            <S.ProductSalePercent>{productInfo.productSale}%</S.ProductSalePercent>
+          ) : null}
           <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
         </S.ProductSalePrice>
       </S.ProductInfo>
