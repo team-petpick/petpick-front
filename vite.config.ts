@@ -2,10 +2,13 @@ import svgr from 'vite-plugin-svgr';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
+import json from '@rollup/plugin-json';
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    json(),
     react(),
     svgr({
       svgrOptions: {
@@ -13,6 +16,7 @@ export default defineConfig({
       },
     }),
   ],
+  assetsInclude: ['**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.json'],
   server: {
     port: 3000,
     open: true,

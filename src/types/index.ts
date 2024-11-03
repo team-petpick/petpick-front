@@ -1,5 +1,5 @@
-type ProductType = 'DOG' | 'CAT' | 'ETC';
-type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+export type ProductType = 'DOG' | 'CAT' | 'ETC';
+export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
 export interface IPurchaseOptionsProps {
   productInfo: IProductInfo;
   productCount: number;
