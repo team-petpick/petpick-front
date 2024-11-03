@@ -6,8 +6,8 @@ import { Address, useDaumPostcodePopup } from 'react-daum-postcode';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-interface IDaumPostProps extends Address {
-  setAddress?: (address: string) => void;
+interface IDaumPostProps extends Partial<Address> {
+  setAddress: (address: string) => void;
 }
 
 export const DaumPost = ({ setAddress }: IDaumPostProps) => {

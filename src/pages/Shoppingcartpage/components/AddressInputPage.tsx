@@ -15,7 +15,7 @@ const AddressInputPage = () => {
   const open = useDaumPostcodePopup(postcodeScriptUrl);
 
   // 상세주소 입력 핸들러
-  const handleDetailChange = (e) => {
+  const handleDetailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDetailAddress(e.target.value);
   };
 

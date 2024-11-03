@@ -8,7 +8,7 @@ const DropdownSelector = () => {
   const [selectedText, setSelectedText] = useState('배송 시 요청사항을 선택하세요');
   const [isCustomInput, setIsCustomInput] = useState(false);
   const [customText, setCustomText] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const options = [
     '요청사항 없음',
@@ -20,18 +20,18 @@ const DropdownSelector = () => {
 
   useEffect(() => {
     if (isCustomInput && inputRef.current) {
-      inputRef.current.focus();
+      inputRef.current?.focus();
     }
   }, [isCustomInput]);
 
   const toggleList = () => {
     setIsOpen(!isOpen);
-    setIsCustomInput(false); // 목록이 열릴 때 입력 필드 숨기기
+    setIsCustomInput(false);
   };
 
-  const handleSelect = (text) => {
+  const handleSelect = (text: string) => {
     if (text === '직접 입력') {
-      setIsCustomInput(true); // '직접 입력' 선택 시 입력 필드 보이기
+      setIsCustomInput(true);
       setSelectedText('');
       setCustomText('');
     } else {
@@ -41,11 +41,11 @@ const DropdownSelector = () => {
     }
   };
 
-  const handleCustomInputChange = (e) => {
+  const handleCustomInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomText(e.target.value);
     setSelectedText(e.target.value);
   };
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       setSelectedText(customText || '직접 입력 중...');
       setIsCustomInput(false);

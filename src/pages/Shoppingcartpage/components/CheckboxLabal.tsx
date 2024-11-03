@@ -1,6 +1,9 @@
 import { PETPICK_COLORS } from '@styles/colors';
 import styled from 'styled-components';
-const CheckboxLabel = ({ text }) => {
+interface ICheckboxLabelProps {
+  text: string;
+}
+const CheckboxLabel = ({ text }: ICheckboxLabelProps) => {
   return (
     <CheckboxContainer>
       <Label htmlFor={text}>
