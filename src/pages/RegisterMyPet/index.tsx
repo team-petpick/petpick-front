@@ -44,4 +44,6 @@ const RegisterContent = styled.div`
   padding: 100px 70px;
   margin-top: 28px;
   box-sizing: border-box;
+  position: relative;
+  padding-bottom: 148px;
 `;

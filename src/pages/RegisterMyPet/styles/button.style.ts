@@ -18,6 +18,7 @@ export const ButtonWrapper = styled.button<IButtonProps>`
       : PETPICK_COLORS.BLUE[200]};
   visibility: ${(props) =>
     props.buttonDirection === 'prev' && !props.isActive ? 'hidden' : 'visible'};
+  disabled: ${(props) => props.isActive && 'disabled'};
   width: 250px;
   height: 48px;
   padding: 8px 7px;

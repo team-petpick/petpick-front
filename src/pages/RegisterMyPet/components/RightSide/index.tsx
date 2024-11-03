@@ -28,9 +28,11 @@ const RightSide = () => {
 
   return (
     <RightSideWrapper>
-      {step === '1' && <First setIsNextButtonActive={setIsNextButtonActive} />}
-      {step === '2' && <Second setIsNextButtonActive={setIsNextButtonActive} />}
-      {step === '3' && <Third setIsNextButtonActive={setIsNextButtonActive} />}
+      <div>
+        {step === '1' && <First setIsNextButtonActive={setIsNextButtonActive} />}
+        {step === '2' && <Second setIsNextButtonActive={setIsNextButtonActive} />}
+        {step === '3' && <Third setIsNextButtonActive={setIsNextButtonActive} />}
+      </div>
       <ButtonWrapper>
         <Button
           onClick={handleNextButtonClick}
@@ -54,6 +56,9 @@ export default RightSide;
 const RightSideWrapper = styled.div`
   height: 100%;
   width: 50%;
+  gap: 48px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ButtonWrapper = styled.div`
@@ -61,4 +66,7 @@ const ButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 10px;
+  position: absolute;
+  bottom: 48px;
+  width: 100%;
 `;

@@ -47,3 +47,10 @@ export interface IAddressInfo {
 export interface ITitleProps {
   titleText: string;
 }
+
+export type Breed = {
+  animal_group1_id: number;
+  animal_group2_id: number;
+  animal_group2_name: string;
+  breed_size_name: string;
+};
