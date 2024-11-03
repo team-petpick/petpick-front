@@ -5,7 +5,7 @@ const MyPetInfo = () => {
   const navigate = useNavigate();
   const userId = '1';
   const handleClickNavigateToRegisterMyPet = () => {
-    const link = ROUTE.REGISTERMYPET.replace(':userId', userId);
+    const link = ROUTE.REGISTERMYPET.replace(':userId', userId).replace(':step', '1');
     navigate(link);
   };
   return (
