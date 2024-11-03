@@ -24,7 +24,7 @@ export default function SuccessPage() {
             userId,
             orderRequest,
           );
-          if (response.status === 200) {
+          if (response === 200) {
             console.log('결제 정보가 백엔드에 성공적으로 전송되었습니다.');
           }
         } catch (error) {
