@@ -7,6 +7,8 @@ import Mypage from './Mypage';
 import ShoppingCartPage from './Shoppingcartpage';
 import { Suspense } from 'react';
 import Loading from '@components/Loading';
+import AddressInputPage from './Shoppingcartpage/components/AddressInputPage';
+import PaymentConfirmationPage from './PaymentConfirmationPage';
 export const Router = () => {
   return (
     <Suspense fallback={<Loading />}>
@@ -17,6 +19,8 @@ export const Router = () => {
         <Route path={ROUTE.MYPAGE} element={<Mypage />} />
         <Route path={ROUTE.DETAILPAGE} element={<DetailPage />} />
         <Route path={ROUTE.SHOPPINGCART} element={<ShoppingCartPage />} />
+        <Route path={ROUTE.ADDRESSINPUTPAGE} element={<AddressInputPage />} />
+        <Route path={ROUTE.PAYMENTCONFIRMATIONPAGE} element={<PaymentConfirmationPage />} />
         <Route path={ROUTE.NOTFOUND} element={<div>404</div>} />
       </Routes>
     </Suspense>

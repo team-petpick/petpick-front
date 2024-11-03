@@ -1,6 +1,11 @@
+import { IProductInfo } from '@types';
 import * as S from '../styles/ProductDescription.style';
 
-export const ProductDescription = ({ productInfo }) => (
+interface IProductDescription {
+  productInfo: IProductInfo;
+}
+
+export const ProductDescription = ({ productInfo }: IProductDescription) => (
   <S.MainInfo>
     <S.InfoNav>
       <S.NavList>
@@ -15,10 +20,10 @@ export const ProductDescription = ({ productInfo }) => (
 
     <S.ProductDescriptionLayout>
       <S.DescriptionImageBox>
-        <img src={productInfo.productImageUrl} />
+        <img src={productInfo.productImg.productImgUrl} />
       </S.DescriptionImageBox>
       <S.DescriptionText>
-        <h1>{productInfo.productTitle}</h1>
+        <h1>{productInfo.productName}</h1>
         <span>상품 세부 정보</span>
       </S.DescriptionText>
     </S.ProductDescriptionLayout>

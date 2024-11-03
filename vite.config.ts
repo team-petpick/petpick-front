@@ -13,6 +13,7 @@ export default defineConfig({
       },
     }),
   ],
+  assetsInclude: ['**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', '**/*.gif'],
   server: {
     port: 3000,
     open: false,
@@ -23,7 +24,7 @@ export default defineConfig({
       '@assets': path.resolve(__dirname, './src/assets'),
       '@components': path.resolve(__dirname, './src/components'),
       '@constants': path.resolve(__dirname, './src/constants'),
-      '@layout': path.resolve(__dirname, './src/layout'),
+      '@layouts': path.resolve(__dirname, 'src/components/layouts'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
       '@types': path.resolve(__dirname, './src/types'),

@@ -2,6 +2,8 @@
   "files": [],
   "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
+    "composite": true,
+    "incremental": true,
     "baseUrl": "./src",
     "paths": {
       "@*": ["*"],
@@ -16,8 +18,9 @@
       "@config/*": ["config/*"],
       "@store/*": ["store/*"],
       "@routes/*": ["routes/*"],
-      "@layout/*": ["layout/*"],
+      "@layouts/*": ["components/layouts/*"],
       "@pages/*": ["pages/*"]
-    }
+    },
+    "module": "esnext" // 모듈 타입을 설정
   }
 }
