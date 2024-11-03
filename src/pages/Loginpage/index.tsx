@@ -1,5 +1,6 @@
 import { GoogleLogin, PetpickLogo } from '@assets/svg';
 import * as S from './styles/index.style';
+import React from 'react';
 
 const LoginPage = () => {
   const urlPath = window.location.pathname;
