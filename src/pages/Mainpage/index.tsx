@@ -5,7 +5,7 @@ import { IProductInfo } from '@types';
 import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
-import { fetchProducts } from '@apis';
+import { getProducts } from '@apis';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IProductInfo>({
@@ -19,7 +19,7 @@ const MainPage = () => {
 
   const loadProducts = async () => {
     try {
-      const data = await fetchProducts(type, category);
+      const data = await getProducts(type, category);
       setProductInfo(data);
       setError(null);
     } catch (error) {

@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import instance from './instance';
 
-export const fetchProducts = async (type: string | null, category: number | null) => {
+export const getProducts = async (type: string | null, category: number | null) => {
   const params: { type?: string; category?: number } = {
     ...(type ? { type } : {}),
     ...(category !== null && category !== 0 ? { category } : {}),
