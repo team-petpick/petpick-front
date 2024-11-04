@@ -1,0 +1,55 @@
+{
+  "ordersId": 123123,
+  "ordersPrice": 50000,
+  "orderCreateAt": "2024-11-04T09:41:30.363Z",
+  "ordersStatus": "ORDER_CONFIRM",
+  "orderDetails": [
+    {
+      "orderDetailId": 123123,
+      "productId": 123123,
+      "productName": "윤일이네 블루베리 농장",
+      "sellerStoreName": "윤일이네 블루베리 농장",
+      "orderDetailPrice": 50000,
+      "orderDetailCnt": 2,
+      "productThumbnail": "https://cdn.pixabay.com/photo/2024/11/04/10/55/cat-8884818_1280.jpg"
+    },
+    {
+      "orderDetailId": 456456,
+      "productId": 456456,
+      "productName": "감귤 1kg",
+      "sellerStoreName": "효린이네 감귤 농장",
+      "orderDetailPrice": 10000,
+      "orderDetailCnt": 1,
+      "productThumbnail": "https://cdn.pixabay.com/photo/2024/11/04/10/55/cat-8884818_1280.jpg"
+    },
+    {
+      "orderDetailId": 789789,
+      "productId": 789789,
+      "productName": "윤일이네 블루베리 농장",
+      "sellerStoreName": "윤일이네 블루베리 농장",
+      "orderDetailPrice": 50000,
+      "orderDetailCnt": 2,
+      "productThumbnail": "https://cdn.pixabay.com/photo/2024/11/04/10/55/cat-8884818_1280.jpg"
+    },
+    {
+      "orderDetailId": 101101,
+      "productId": 101101,
+      "productName": "감자 10kg",
+      "sellerStoreName": "윤일이네 감자 농장",
+      "orderDetailPrice": 36000,
+      "orderDetailCnt": 1,
+      "productThumbnail": "https://cdn.pixabay.com/photo/2024/11/04/10/55/cat-8884818_1280.jpg"
+    },
+    {
+      "orderDetailId": 112112,
+      "productId": 112112,
+      "productName": "딸기 10kg",
+      "sellerStoreName": "윤일이네 딸기 농장",
+      "orderDetailPrice": 5600,
+      "orderDetailCnt": 5,
+      "productThumbnail": "https://cdn.pixabay.com/photo/2024/11/04/10/55/cat-8884818_1280.jpg"
+    }
+  ],
+  "status": 200,
+  "statusText": "OK"
+}
