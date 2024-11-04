@@ -34,7 +34,7 @@ const BirthdaySelectForm = ({ options, placeholder, unit }: IBirthdaySelectFormP
     } else if (unit === '일') {
       setSelectedOption(myPetBirthday.day ?? null);
     }
-  }, []);
+  }, [myPetBirthday]);
 
   return (
     <S.BirthdayDropdownContainer onClick={toggleDropdown}>
