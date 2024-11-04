@@ -30,10 +30,9 @@ const Label = styled.label`
 
 const CustomCheckbox = styled.input`
   display: inline-block;
-  width: 20px; /* 체크박스 크기 */
-  height: 20px; /* 체크박스 크기 */
-  margin-right: 8px; /* label과의 여백 */
-  background-image: url('체크 안된 상태의 이미지.png');
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
   background-size: cover;
   border: 1.5px solid ${PETPICK_COLORS.GRAY[400]};
   border-radius: 0.25rem;

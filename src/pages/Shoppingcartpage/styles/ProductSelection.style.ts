@@ -23,10 +23,12 @@ export const DeleteButton = styled.button`
   border-radius: 6px;
   padding: 0 12px;
   height: 32px;
+  cursor: ${(props) => (props ? props.cursor : 'none')};
 `;
 export const SelectText = styled.div`
   margin-left: 6px;
   align-self: center;
+  color: ${(props) => (props.color ? props.color : 'none')};
 `;
 export const SelectBox = styled.div`
   display: flex;

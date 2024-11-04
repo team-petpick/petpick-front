@@ -1,3 +1,4 @@
+export { default as Alert } from './Alert';
 export { default as GoogleLogin } from './GoogleLogin';
 export { default as LikeFill } from './LikeFill';
 export { default as PetpickLogo } from './PetpickLogo';
