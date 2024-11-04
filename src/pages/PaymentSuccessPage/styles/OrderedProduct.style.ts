@@ -5,32 +5,40 @@ import styled from 'styled-components';
 export const OrderedProductWrapper = styled.div`
   width: 80vw;
   padding: 24px;
-  background-color: ${PETPICK_COLORS.GRAY[100]};
   display: flex;
+  align-items: center;
+  justify-content: space-between; /* 각 요소를 양쪽 끝에 맞추기 */
+  gap: 10px; /* 요소 간의 간격 조절 */
 `;
 
 export const OrderedProductImage = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 12px;
   background-color: ${PETPICK_COLORS.GRAY[200]};
-`;
+  margin: 0 auto; /* Center the image on smaller screens */
 
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+`;
 export const OrderedProductInfo = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  margin-left: 16px;
   padding: 0 32px;
-  justify-content: space-between;
+  justify-content: space-between; /* 각 텍스트 정렬 맞추기 */
 `;
 export const ProductNamePriceDiscountWrapper = styled.div`
-  width: 50%;
   display: flex;
   flex-direction: row;
-  gap: 30%;
+  justify-content: space-between; /* 각 텍스트 정렬 맞추기 */
+  width: 100%;
+  gap: 100px;
 `;
+
 export const OrderedProductSeller = styled.p`
   ${TextStyles.subText.smallM}
   color: ${PETPICK_COLORS.GRAY[500]};

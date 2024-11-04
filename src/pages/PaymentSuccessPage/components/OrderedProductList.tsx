@@ -1,14 +1,19 @@
 import * as S from '../styles/OrderedProduct.style';
+import { IOrderDetail } from '@types';
 
-const OrderedProductList = () => {
+interface IOrderedProductListProps {
+  orderDetail: IOrderDetail;
+}
+
+const OrderedProductList = ({ orderDetail }: IOrderedProductListProps) => {
   return (
     <S.OrderedProductWrapper>
-      <S.OrderedProductImage src={'../../../assets/png/cat.png'} />
+      <S.OrderedProductImage src={orderDetail.productThumbnail} />
       <S.OrderedProductInfo>
         <S.ProductNamePriceDiscountWrapper>
           <div>
-            <S.OrderedProductSeller>윤일이네 블루베리 농장</S.OrderedProductSeller>
-            <S.OrderedProductName>윤일이가 좋아하는 랜덤 게임</S.OrderedProductName>
+            <S.OrderedProductSeller>{orderDetail.sellerStoreName}</S.OrderedProductSeller>
+            <S.OrderedProductName>{orderDetail.productName}</S.OrderedProductName>
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', gap: '10vw', alignItems: 'center' }}>
             <div>
@@ -19,7 +24,7 @@ const OrderedProductList = () => {
             </div>
           </div>
         </S.ProductNamePriceDiscountWrapper>
-        <div style={{ display: 'flex', flexDirection: 'row', gap: '10vw' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '30vw' }}>
           <div>
             <S.OrderedProductInfoText>1개</S.OrderedProductInfoText>
           </div>

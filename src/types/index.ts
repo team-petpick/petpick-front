@@ -47,3 +47,28 @@ export interface IAddressInfo {
 export interface ITitleProps {
   titleText: string;
 }
+
+export interface IOrderDetail {
+  orderDetailId: number;
+  productId: number;
+  productName: string;
+  sellerStoreName: string;
+  orderDetailPrice: number;
+  orderDetailCnt: number;
+  productThumbnail: string;
+}
+
+export interface IOrder {
+  ordersId: number;
+  ordersPrice: number;
+  orderCreateAt: string;
+  ordersStatus: OrderStatus;
+  orderDetails: IOrderDetail[];
+}
+
+export enum OrderStatus {
+  ORDER_CONFIRM = 'ORDER_CONFIRM',
+  ORDER_CANCEL = 'ORDER_CANCEL',
+  SHIPPING = 'SHIPPING',
+  SHIPPED = 'SHIPPED',
+}

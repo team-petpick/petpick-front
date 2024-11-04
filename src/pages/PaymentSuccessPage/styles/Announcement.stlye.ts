@@ -8,6 +8,7 @@ export const SuccessTextContainerStyle = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 100px;
 `;
 
 export const SuccessText = styled.h1`
