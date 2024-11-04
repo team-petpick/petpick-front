@@ -1,48 +1,6 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-
-const DropdownContainer = styled.div`
-  position: relative;
-  width: 155.181px;
-  height: 48px;
-  border-radius: 6px;
-  border: 2px solid var(--Blue-300, #848ac4);
-  background: rgba(217, 217, 217, 0);
-  cursor: pointer;
-`;
-
-const DropdownHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-  height: 100%;
-  font-size: 16px;
-  color: #333;
-`;
-
-const DropdownList = styled.ul`
-  position: absolute;
-  top: 50px; // DropdownContainer height와 간격 조정
-  width: 100%;
-  border: 2px solid var(--Blue-300, #848ac4);
-  border-radius: 6px;
-  background: white;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  z-index: 1000;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-const DropdownItem = styled.li`
-  padding: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f0f0f0;
-  }
-`;
+import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
+import * as S from '../../../styles/registerMyPetFirst.style';
+import { useEffect, useState } from 'react';
 
 interface IBirthdaySelectFormProps {
   options: number[];
@@ -51,28 +9,48 @@ interface IBirthdaySelectFormProps {
 }
 
 const BirthdaySelectForm = ({ options, placeholder, unit }: IBirthdaySelectFormProps) => {
+  const { myPetBirthday, setMyPetInfo, setMyPetBirthday } = useMyPetInfoStore();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleOptionClick = (option: number) => {
-    setSelectedOption(option);
+    if (unit === '년') {
+      setMyPetInfo({ petAge: new Date().getFullYear() - option });
+      setMyPetBirthday({ year: option });
+    } else if (unit === '월') {
+      setMyPetBirthday({ month: option });
+    } else if (unit === '일') {
+      setMyPetBirthday({ day: option });
+    }
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    if (unit === '년') {
+      setSelectedOption(myPetBirthday.year ?? null);
+    } else if (unit === '월') {
+      setSelectedOption(myPetBirthday.month ?? null);
+    } else if (unit === '일') {
+      setSelectedOption(myPetBirthday.day ?? null);
+    }
+  }, []);
+
   return (
-    <DropdownContainer onClick={toggleDropdown}>
-      <DropdownHeader>{selectedOption ? selectedOption + unit : placeholder}</DropdownHeader>
+    <S.BirthdayDropdownContainer onClick={toggleDropdown}>
+      <S.BirthdayDropdownHeader isEmpty={selectedOption === null}>
+        {selectedOption ? selectedOption + unit : placeholder}
+      </S.BirthdayDropdownHeader>
       {isOpen && (
-        <DropdownList style={{ maxHeight: '180px', overflowY: 'auto' }}>
+        <S.BirthdayDropdownList style={{ maxHeight: '180px', overflowY: 'auto' }}>
           {options.map((option, index) => (
-            <DropdownItem key={index} onClick={() => handleOptionClick(option)}>
+            <S.BirthdayDropdownItem key={index} onClick={() => handleOptionClick(option)}>
               {option} {unit}
-            </DropdownItem>
+            </S.BirthdayDropdownItem>
           ))}
-        </DropdownList>
+        </S.BirthdayDropdownList>
       )}
-    </DropdownContainer>
+    </S.BirthdayDropdownContainer>
   );
 };
 

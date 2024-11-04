@@ -4,15 +4,16 @@ import * as S from '../../styles/button.style';
 interface IButtonProps extends IButtonStatus {
   buttonName: string;
   onClick?: () => void;
-  width?: string;
+  style?: React.CSSProperties;
 }
-const Button = ({ width, onClick, buttonDirection, isActive, buttonName }: IButtonProps) => {
+const Button = ({ style, onClick, buttonDirection, isActive, buttonName }: IButtonProps) => {
   return (
     <S.ButtonWrapper
-      style={{ width }}
+      style={style}
       onClick={onClick}
       buttonDirection={buttonDirection}
       isActive={isActive}
+      disabled={!isActive}
     >
       {buttonName}
     </S.ButtonWrapper>

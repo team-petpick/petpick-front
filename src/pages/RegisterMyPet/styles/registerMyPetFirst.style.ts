@@ -141,7 +141,7 @@ export const ThirdComponentWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 60px;
 `;
 
 export const BreedSelectForm = styled.form`
@@ -236,4 +236,48 @@ export const BreedSelectWrapper = styled.div`
   flex-direction: column;
   gap: 8px;
   box-sizing: border-box;
+`;
+
+export const BirthdayDropdownContainer = styled.div`
+  position: relative;
+  width: 155px;
+  height: 48px;
+  border-radius: 6px;
+  border: 2px solid ${PETPICK_COLORS.BLUE[300]};
+  background: rgba(217, 217, 217, 0);
+  cursor: pointer;
+`;
+
+export const BirthdayDropdownHeader = styled.div<{ isEmpty: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  height: 100%;
+  font-size: 16px;
+  color: #333;
+  color: ${(props) => (props.isEmpty ? PETPICK_COLORS.GRAY[400] : PETPICK_COLORS.GRAY[900])};
+`;
+
+export const BirthdayDropdownList = styled.ul`
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  border: 2px solid var(--Blue-300, #848ac4);
+  border-radius: 6px;
+  background: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+export const BirthdayDropdownItem = styled.li`
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
 `;

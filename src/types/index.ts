@@ -1,5 +1,6 @@
 export type ProductType = 'DOG' | 'CAT' | 'ETC';
 export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
 export interface IPurchaseOptionsProps {
   productInfo: IProductInfo;
   productCount: number;

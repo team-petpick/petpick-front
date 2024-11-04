@@ -23,7 +23,11 @@ const RightSide = () => {
     }
   };
   const handlePrevButtonClick = () => {
-    navigate(ROUTE.REGISTERMYPET.replace(':step', (Number(step) - 1).toString()));
+    if (Number(step) === 1 && userId) {
+      navigate(ROUTE.MYPAGE.replace(':userId', userId));
+    } else {
+      navigate(ROUTE.REGISTERMYPET.replace(':step', (Number(step) - 1).toString()));
+    }
   };
 
   return (
@@ -35,16 +39,18 @@ const RightSide = () => {
       </div>
       <ButtonWrapper>
         <Button
+          style={{ width: '18vw', maxWidth: '250px' }}
           onClick={handleNextButtonClick}
           buttonDirection="next"
           buttonName={step === '3' ? '완료' : '다음'}
           isActive={isNextButtonActive}
         />
         <Button
+          style={{ width: '18vw', maxWidth: '250px' }}
           onClick={handlePrevButtonClick}
           buttonDirection="prev"
           buttonName="이전"
-          isActive={false}
+          isActive={true}
         />
       </ButtonWrapper>
     </RightSideWrapper>
@@ -68,5 +74,4 @@ const ButtonWrapper = styled.div`
   gap: 10px;
   position: absolute;
   bottom: 48px;
-  width: 100%;
 `;

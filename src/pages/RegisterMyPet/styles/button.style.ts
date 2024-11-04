@@ -18,7 +18,6 @@ export const ButtonWrapper = styled.button<IButtonProps>`
       : PETPICK_COLORS.BLUE[200]};
   visibility: ${(props) =>
     props.buttonDirection === 'prev' && !props.isActive ? 'hidden' : 'visible'};
-  disabled: ${(props) => props.isActive && 'disabled'};
   width: 250px;
   height: 48px;
   padding: 8px 7px;
@@ -33,6 +32,8 @@ export const ButtonWrapper = styled.button<IButtonProps>`
       props.buttonDirection === 'next'
         ? props.isActive && PETPICK_COLORS.BLUE[400]
         : PETPICK_COLORS.BLUE[300]};
+
+    cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   }
   ${TextStyles.subTitle.largeR}
 `;

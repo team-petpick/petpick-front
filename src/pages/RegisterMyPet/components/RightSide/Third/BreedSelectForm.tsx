@@ -2,15 +2,16 @@ import { useState } from 'react';
 import dogSpecies from '../../../../../assets/dogSpecies.json';
 import { Breed } from '@types';
 import * as S from '../../../styles/registerMyPetFirst.style';
+import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 
 interface IBreedSelectFormProps {
   setIsNextButtonActive: (value: boolean) => void;
 }
 
 const BreedSelectForm = ({ setIsNextButtonActive }: IBreedSelectFormProps) => {
+  const { myPetInfo, setMyPetInfo } = useMyPetInfoStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredBreeds, setFilteredBreeds] = useState(dogSpecies.dogList);
-  const [selectedBreed, setSelectedBreed] = useState<string | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +25,7 @@ const BreedSelectForm = ({ setIsNextButtonActive }: IBreedSelectFormProps) => {
   };
 
   const handleBreedClick = (breed: Breed) => {
-    setSelectedBreed(breed.animal_group2_name);
+    setMyPetInfo({ petSpecies: breed.animal_group2_name });
     setIsOpenDropdown(false);
     setIsNextButtonActive(true);
   };
@@ -37,10 +38,10 @@ const BreedSelectForm = ({ setIsNextButtonActive }: IBreedSelectFormProps) => {
     <S.BreedSelectForm>
       {!isOpenDropdown ? (
         <S.OpenDropdownButton
-          isBreedSelected={selectedBreed !== null}
+          isBreedSelected={myPetInfo.petSpecies !== null}
           onClick={handleDropdownClick}
         >
-          {selectedBreed === null ? '우리 아이 견종을 알려주세요' : selectedBreed}
+          {myPetInfo.petSpecies === null ? '우리 아이 견종을 알려주세요' : myPetInfo.petSpecies}
         </S.OpenDropdownButton>
       ) : (
         <S.SearchInput

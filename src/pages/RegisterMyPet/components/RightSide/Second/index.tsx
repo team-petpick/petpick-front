@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
 import * as S from '../../../styles/registerMyPetFirst.style';
+import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 
 interface ISecondProps {
   setIsNextButtonActive: (value: boolean) => void;
 }
 
 const Second = ({ setIsNextButtonActive }: ISecondProps) => {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [name, setName] = useState<string>('');
+  const { myPetInfo, setMyPetInfo } = useMyPetInfoStore();
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files?.[0];
     if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
       const reader = new FileReader();
       reader.onload = () => {
-        setImageSrc(reader.result as string);
+        setMyPetInfo({ imageSrc: reader.result as string });
       };
       reader.readAsDataURL(file);
     } else {
@@ -24,16 +23,10 @@ const Second = ({ setIsNextButtonActive }: ISecondProps) => {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length <= 10) {
-      setName(value);
-      setIsNextButtonActive(name.length > 0);
+      setMyPetInfo({ petName: value });
+      setIsNextButtonActive(value.length > 0);
     }
   };
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      console.log(window.innerWidth);
-    });
-  }, []);
 
   return (
     <S.SecondComponentWrapper>
@@ -41,7 +34,7 @@ const Second = ({ setIsNextButtonActive }: ISecondProps) => {
         <S.Title>우리 아이 사진을 등록해주세요</S.Title>
         <S.InputWrapper>
           <S.ImageWrapper>
-            {imageSrc ? <S.Image src={imageSrc} alt="미리보기" /> : null}
+            {myPetInfo.imageSrc ? <S.Image src={myPetInfo.imageSrc} alt="미리보기" /> : null}
           </S.ImageWrapper>
           <S.UploadButton htmlFor="fileUpload">사진 등록하기</S.UploadButton>{' '}
           <S.FileInput
@@ -57,7 +50,7 @@ const Second = ({ setIsNextButtonActive }: ISecondProps) => {
           우리 아이 이름을 입력해주세요 <S.RequiredMark>*</S.RequiredMark>
         </S.Title>
         <S.NameInput
-          value={name}
+          value={myPetInfo.petName || ''}
           onChange={handleNameChange}
           placeholder="1~10자 이내로 입력해주세요"
         />
