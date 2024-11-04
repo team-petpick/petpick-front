@@ -4,17 +4,19 @@ import { ROUTE } from '@constants/ROUTE';
 
 export const LoggedOutMenu = () => {
   const navigate = useNavigate();
-  const handleClickNavigateToLoginPage = () => {
-    navigate(ROUTE.LOGINPAGE);
-  };
-  const handleClickNavigateToSignUpPage = () => {
-    navigate(ROUTE.SIGNUPPAGE);
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
   };
   return (
     <>
-      <S.LoginButtonText onClick={handleClickNavigateToLoginPage}>로그인</S.LoginButtonText>
+      <S.LoginButtonText onClick={() => handleNavigation(ROUTE.LOGINPAGE)}>
+        로그인
+      </S.LoginButtonText>
       <S.TextBox>|</S.TextBox>
-      <S.LoginButtonText onClick={handleClickNavigateToSignUpPage}>회원가입</S.LoginButtonText>
+      <S.LoginButtonText onClick={() => handleNavigation(ROUTE.SIGNUPPAGE)}>
+        회원가입
+      </S.LoginButtonText>
     </>
   );
 };

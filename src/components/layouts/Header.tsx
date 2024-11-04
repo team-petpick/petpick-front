@@ -1,19 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
 import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
-import { useEffect, useState } from 'react';
 import * as S from './styles/Header.style';
 import { LoggedInMenu } from './LoggedInMenu';
 import { LoggedOutMenu } from './LoggedOutMenu';
+import { useAuthStatus } from '@hooks/useAuthStatus';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const isLoggedIn = useAuthStatus();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    setIsLoggedIn(!!accessToken);
-  }, []);
 
   const handleNavigation = (path: string, requireLogin = false) => {
     if (requireLogin && !isLoggedIn) {
@@ -23,13 +18,15 @@ const Header = () => {
     navigate(path);
   };
 
-  // 비회원 로직
+  const handleLogout = () => {
+    handleNavigation('/');
+  };
+
   return (
     <S.HeaderLayout>
       <S.HeaderContainer>
         <S.LoginMenuContainer>
-          {/* 로그인 시 사용자이름 나타내기 */}
-          {isLoggedIn ? <LoggedInMenu setIsLoggedIn={setIsLoggedIn} /> : <LoggedOutMenu />}
+          {isLoggedIn ? <LoggedInMenu onLogOut={handleLogout} /> : <LoggedOutMenu />}
         </S.LoginMenuContainer>
         <S.ContentContainer>
           <button onClick={() => handleNavigation('/')}>

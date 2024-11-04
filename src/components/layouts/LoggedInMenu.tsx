@@ -3,17 +3,17 @@ import * as S from './styles/Header.style';
 import { logout } from '@apis/auth/logout';
 
 interface ILoggedInMenuProps {
-  setIsLoggedIn: (value: boolean) => void;
+  onLogOut: () => void;
 }
-export const LoggedInMenu = ({ setIsLoggedIn }: ILoggedInMenuProps) => {
+export const LoggedInMenu = ({ onLogOut }: ILoggedInMenuProps) => {
   const { userName, clearUserName } = useUserStore();
 
   const handleLogout = async () => {
     try {
       await logout();
       localStorage.removeItem('accessToken');
-      setIsLoggedIn(false);
       clearUserName();
+      onLogOut();
     } catch (error) {
       console.log(error, '로그아웃 실패');
     }
