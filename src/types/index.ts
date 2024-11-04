@@ -1,5 +1,6 @@
 export type ProductType = 'DOG' | 'CAT' | 'ETC';
 export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
 export interface IPurchaseOptionsProps {
   productInfo: IProductInfo;
   productCount: number;
@@ -47,3 +48,10 @@ export interface IAddressInfo {
 export interface ITitleProps {
   titleText: string;
 }
+
+export type Breed = {
+  animal_group1_id: number;
+  animal_group2_id: number;
+  animal_group2_name: string;
+  breed_size_name: string;
+};

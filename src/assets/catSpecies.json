@@ -1,0 +1,532 @@
+{
+  "catList": [
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 100,
+      "animal_group2_name": "세상에 하나뿐인 믹스",
+      "breed_size_name": ""
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 315,
+      "animal_group2_name": "네벨룽",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 65,
+      "animal_group2_name": "노르웨이 숲고양이",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 93,
+      "animal_group2_name": "데본렉스",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 316,
+      "animal_group2_name": "돈스코이",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 317,
+      "animal_group2_name": "라가머핀",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 318,
+      "animal_group2_name": "라이코이",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 319,
+      "animal_group2_name": "라팜",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 388,
+      "animal_group2_name": "라팜 쇼트헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 66,
+      "animal_group2_name": "랙돌",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 67,
+      "animal_group2_name": "러시안 블루",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 68,
+      "animal_group2_name": "맹크스",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 95,
+      "animal_group2_name": "먼치킨",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 389,
+      "animal_group2_name": "먼치킨 롱헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 69,
+      "animal_group2_name": "메인쿤",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 314,
+      "animal_group2_name": "미뉴엣 (나폴레옹)",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 387,
+      "animal_group2_name": "미뉴엣 롱헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 320,
+      "animal_group2_name": "민스킨",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 70,
+      "animal_group2_name": "발리니즈",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 89,
+      "animal_group2_name": "뱅갈",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 71,
+      "animal_group2_name": "버만",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 72,
+      "animal_group2_name": "버미즈",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 321,
+      "animal_group2_name": "버밀라",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 73,
+      "animal_group2_name": "봄베이",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 390,
+      "animal_group2_name": "브라질리안 쇼트헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 322,
+      "animal_group2_name": "브리티시 롱헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 74,
+      "animal_group2_name": "브리티시 쇼트헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 75,
+      "animal_group2_name": "사바나",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 323,
+      "animal_group2_name": "샤트룩스",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 76,
+      "animal_group2_name": "샴",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 324,
+      "animal_group2_name": "세렝게티",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 325,
+      "animal_group2_name": "셀커크 렉스",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 391,
+      "animal_group2_name": "셀커크 렉스 롱헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 326,
+      "animal_group2_name": "소말리",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 392,
+      "animal_group2_name": "소코케",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 327,
+      "animal_group2_name": "스노우 슈",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 401,
+      "animal_group2_name": "스코티시 스트레이트",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 77,
+      "animal_group2_name": "스코티시 폴드",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 394,
+      "animal_group2_name": "스코티시 폴드 롱헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 393,
+      "animal_group2_name": "스키프 토이 밥테일",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 78,
+      "animal_group2_name": "스핑크스",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 91,
+      "animal_group2_name": "시베리안 고양이",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 79,
+      "animal_group2_name": "싱가푸라",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 328,
+      "animal_group2_name": "싸이프러스 아프로디테",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 329,
+      "animal_group2_name": "아라비안 마우",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 92,
+      "animal_group2_name": "아메리칸 밥테일",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 395,
+      "animal_group2_name": "아메리칸 밥테일 쇼트헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 80,
+      "animal_group2_name": "아메리칸 쇼트헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 330,
+      "animal_group2_name": "아메리칸 와이어헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 331,
+      "animal_group2_name": "아메리칸 컬",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 81,
+      "animal_group2_name": "아비시니안",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 90,
+      "animal_group2_name": "엑조틱 쇼트헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 332,
+      "animal_group2_name": "오리엔탈 고양이",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 333,
+      "animal_group2_name": "오스트레일리안 미스트",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 334,
+      "animal_group2_name": "오시캣",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 335,
+      "animal_group2_name": "오호스 아즐레스",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 396,
+      "animal_group2_name": "오호스 아즐레스 롱헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 397,
+      "animal_group2_name": "요크 초콜릿",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 336,
+      "animal_group2_name": "유러피안 버미즈",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 337,
+      "animal_group2_name": "유러피안 숏헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 338,
+      "animal_group2_name": "이그조틱 고양이",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 339,
+      "animal_group2_name": "이집션 마우",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 340,
+      "animal_group2_name": "자바니즈",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 341,
+      "animal_group2_name": "재패니즈 밥테일",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 342,
+      "animal_group2_name": "저먼 렉스",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 343,
+      "animal_group2_name": "쵸시",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 344,
+      "animal_group2_name": "카오마니",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 345,
+      "animal_group2_name": "캘리포니아 스팽글드",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 346,
+      "animal_group2_name": "컬러포인트 숏헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 82,
+      "animal_group2_name": "코니시 렉스",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 83,
+      "animal_group2_name": "코랏",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 84,
+      "animal_group2_name": "코리안 쇼트헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 347,
+      "animal_group2_name": "쿠리리안 밥테일",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 348,
+      "animal_group2_name": "킴릭",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 398,
+      "animal_group2_name": "타이",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 85,
+      "animal_group2_name": "터키시 앙고라",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 349,
+      "animal_group2_name": "터키시반",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 350,
+      "animal_group2_name": "토이거",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 351,
+      "animal_group2_name": "통키니즈",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 86,
+      "animal_group2_name": "페르시안",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 352,
+      "animal_group2_name": "피터볼드",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 353,
+      "animal_group2_name": "픽시 밥",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 399,
+      "animal_group2_name": "픽시 밥 롱헤어",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 87,
+      "animal_group2_name": "하바나 브라운",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 354,
+      "animal_group2_name": "하이랜더",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 406,
+      "animal_group2_name": "하이랜드 폴드",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 88,
+      "animal_group2_name": "히말라얀",
+      "breed_size_name": "소형"
+    },
+    {
+      "animal_group1_id": 2,
+      "animal_group2_id": 97,
+      "animal_group2_name": "기타",
+      "breed_size_name": ""
+    }
+  ]
+}
