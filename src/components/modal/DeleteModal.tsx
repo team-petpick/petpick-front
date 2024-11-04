@@ -1,88 +1,77 @@
-import ReactModal, { Styles } from 'react-modal';
-import * as S from './DeleteModal.style';
-import { Minus, Plus } from '@assets/svg/index';
-import Test3 from '@assets/svg/test-3.jpg';
-
-interface IBasicModalProps {
+import { PETPICK_COLORS } from '@styles/colors';
+import BasicModal from './BasicModal';
+import styled from 'styled-components';
+import { TextStyles } from '@styles/textStyles';
+interface DeleteModalProps {
   isOpen: boolean;
-  onRequestClose: () => void;
+  setIsOpen: (isOpen: boolean) => void;
+  message: string;
+  confirmText: string;
+  cancelText: string;
+  onConfirm: () => void;
+  imageSrc?: boolean;
+}
+export default function DeleteModal({
+  isOpen,
+  setIsOpen,
+  message,
+  confirmText,
+  cancelText,
+  onConfirm,
+}: DeleteModalProps) {
+  return (
+    <BasicModal isOpen={isOpen} title={'안녕'} setIsOpen={setIsOpen} width="340px" height="303px">
+      <Block.FlexBox>
+        <Text>{message}</Text>
+        <Block.FlexBox>
+          <CloseButton onClick={() => setIsOpen(false)}>
+            <Text> {cancelText}</Text>
+          </CloseButton>
+          <CartButton onClick={onConfirm}>
+            <Text>{confirmText}</Text>
+          </CartButton>
+        </Block.FlexBox>
+      </Block.FlexBox>
+    </BasicModal>
+  );
 }
 
-const BasicModal = ({ isOpen, onRequestClose }: IBasicModalProps) => {
-  return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      style={customStyles}
-      ariaHideApp={false} // 접근성 관련 설정
-    >
-      <S.ModalContainer>
-        <S.ProductInfo>
-          <S.ProductImage>
-            <img src={Test3} />
-          </S.ProductImage>
-          <S.ProductTitle>[가게명] 상품명</S.ProductTitle>
-        </S.ProductInfo>
-        <S.ProductPriceContainer>
-          <S.ProductPriceWrapper>
-            <S.ProductTitleText>[삼도갈비] 마늘 양념 소갈비살 260g</S.ProductTitleText>
-            <S.PriceCountContainer>
-              <S.ProductPrice>
-                <S.DiscountPrice>13,940원</S.DiscountPrice>
-                <S.FixedPrice>14,990원</S.FixedPrice>
-              </S.ProductPrice>
-              <S.ProductCountContainer>
-                <S.ProductCountButton>
-                  <Minus width="20px" height="20px" />
-                </S.ProductCountButton>
-                <S.ProductCount>5</S.ProductCount>
-                <S.ProductCountButton>
-                  <Plus width="20px" height="20px" />
-                </S.ProductCountButton>
-              </S.ProductCountContainer>
-            </S.PriceCountContainer>
-          </S.ProductPriceWrapper>
-        </S.ProductPriceContainer>
-        <S.TotalPriceContainer>
-          <S.TotalPriceText>합계</S.TotalPriceText>
-          <S.TotalPrice>
-            10,900<S.TotalWon>원</S.TotalWon>
-          </S.TotalPrice>
-        </S.TotalPriceContainer>
-        <S.ButtonContainer>
-          <S.CloseButton onClick={onRequestClose}>취소</S.CloseButton>
-          <S.CartButton>장바구니 담기</S.CartButton>
-        </S.ButtonContainer>
-      </S.ModalContainer>
-    </ReactModal>
-  );
+const Block = {
+  FlexBox: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  `,
 };
+const Text = styled.div`
+  white-space: pre-line;
+  text-align: center;
+  padding: 0 30px;
+`;
 
-export default BasicModal;
-
-// 모달 스타일 설정
-const customStyles: Styles = {
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transform: 'translate(-50%, -50%)', // 모달을 중앙에 위치
-    width: '440px',
-    height: 'fit-content',
-    padding: '0',
-    border: 'none',
-    borderRadius: '12px',
-    background: '#fff',
-    minHeight: '330px',
-    overflow: 'auto',
-  },
-};
+const CloseButton = styled.button`
+  padding: 0px 10px;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  height: 56px;
+  border-radius: 3px;
+  color: ${PETPICK_COLORS.GRAY[800]};
+  background-color: ${PETPICK_COLORS.GRAY[0]};
+  ${TextStyles.body.mediumM};
+  border: 1px solid ${PETPICK_COLORS.GRAY[200]};
+`;
+const CartButton = styled.button`
+  padding: 0px 10px;
+  margin-left: 4px;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  height: 56px;
+  border-radius: 3px;
+  color: rgb(255, 255, 255);
+  background-color: ${PETPICK_COLORS.BLUE[300]};
+  ${TextStyles.body.mediumM};
+  border: 0px none;
+`;

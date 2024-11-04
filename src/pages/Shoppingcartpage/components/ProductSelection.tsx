@@ -3,15 +3,28 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import ProductSelectItem from './ProductSelectItem';
 import CheckboxLabal from './CheckboxLabal';
+import useModal from '@components/modal/useModal';
+import DeleteModal from '@components/modal/DeleteModal';
 const ProductSelection = () => {
+  const deleteModal = useModal();
+
   return (
     <Wrapper>
+      <DeleteModal
+        isOpen={deleteModal.isOpen}
+        setIsOpen={deleteModal.setIsOpen}
+        imageSrc={false}
+        message={'선택한 상품을 삭제하시겠습니까 ?'}
+        cancelText={'취소'}
+        confirmText={'확인'}
+        onConfirm={deleteModal.openModal}
+      />
       <SelectContainer>
         <SelectBox>
           <CheckboxLabal text="text" />
           <SelectText> 전체 선택 </SelectText>
         </SelectBox>
-        <DeleteButton>
+        <DeleteButton onClick={deleteModal.openModal}>
           <DeleteButtonText>선택삭제</DeleteButtonText>
         </DeleteButton>
       </SelectContainer>
