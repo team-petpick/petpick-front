@@ -15,23 +15,12 @@ const Header = () => {
     setIsLoggedIn(!!accessToken);
   }, []);
 
-  const handleHomeClick = () => {
-    navigate('/');
-  };
-  const handleLMyPageButtonClick = () => {
-    // 비회원 로직
-    if (!isLoggedIn) {
+  const handleNavigation = (path: string, requireLogin = false) => {
+    if (requireLogin && !isLoggedIn) {
       alert('로그인 사용자만 이용할 수 있는 기능입니다.');
-    } else {
-      navigate(ROUTE.MYPAGE.replace(':userId', '1'));
+      return;
     }
-  };
-  const handleCartButtonClick = () => {
-    if (isLoggedIn) {
-      navigate(ROUTE.SHOPPINGCART.replace(':userId', '1'));
-    } else {
-      alert('로그인 사용자만 이용할 수 있는 기능입니다.');
-    }
+    navigate(path);
   };
 
   // 비회원 로직
@@ -43,7 +32,7 @@ const Header = () => {
           {isLoggedIn ? <LoggedInMenu setIsLoggedIn={setIsLoggedIn} /> : <LoggedOutMenu />}
         </S.LoginMenuContainer>
         <S.ContentContainer>
-          <button onClick={handleHomeClick}>
+          <button onClick={() => handleNavigation('/')}>
             <PetpickLogo width="115" height="100" />
           </button>
           <S.SearchContainer>
@@ -53,10 +42,12 @@ const Header = () => {
             </S.SearchButton>
           </S.SearchContainer>
           <S.ButtonContainer>
-            <button onClick={handleCartButtonClick}>
+            <button
+              onClick={() => handleNavigation(ROUTE.SHOPPINGCART.replace(':userId', '1'), true)}
+            >
               <Cart width="30" height="30" />
             </button>
-            <button onClick={handleLMyPageButtonClick}>
+            <button onClick={() => handleNavigation(ROUTE.MYPAGE.replace(':userId', '1'), true)}>
               <User width="30" height="30" />
             </button>
           </S.ButtonContainer>
