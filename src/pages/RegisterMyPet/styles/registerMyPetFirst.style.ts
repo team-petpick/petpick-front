@@ -147,6 +147,7 @@ export const ThirdComponentWrapper = styled.div`
 export const BreedSelectForm = styled.form`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 export const OpenDropdownButton = styled.button<{ isBreedSelected: boolean }>`
@@ -200,6 +201,9 @@ export const DropdownList = styled.ul`
   overflow-y: auto;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  position: absolute;
+  top: 50px;
+  background-color: white;
   box-sizing: border-box;
 `;
 

@@ -5,12 +5,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
 import Second from './Second';
 import Third from './Third';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 
 const RightSide = () => {
   const navigate = useNavigate();
   const { step, userId } = useParams();
   const [isNextButtonActive, setIsNextButtonActive] = useState<boolean>(false);
+  const { myPetInfo } = useMyPetInfoStore();
   const handleNextButtonClick = () => {
     if (Number(step) === 3) {
       if (userId) {
@@ -29,6 +31,10 @@ const RightSide = () => {
       navigate(ROUTE.REGISTERMYPET.replace(':step', (Number(step) - 1).toString()));
     }
   };
+
+  useEffect(() => {
+    console.log(myPetInfo);
+  }, [myPetInfo]);
 
   return (
     <RightSideWrapper>
