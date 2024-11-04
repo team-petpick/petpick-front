@@ -7,7 +7,8 @@ import useModal from '@components/modal/useModal';
 import DeleteModal from '@components/modal/DeleteModal';
 const ProductSelection = () => {
   const deleteModal = useModal();
-
+  const selectCount = 1;
+  const totalCount = 1;
   return (
     <Wrapper>
       <DeleteModal
@@ -23,6 +24,9 @@ const ProductSelection = () => {
         <SelectBox>
           <CheckboxLabal text="text" />
           <SelectText> 전체 선택 </SelectText>
+          <SelectText>
+            {selectCount}/{totalCount}
+          </SelectText>
         </SelectBox>
         <DeleteButton onClick={deleteModal.openModal}>
           <DeleteButtonText>선택삭제</DeleteButtonText>
