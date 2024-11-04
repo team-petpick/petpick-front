@@ -5,8 +5,9 @@ import styled from 'styled-components';
 interface BasicModalProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  title: string;
-  width: string;
+  title?: string;
+  maxWidth?: string;
+  width?: string;
   height: string;
   children: ReactNode;
   showCloseIcon?: boolean;
@@ -15,6 +16,7 @@ export default function BasicModal({
   isOpen,
   setIsOpen,
   title,
+  maxWidth,
   width,
   height,
   children,
@@ -41,17 +43,20 @@ export default function BasicModal({
       <ReactModal
         style={{
           overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
             zIndex: '999',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           },
           content: {
             outline: 'none',
-            margin: '0 auto',
             marginTop: '220px',
             padding: 0,
+            maxWidth,
             width,
             height,
-            borderRadius: '20px',
+            borderRadius: '12px',
             boxShadow: '3px 3px 20px 0 rgba(0, 0, 0, 0.25)',
             overflowY: 'scroll',
             backgroundColor: 'white',
@@ -79,9 +84,10 @@ export default function BasicModal({
 
 const Style = {
   Wrapper: styled.div`
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 20px 10px;
+    padding: 24px;
     overflow-y: scroll;
     &::-webkit-scrollbar {
       display: none;
@@ -92,8 +98,6 @@ const Style = {
 const Block = {
   FlexBox: styled.div`
     display: flex;
-    padding: 0 20px 0 0;
-    justify-content: flex-end;
   `,
 };
 const Text = styled.div``;
