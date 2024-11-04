@@ -3,33 +3,20 @@ import { ROUTE } from '@constants/ROUTE';
 import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import { useEffect, useState } from 'react';
 import * as S from './styles/Header.style';
-import { useUserStore } from '@store/userStore';
-import { logout } from '@apis/auth/logout';
+import { LoggedInMenu } from './LoggedInMenu';
+import { LoggedOutMenu } from './LoggedOutMenu';
 
 const Header = () => {
-  // 로그인 상태 관리
-  const { userName } = useUserStore();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  // router 설정
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkLoginStatus = () => {
-      const accessToken = localStorage.getItem('accessToken');
-      setIsLoggedIn(!!accessToken);
-    };
-    checkLoginStatus();
-  }, [isLoggedIn]);
+    const accessToken = localStorage.getItem('accessToken');
+    setIsLoggedIn(!!accessToken);
+  }, []);
 
   const handleHomeClick = () => {
     navigate('/');
-  };
-  const handleClickNavigateToLoginPage = () => {
-    navigate(ROUTE.LOGINPAGE);
-  };
-  const handleClickNavigateToSignUpPage = () => {
-    navigate(ROUTE.SIGNUPPAGE);
   };
   const handleLMyPageButtonClick = () => {
     // 비회원 로직
@@ -46,16 +33,6 @@ const Header = () => {
       alert('로그인 사용자만 이용할 수 있는 기능입니다.');
     }
   };
-  const handleLogout = async () => {
-    try {
-      await logout();
-      localStorage.removeItem('accessToken');
-      setIsLoggedIn(false);
-      useUserStore.getState().clearUserName();
-    } catch (error) {
-      console.log(error, '로그아웃 실패');
-    }
-  };
 
   // 비회원 로직
   return (
@@ -63,21 +40,7 @@ const Header = () => {
       <S.HeaderContainer>
         <S.LoginMenuContainer>
           {/* 로그인 시 사용자이름 나타내기 */}
-          {isLoggedIn ? (
-            <>
-              <S.LoginButtonText>{userName}님</S.LoginButtonText>
-              <S.TextBox>|</S.TextBox>
-              <S.LoginButtonText onClick={handleLogout}>로그아웃</S.LoginButtonText>
-            </>
-          ) : (
-            <>
-              <S.LoginButtonText onClick={handleClickNavigateToLoginPage}>로그인</S.LoginButtonText>
-              <S.TextBox>|</S.TextBox>
-              <S.LoginButtonText onClick={handleClickNavigateToSignUpPage}>
-                회원가입
-              </S.LoginButtonText>
-            </>
-          )}
+          {isLoggedIn ? <LoggedInMenu setIsLoggedIn={setIsLoggedIn} /> : <LoggedOutMenu />}
         </S.LoginMenuContainer>
         <S.ContentContainer>
           <button onClick={handleHomeClick}>
