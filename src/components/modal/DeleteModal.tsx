@@ -2,6 +2,9 @@ import ReactModal, { Styles } from 'react-modal';
 import * as S from './DeleteModal.style';
 import { Minus, Plus } from '@assets/svg/index';
 import Test3 from '@assets/svg/test-3.jpg';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@constants/ROUTE';
+import { useUserStore } from '@store/userStore';
 
 interface IBasicModalProps {
   isOpen: boolean;
@@ -9,6 +12,13 @@ interface IBasicModalProps {
 }
 
 const BasicModal = ({ isOpen, onRequestClose }: IBasicModalProps) => {
+  const navigate = useNavigate();
+  const { userId } = useUserStore();
+  const handleClickCartButton = () => {
+    if (!userId) return;
+    const url = ROUTE.SHOPPINGCART.replace(':userId', userId.toString());
+    navigate(url);
+  };
   return (
     <ReactModal
       isOpen={isOpen}
@@ -51,7 +61,7 @@ const BasicModal = ({ isOpen, onRequestClose }: IBasicModalProps) => {
         </S.TotalPriceContainer>
         <S.ButtonContainer>
           <S.CloseButton onClick={onRequestClose}>취소</S.CloseButton>
-          <S.CartButton>장바구니 담기</S.CartButton>
+          <S.CartButton onClick={handleClickCartButton}>장바구니 담기</S.CartButton>
         </S.ButtonContainer>
       </S.ModalContainer>
     </ReactModal>
