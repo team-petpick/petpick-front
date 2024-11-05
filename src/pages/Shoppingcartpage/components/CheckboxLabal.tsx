@@ -2,12 +2,20 @@ import { PETPICK_COLORS } from '@styles/colors';
 import styled from 'styled-components';
 interface ICheckboxLabelProps {
   text: string;
+  checked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-const CheckboxLabel = ({ text }: ICheckboxLabelProps) => {
+const CheckboxLabel = ({ text, checked, onChange }: ICheckboxLabelProps) => {
   return (
     <CheckboxContainer>
       <Label htmlFor={text}>
-        <CustomCheckbox type="checkbox" id={text} name={text} />
+        <CustomCheckbox
+          type="checkbox"
+          id={text}
+          name={text}
+          checked={checked}
+          onChange={onChange}
+        />
       </Label>
     </CheckboxContainer>
   );

@@ -5,13 +5,23 @@ import { Minus, Plus } from '@assets/svg/index';
 import Test3 from '@assets/svg/test-3.jpg';
 import styled from 'styled-components';
 import CheckboxLabal from './CheckboxLabal';
-const ProductSelectItem = () => {
+import { ChangeEvent } from 'react';
+interface IDataListItem {
+  id: number;
+  data: string;
+}
+interface IProductSelectItemProps {
+  product: IDataListItem;
+  isChecked: boolean;
+  onCheck: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+const ProductSelectItem: React.FC<IProductSelectItemProps> = ({ product, isChecked, onCheck }) => {
   return (
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
-          <CheckboxLabal text="text" />
-          <SelectText> 상품명 </SelectText>
+          <CheckboxLabal text="text" checked={isChecked} onChange={onCheck} />
+          <SelectText> {product.id} </SelectText>
         </SelectBox>
         <SelectButton>
           <Delete width="20px" height="20px" />

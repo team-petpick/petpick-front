@@ -2,6 +2,9 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 
+interface DeleteButtonProps {
+  cursor?: string;
+}
 export const SubText = styled.span`
   color: ${PETPICK_COLORS.GRAY[800]};
   font-size: 18px;
@@ -18,12 +21,12 @@ export const ProductFooter = styled.button`
 export const DeleteButtonText = styled.span`
   ${TextStyles.subText.smallSB}
 `;
-export const DeleteButton = styled.button`
+export const DeleteButton = styled.button<DeleteButtonProps>`
   border: 1px solid ${PETPICK_COLORS.GRAY[300]};
   border-radius: 6px;
   padding: 0 12px;
   height: 32px;
-  cursor: ${(props) => (props ? props.cursor : 'none')};
+  cursor: ${(props) => props.cursor || 'default'};
 `;
 export const SelectText = styled.div`
   margin-left: 6px;

@@ -3,35 +3,51 @@ import ProductSelectItem from './ProductSelectItem';
 import CheckboxLabal from './CheckboxLabal';
 import useModal from '@components/modal/useModal';
 import DeleteModal from '@components/modal/DeleteModal';
-// import { useState } from 'react';
 import EmptyCart from './EmptyCart';
 import { PETPICK_COLORS } from '@styles/colors';
+import { useCallback, useState } from 'react';
+interface IDataListItem {
+  id: number;
+  data: string;
+}
 const ProductSelection = () => {
   const deleteModal = useModal();
-  const checkItems = [1, 2];
-  // const [checkItems, setCheckItems] = useState([]);
-  // // 체크박스 단일 선택
-  // const handleSingleCheck = (checked, id) => {
-  //   if (checked) {
-  //     setCheckItems((prev) => [...prev, id]);
-  //   } else {
-  //     setCheckItems(checkItems.filter((el) => el !== id));
-  //   }
-  // };
-  // // 체크박스 전체 선택
-  // const handleAllCheck = (checked) => {
-  //   if (checked) {
-  //     // 전체 선택 클릭 시 데이터의 모든 아이템(id)를 담은 배열로 checkItems 상태 업데이트
-  //     const idArray = [];
-  //     data.forEach((el) => idArray.push(el.id));
-  //     setCheckItems(idArray);
-  //   } else {
-  //     // 전체 선택 해제 시 checkItems 를 빈 배열로 상태 업데이트
-  //     setCheckItems([]);
-  //   }
-  // };
-  const selectCount = 1;
-  const totalCount = 1;
+  const dataLists: IDataListItem[] = [
+    { id: 1, data: 'aaa' },
+    { id: 2, data: 'bbb' },
+    { id: 3, data: 'ccc' },
+  ];
+  const [checkedList, setCheckedLists] = useState<number[]>([]);
+
+  // 전체 체크 클릭 시 발생하는 함수
+  const onCheckedAll = useCallback(
+    (checked: boolean) => {
+      if (checked) {
+        setCheckedLists(dataLists.map((list) => list.id)); // 모든 항목의 id를 추가
+      } else {
+        setCheckedLists([]); // 선택 해제 시 빈 배열로 초기화
+      }
+    },
+    [dataLists],
+  );
+
+  // 개별 체크 클릭 시 발생하는 함수
+  const onCheckedElement = useCallback(
+    (checked: boolean, id: number) => {
+      if (checked) {
+        setCheckedLists([...checkedList, id]);
+      } else {
+        setCheckedLists(checkedList.filter((el) => el !== id));
+      }
+    },
+    [checkedList],
+  );
+
+  // 전체 선택 체크박스 onChange 핸들러
+  const handleAllCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onCheckedAll(e.target.checked);
+  };
+
   return (
     <S.Wrapper>
       <DeleteModal
@@ -43,17 +59,17 @@ const ProductSelection = () => {
         confirmText={'확인'}
         onConfirm={deleteModal.openModal}
       />
-      {checkItems.length != 0 ? (
+      {checkedList.length != 0 ? (
         <S.SelectContainer>
           <S.SelectBox>
             <CheckboxLabal
               text="text"
-              // onChange={(e: KeyboardEvent) => handleAllCheck(e.target.checked)}
-              // checked={checkItems.length === data.length ? true : false}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onCheckedAll(e.target.checked)}
+              checked={checkedList.length === dataLists.length && dataLists.length > 0}
             />
             <S.SelectText>전체 선택</S.SelectText>
             <S.SelectText>
-              {selectCount}/{totalCount}
+              {checkedList.length}/{dataLists.length}
             </S.SelectText>
           </S.SelectBox>
           <S.DeleteButton onClick={deleteModal.openModal}>
@@ -63,21 +79,21 @@ const ProductSelection = () => {
       ) : (
         <S.SelectContainer>
           <S.SelectBox>
-            <CheckboxLabal text="text" />
+            <CheckboxLabal text="text" checked={false} onChange={handleAllCheckChange} />
             <S.SelectText
-              color={checkItems.length === 0 ? PETPICK_COLORS.GRAY[500] : PETPICK_COLORS.GRAY[800]}
+              color={checkedList.length === 0 ? PETPICK_COLORS.GRAY[500] : PETPICK_COLORS.GRAY[800]}
             >
               전체 선택
             </S.SelectText>
             <S.SelectText
-              color={checkItems.length === 0 ? PETPICK_COLORS.GRAY[500] : PETPICK_COLORS.GRAY[800]}
+              color={checkedList.length === 0 ? PETPICK_COLORS.GRAY[500] : PETPICK_COLORS.GRAY[800]}
             >
               0/0
             </S.SelectText>
           </S.SelectBox>
-          <S.DeleteButton disabled={checkItems.length === 0}>
+          <S.DeleteButton disabled={checkedList.length === 0}>
             <S.DeleteButtonText
-              color={checkItems.length === 0 ? PETPICK_COLORS.GRAY[500] : PETPICK_COLORS.GRAY[800]}
+              color={checkedList.length === 0 ? PETPICK_COLORS.GRAY[500] : PETPICK_COLORS.GRAY[800]}
             >
               선택삭제
             </S.DeleteButtonText>
@@ -85,9 +101,18 @@ const ProductSelection = () => {
         </S.SelectContainer>
       )}
 
-      {checkItems.length != 0 ? (
+      {dataLists.length > 0 ? (
         <S.ProductList>
-          <ProductSelectItem />
+          {dataLists.map((product) => (
+            <ProductSelectItem
+              key={product.id}
+              product={product}
+              isChecked={checkedList.includes(product.id)}
+              onCheck={(e: React.ChangeEvent<HTMLInputElement>) =>
+                onCheckedElement((e.target as HTMLInputElement).checked, product.id)
+              }
+            />
+          ))}
           <S.ProductFooter>
             <S.SubText>가격</S.SubText>
           </S.ProductFooter>
