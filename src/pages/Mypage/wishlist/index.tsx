@@ -3,17 +3,20 @@ import WishListItem from './components/WishListItem';
 import { ProductInfo } from '@assets/mock';
 import { useEffect, useState } from 'react';
 import { getWishLists } from '@apis/wish';
+import { AxiosError } from 'axios';
 
 const WishList = () => {
-  const [wishList, setWishList] = useState([]);
+  const [, setWishList] = useState([]);
   const ProductInfos = ProductInfo;
   useEffect(() => {
     const loadWishProducts = async () => {
       try {
         const response = await getWishLists();
-        console.log(response);
+        const wishLists = response.data;
+        setWishList(wishLists);
       } catch (error) {
-        console.error(error.message); // 에러가 발생했을 때 로그 출력
+        const axiosError = error as AxiosError;
+        console.error(axiosError.message);
       }
     };
     loadWishProducts();
