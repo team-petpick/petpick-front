@@ -2,17 +2,24 @@ import { IProductInfo } from '@types';
 import * as S from '../styles/WishListItem.style';
 import Button from './Button';
 import { deleteWishListItem } from '@apis/wish';
+import { AxiosError } from 'axios';
 
 interface IProductProps {
   productInfo: IProductInfo;
-  // removeProduct: (productId: number) => void;
+  removeProduct: (productId: number) => void;
 }
-const WishListItem = ({ productInfo }: IProductProps) => {
+const WishListItem = ({ productInfo, removeProduct }: IProductProps) => {
   const handleDelete = async (productId: number) => {
     try {
-      await deleteWishListItem(productId);
+      console.log(Number(productId));
+      await deleteWishListItem(Number(productId));
+      removeProduct(productId);
     } catch (error) {
-      console.error('상품을 삭제하는 중 오류가 발생했습니다.', error);
+      const axiosError = error as AxiosError;
+      console.error(axiosError.message);
+      if (axiosError.response) {
+        console.error(axiosError.response); // 서버가 제공하는 추가 정보 확인
+      }
     }
   };
   return (
