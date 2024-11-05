@@ -2,8 +2,17 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 import ShoppingAddress from './ShoppingAddress';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@constants/ROUTE';
 
 const OrderInfo = () => {
+  const navigate = useNavigate();
+  // const { userId } = useUserStore();
+  const userId = 1; //임시 데이터
+
+  const handlePaymentPageClick = () => {
+    navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userId.toString()));
+  };
   return (
     <Container>
       <Wrapper>
@@ -32,7 +41,7 @@ const OrderInfo = () => {
             </PaymentPriceContainer>
           </body>
         </TotalPriceContainer>
-        <PaymentButton>결제하기</PaymentButton>
+        <PaymentButton onClick={handlePaymentPageClick}>결제하기</PaymentButton>
       </Wrapper>
     </Container>
   );
