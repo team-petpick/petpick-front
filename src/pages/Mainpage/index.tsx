@@ -5,14 +5,10 @@ import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@apis';
-import { ISingleProductInfo } from '@types';
+import { IAllProductInfo } from '@types';
 
 const MainPage = () => {
-  const [productInfo, setProductInfo] = useState<ISingleProductInfo>({
-    content: [],
-    likes: { likesCount: 0 },
-    productShare: 0,
-  });
+  const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
   const [type, setType] = useState<string | null>(null);
   const [category, setCategory] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +36,7 @@ const MainPage = () => {
     setCategory(category);
   };
 
-  console.log(productInfo);
+  if (!productInfo) return null;
   return (
     <Layout>
       <Category
