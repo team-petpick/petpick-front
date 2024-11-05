@@ -52,6 +52,9 @@ export const SellerName = styled.div`
 export const ProductName = styled.div`
   ${TextStyles.body.mediumM};
   color: ${PETPICK_COLORS.GRAY[800]};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const ProductInfo = styled.div`
@@ -64,6 +67,10 @@ export const ProductOriginalPrice = styled.div`
   ${TextStyles.subText.smallR};
   color: ${PETPICK_COLORS.GRAY[400]};
   text-decoration: line-through;
+`;
+export const ProductOriginalPricePlaceholder = styled.div`
+  margin-top: 5px;
+  height: 20px;
 `;
 export const ProductSalePrice = styled.div`
   display: flex;

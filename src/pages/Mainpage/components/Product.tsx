@@ -1,9 +1,9 @@
 import { Like, LikeFill, ShoppingCart } from '@assets/svg';
 import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import { IProductInfo } from '@types';
 import { useState } from 'react';
 import DeleteModal from '../../../components/modal/DeleteModal';
+import { IProductInfo } from '@types';
 
 interface IProductProps {
   productInfo: IProductInfo;
@@ -22,7 +22,7 @@ const Product = ({ productInfo }: IProductProps) => {
   };
   return (
     <S.ProductContainer>
-      <S.ProductImage src={productInfo.productImageUrl} />
+      <S.ProductImage src={productInfo.productImg?.productImgUrl} />
       <S.LikeCartButtonWrapper>
         {isLiked ? (
           <LikeFill onClick={() => setIsLiked(false)} width={30} height={30} />
@@ -34,18 +34,21 @@ const Product = ({ productInfo }: IProductProps) => {
         </S.AddShoppingCartButton>
       </S.LikeCartButtonWrapper>
       <S.ProductInfo>
-        <S.SellerName> {productInfo.sellerStoreName}</S.SellerName>
-        <S.ProductName>{productInfo.productTitle}</S.ProductName>
-        <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
+        <S.SellerName> {productInfo.seller.sellerStoreName}</S.SellerName>
+        <S.ProductName>{productInfo.productName}</S.ProductName>
+        {productInfo.productSale ? (
+          <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
+        ) : (
+          <S.ProductOriginalPricePlaceholder />
+        )}
         <S.ProductSalePrice>
-          <S.ProductSalePercent>{productInfo.productSale}%</S.ProductSalePercent>
+          {productInfo.productSale ? (
+            <S.ProductSalePercent>{productInfo.productSale}%</S.ProductSalePercent>
+          ) : null}
           <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
         </S.ProductSalePrice>
       </S.ProductInfo>
-      {/* 모달 영역 */}
-
-      {isOpen && <DeleteModal isOpen={isOpen} setIsOpen={setIsOpen} />}
-      {/* <DeleteModal isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+      {isOpen && <DeleteModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} />}
     </S.ProductContainer>
   );
 };

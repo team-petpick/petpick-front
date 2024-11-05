@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { orderPeriods } from '@constants';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
+import { ProductInfo } from '@assets/mock';
 
 const OrderHistory = () => {
   const [activePeriod, setAcrivePeriod] = useState<number>(0);
@@ -14,118 +15,37 @@ const OrderHistory = () => {
     {
       orderDate: '2024.07.12',
       orderNum: '12341234',
-      productInfos: [
-        {
-          productId: 1,
-          sellerId: 1,
-          categoryId: 1,
-          productTitle: '강아지가 먹을 수 있는 닭고기',
-          productCnt: 1,
-          productPrice: 10000,
-          productType: 'DOG',
-          productStatus: 'ON',
-          productSale: 10,
-          sellerStoreName: '윤일이네 농장',
-          productImageUrl:
-            'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-        },
-        {
-          productId: 1,
-          sellerId: 1,
-          categoryId: 1,
-          productTitle: '강아지가 먹을 수 있는 닭고기',
-          productCnt: 1,
-          productPrice: 10000,
-          productType: 'DOG',
-          productStatus: 'ON',
-          productSale: 10,
-          sellerStoreName: '윤일이네 농장',
-          productImageUrl:
-            'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-        },
-        {
-          productId: 1,
-          sellerId: 1,
-          categoryId: 1,
-          productTitle: '강아지가 먹을 수 있는 닭고기',
-          productCnt: 1,
-          productPrice: 10000,
-          productType: 'DOG',
-          productStatus: 'ON',
-          productSale: 10,
-          sellerStoreName: '윤일이네 농장',
-          productImageUrl:
-            'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-        },
-        {
-          productId: 1,
-          sellerId: 1,
-          categoryId: 1,
-          productTitle: '강아지가 먹을 수 있는 닭고기',
-          productCnt: 1,
-          productPrice: 10000,
-          productType: 'DOG',
-          productStatus: 'ON',
-          productSale: 10,
-          sellerStoreName: '윤일이네 농장',
-          productImageUrl:
-            'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-        },
-      ],
+      productInfos: ProductInfo,
     },
     {
-      orderDate: '2024.06.15',
+      orderDate: '2024.07.12',
       orderNum: '12341234',
-      productInfos: [
-        {
-          productId: 1,
-          sellerId: 1,
-          categoryId: 1,
-          productTitle: '강아지가 먹을 수 있는 닭고기',
-          productCnt: 1,
-          productPrice: 10000,
-          productType: 'DOG',
-          productStatus: 'ON',
-          productSale: 10,
-          sellerStoreName: '윤일이네 농장',
-          productImageUrl:
-            'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-        },
-        {
-          productId: 1,
-          sellerId: 1,
-          categoryId: 1,
-          productTitle: '강아지가 먹을 수 있는 닭고기',
-          productCnt: 1,
-          productPrice: 10000,
-          productType: 'DOG',
-          productStatus: 'ON',
-          productSale: 10,
-          sellerStoreName: '윤일이네 농장',
-          productImageUrl:
-            'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-        },
-      ],
+      productInfos: ProductInfo,
     },
     {
-      orderDate: '2024.05.12',
+      orderDate: '2024.07.12',
       orderNum: '12341234',
-      productInfos: [
-        {
-          productId: 1,
-          sellerId: 1,
-          categoryId: 1,
-          productTitle: '강아지가 먹을 수 있는 닭고기',
-          productCnt: 1,
-          productPrice: 10000,
-          productType: 'DOG',
-          productStatus: 'ON',
-          productSale: 10,
-          sellerStoreName: '윤일이네 농장',
-          productImageUrl:
-            'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-        },
-      ],
+      productInfos: ProductInfo,
+    },
+    {
+      orderDate: '2024.07.12',
+      orderNum: '12341234',
+      productInfos: ProductInfo,
+    },
+    {
+      orderDate: '2024.07.12',
+      orderNum: '12341234',
+      productInfos: ProductInfo,
+    },
+    {
+      orderDate: '2024.07.12',
+      orderNum: '12341234',
+      productInfos: ProductInfo,
+    },
+    {
+      orderDate: '2024.07.12',
+      orderNum: '12341234',
+      productInfos: ProductInfo,
     },
   ];
   const handlePeriodChange = (index: number) => {

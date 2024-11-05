@@ -10,5 +10,6 @@ export const ROUTE = {
   CHECKOUTPAGE: '/checkout',
   SUCCESSPAGE: '/success',
   FAILPAGE: '/fail',
+  REGISTERMYPET: '/registermypet/:userId/:step',
   NOTFOUND: '*',
-};
+} as const;

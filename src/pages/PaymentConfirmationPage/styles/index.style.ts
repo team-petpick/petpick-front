@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
+
 export const Price = styled.span`
   color: ${PETPICK_COLORS.GRAY[800]};
   ${TextStyles.body.mediumM};
 `;
+
 export const TotalPriceTitle = styled.span`
   color: ${PETPICK_COLORS.GRAY[600]};
   ${TextStyles.body.mediumR};
 `;
+
 export const TotalPriceContainer = styled.div`
   background: ${PETPICK_COLORS.GRAY[200]};
   width: 100%;
@@ -25,7 +28,7 @@ export const TotalPrice = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export const PaymentButton = styled.button`
+export const PaymentButton = styled.button<{ isClicked: boolean }>`
   border: 2px solid
     ${({ isClicked }) =>
       isClicked ? `${PETPICK_COLORS.BLUE[300]}` : `${PETPICK_COLORS.GRAY[400]}`};

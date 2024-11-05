@@ -1,37 +1,24 @@
-import ReactModal from 'react-modal';
+import ReactModal, { Styles } from 'react-modal';
 import * as S from './DeleteModal.style';
 import { Minus, Plus } from '@assets/svg/index';
 import Test3 from '@assets/svg/test-3.jpg';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@constants/ROUTE';
+import { useUserStore } from '@store/userStore';
 
-const BasicModal = ({ isOpen, onRequestClose, children }) => {
-  // 모달 스타일 설정
-  const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    content: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transform: 'translate(-50%, -50%)', // 모달을 중앙에 위치
-      width: '440px',
-      height: 'fit-content',
-      padding: '0',
-      border: 'none',
-      borderRadius: '12px',
-      background: '#fff',
-      // maxHeight: '90vh',
-      minHeight: '330px',
-      overflow: 'auto',
-    },
+interface IBasicModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+}
+
+const BasicModal = ({ isOpen, onRequestClose }: IBasicModalProps) => {
+  const navigate = useNavigate();
+  const { userId } = useUserStore();
+  const handleClickCartButton = () => {
+    if (!userId) return;
+    const url = ROUTE.SHOPPINGCART.replace(':userId', userId.toString());
+    navigate(url);
   };
-
   return (
     <ReactModal
       isOpen={isOpen}
@@ -40,7 +27,6 @@ const BasicModal = ({ isOpen, onRequestClose, children }) => {
       ariaHideApp={false} // 접근성 관련 설정
     >
       <S.ModalContainer>
-        {children}
         <S.ProductInfo>
           <S.ProductImage>
             <img src={Test3} />
@@ -75,7 +61,7 @@ const BasicModal = ({ isOpen, onRequestClose, children }) => {
         </S.TotalPriceContainer>
         <S.ButtonContainer>
           <S.CloseButton onClick={onRequestClose}>취소</S.CloseButton>
-          <S.CartButton>장바구니 담기</S.CartButton>
+          <S.CartButton onClick={handleClickCartButton}>장바구니 담기</S.CartButton>
         </S.ButtonContainer>
       </S.ModalContainer>
     </ReactModal>
@@ -83,3 +69,30 @@ const BasicModal = ({ isOpen, onRequestClose, children }) => {
 };
 
 export default BasicModal;
+
+// 모달 스타일 설정
+const customStyles: Styles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  content: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transform: 'translate(-50%, -50%)', // 모달을 중앙에 위치
+    width: '440px',
+    height: 'fit-content',
+    padding: '0',
+    border: 'none',
+    borderRadius: '12px',
+    background: '#fff',
+    minHeight: '330px',
+    overflow: 'auto',
+  },
+};

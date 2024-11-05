@@ -1,166 +1,59 @@
 import Layout from '@layouts/Layout';
 import Category from './components/Category';
 import Product from './components/Product';
-import { IProductInfo } from '@types';
 import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
+import { useEffect, useState } from 'react';
+import { getProducts } from '@apis';
+import { IAllProductInfo } from '@types';
 
 const MainPage = () => {
-  const ProductInfo: IProductInfo[] = [
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-    {
-      productId: 1,
-      sellerId: 1,
-      categoryId: 1,
-      productTitle: '강아지가 먹을 수 있는 닭고기',
-      productCnt: 1,
-      productPrice: 10000,
-      productType: 'DOG',
-      productStatus: 'ON',
-      productSale: 10,
-      sellerStoreName: '윤일이네 농장',
-      productImageUrl: 'https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_960_720.jpg',
-    },
-  ];
+  const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
+  const [type, setType] = useState<string | null>(null);
+  const [category, setCategory] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadProducts = async () => {
+    try {
+      const data = await getProducts(type, category);
+      setProductInfo(data);
+      setError(null);
+    } catch (error) {
+      setError((error as Error).message);
+      setProductInfo({ ...productInfo, content: [] });
+    }
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, [type, category]);
+
+  const handleAnimalTypeChange = (type: string | null) => {
+    setType(type);
+  };
+
+  const handleCategoryChange = (category: number | null) => {
+    setCategory(category);
+  };
+
+  if (!productInfo) return null;
   return (
     <Layout>
-      <Category />
-      <ProductFilter />
+      <Category
+        onAnimalTypeChange={handleAnimalTypeChange}
+        onCategoryChange={handleCategoryChange}
+      />
+      <ProductFilter productInfo={productInfo} />
       <Body>
-        <ProductList>
-          {ProductInfo.map((product) => (
-            <Product productInfo={product} />
-          ))}
-        </ProductList>
+        {error ? (
+          <div>{error}</div>
+        ) : (
+          <ProductList>
+            {productInfo.content.map((product) => (
+              <Product key={product.productId} productInfo={product} />
+            ))}
+          </ProductList>
+        )}
       </Body>
     </Layout>
   );
