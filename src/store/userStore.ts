@@ -1,12 +1,24 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface IUserStore {
   userId: number | null;
+  userName: string | null;
   setUserId: (id: number) => void;
-  clearUserId: () => void;
+  setUserName: (name: string) => void;
+  clearUserName: () => void;
 }
-export const useUserStore = create<IUserStore>((set) => ({
-  userId: 1,
-  setUserId: (id) => set({ userId: id }),
-  clearUserId: () => set({ userId: null }), //로그아웃 시에 userId 초기화
-}));
+export const useUserStore = create(
+  persist<IUserStore>(
+    (set) => ({
+      userId: null,
+      userName: null,
+      setUserId: (id) => set({ userId: id }),
+      setUserName: (name) => set({ userName: name }),
+      clearUserName: () => set({ userName: null }),
+    }),
+    {
+      name: 'userStore',
+    },
+  ),
+);
