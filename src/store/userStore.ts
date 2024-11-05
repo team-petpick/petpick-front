@@ -9,8 +9,8 @@ interface IUserStore {
 export const useUserStore = create(
   persist<IUserStore>(
     (set) => ({
-      userName: null,
-      setUserName: (name) => set({ userName: name }),
+      userName: '',
+      setUserName: (name) => set({ userName: name + '님' }),
       clearUserName: () => set({ userName: null }),
     }),
     {

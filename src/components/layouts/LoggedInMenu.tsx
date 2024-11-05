@@ -13,7 +13,7 @@ export const LoggedInMenu = ({ onLogOut }: ILoggedInMenuProps) => {
   };
   return (
     <>
-      <S.LoginButtonText>{userName}님</S.LoginButtonText>
+      <S.LoginButtonText>{userName}</S.LoginButtonText>
       <S.TextBox>|</S.TextBox>
       <S.LoginButtonText onClick={onLogoutClick}>로그아웃</S.LoginButtonText>
     </>
