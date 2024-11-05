@@ -6,6 +6,7 @@ interface IUserStore {
   setUserName: (name: string) => void;
   clearUserName: () => void;
 }
+
 export const useUserStore = create(
   persist<IUserStore>(
     (set) => ({

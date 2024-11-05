@@ -1,13 +1,17 @@
+import { addCommaToPrice } from '@utils/addCommaToPrice';
 import * as S from '../styles/PurchaseOptions.style';
 import { Minus, Plus } from '@assets/svg';
+import { IPurchaseOptionsProps } from '@types';
+
 export const PurchaseOptions = ({
   productInfo,
   productCount,
   handlePlusClick,
   handleMinusClick,
-}) => {
-  // const isThrough = true;
-  // const isDiscounted = true;
+}: IPurchaseOptionsProps) => {
+  const discountedPrice = addCommaToPrice(
+    productInfo.productPrice * (1 - productInfo.productSale / 100),
+  );
   return (
     <S.PurchaseContainer>
       <S.InfoContainer>
@@ -16,7 +20,7 @@ export const PurchaseOptions = ({
           <S.InfoText>
             <S.SelectLayout>
               <div>
-                [{productInfo.sellerStoreName}] {productInfo.productTitle}
+                [{productInfo.seller.sellerStoreName}] {productInfo.productName}
               </div>
               <S.SelectContainer>
                 <S.IncreaseButton>
@@ -29,11 +33,13 @@ export const PurchaseOptions = ({
                   </button>
                 </S.IncreaseButton>
                 <S.SelectPriceContainer>
-                  <S.PriceSpan isThrough={true} isDiscounted={false}>
-                    {productInfo.productPrice}원
-                  </S.PriceSpan>
+                  {productInfo.productSale !== 0 && (
+                    <S.PriceSpan isThrough={true} isDiscounted={true}>
+                      {discountedPrice}
+                    </S.PriceSpan>
+                  )}
                   <S.PriceSpan isThrough={false} isDiscounted={false}>
-                    7,560원
+                    {productInfo.productPrice}원
                   </S.PriceSpan>
                 </S.SelectPriceContainer>
               </S.SelectContainer>

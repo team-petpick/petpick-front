@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import * as S from '../styles/Category.style';
-import { anymalType } from '@constants';
+import { animalType } from '@constants';
 import { categories } from '@constants';
 
-const Category = () => {
+interface ICategoryProps {
+  onAnimalTypeChange: (type: string | null) => void;
+  onCategoryChange: (category: number | null) => void;
+}
+
+const Category = ({ onAnimalTypeChange, onCategoryChange }: ICategoryProps) => {
   const [showCategory, setShowCategory] = useState<number | null>(null);
   const [activeButton, setActiveButton] = useState<number | null>(null);
   const [activeCategoryButton, setActiveCategoryButton] = useState<number | null>(null);
@@ -12,24 +17,28 @@ const Category = () => {
     if (activeButton === index) {
       setActiveButton(null);
       setShowCategory(null);
+      onAnimalTypeChange(null);
     } else {
       setActiveButton(index);
       setShowCategory(index + 1);
+      onAnimalTypeChange(animalType[index].type);
     }
   };
 
   const handleClickCategory = (index: number) => {
     if (activeCategoryButton === index) {
       setActiveCategoryButton(null);
+      onCategoryChange(null);
     } else {
       setActiveCategoryButton(index);
+      onCategoryChange(index);
     }
   };
 
   return (
     <S.Wrapper>
       <S.AnimalTypeWrapper>
-        {anymalType.map((type, index) => (
+        {animalType.map((type, index) => (
           <S.AnimalTypeButton
             key={type.name}
             onClick={() => handleClickAnimalType(index)}

@@ -12,10 +12,10 @@ const ProductListItem = ({ productInfo }: IProductProps) => {
   );
   return (
     <S.Wrapper>
-      <S.ProductImage src={productInfo.productImageUrl} />
+      <S.ProductImage src={productInfo.productImg.productImgUrl} />
       <S.DescriptionWrapper>
-        <S.SellerName>{productInfo.sellerStoreName}</S.SellerName>
-        <S.ProductName>{productInfo.productTitle}</S.ProductName>
+        <S.SellerName>{productInfo.seller.sellerStoreName}</S.SellerName>
+        <S.ProductName>{productInfo.productName}</S.ProductName>
         <S.PriceWrapper>
           <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
           <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
