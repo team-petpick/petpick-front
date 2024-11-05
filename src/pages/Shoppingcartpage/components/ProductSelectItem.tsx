@@ -21,16 +21,18 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
   const [quantity, setQuantity] = useState(productInfo.cartCnt);
   const salePrice = addCommaToPrice(productInfo.productPrice * (1 - productInfo.productSale / 100));
 
+  // 상품 수량 +
   const handleIncreaseClick = async () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
     try {
       await postCartItem(productInfo.productId, newQuantity);
     } catch (error) {
-      console.error('장바구니 api 호출 업데이트 실패:', error);
+      console.error('장바구니 POST api 호출 실패:', error);
     }
   };
 
+  // 상품 수량 -
   const handleDecreaseClick = async () => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
@@ -39,10 +41,11 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
       try {
         await postCartItem(productInfo.productId, newQuantity);
       } catch (error) {
-        console.error('Error updating cart item:', error);
+        console.error('장바구니 POST api 호출 실패:', error);
       }
     }
   };
+
   return (
     <ProductItem>
       <SelectWrapper>

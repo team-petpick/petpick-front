@@ -6,7 +6,7 @@ import DeleteModal from '@components/modal/DeleteModal';
 import EmptyCart from './EmptyCart';
 import { PETPICK_COLORS } from '@styles/colors';
 import { useCallback, useEffect, useState } from 'react';
-import { getCartItem } from '@apis/cart';
+import { deleteCartItem, getCartItem } from '@apis/cart';
 import { ICartProps } from '@types';
 
 const ProductSelection = () => {
@@ -25,6 +25,16 @@ const ProductSelection = () => {
   useEffect(() => {
     fetchGetCartItem();
   }, []);
+
+  // 장바구니 삭제 함수
+  const handleDeleteButtonClick = async () => {
+    try {
+      if (productInfo != null) await deleteCartItem(productInfo.productId);
+      deleteModal.setIsOpen(false); // 모달 닫기
+    } catch (error) {
+      console.log('장바구니 DELETE api 호출 실패', error);
+    }
+  };
 
   // 전체 체크 클릭 시 발생하는 함수
   const onCheckedAll = useCallback(
@@ -64,7 +74,7 @@ const ProductSelection = () => {
         message={'선택한 상품을 삭제하시겠습니까 ?'}
         cancelText={'취소'}
         confirmText={'확인'}
-        onConfirm={deleteModal.openModal}
+        onConfirm={handleDeleteButtonClick}
       />
       {checkedList.length != 0 ? (
         <S.SelectContainer>
