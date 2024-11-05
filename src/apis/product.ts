@@ -10,8 +10,17 @@ export const getProducts = async (
     ...(productType ? { productType } : {}),
     ...(category !== null && category !== 0 ? { category } : {}),
   };
+
   try {
-    const response = await instance.get('/products', { params });
+    console.log("params",params);
+
+    const response = await instance.get('/products', {
+      params: {
+        type: productType,
+        category: category === 0 ? null : category,
+      },
+    });
+
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;
