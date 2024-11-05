@@ -2,7 +2,7 @@ import instance from '@apis';
 
 export const logout = async () => {
   try {
-    await instance.post('/api/v1/auth/logout', null, {
+    await instance.post('/v1/auth/logout', null, {
       withCredentials: true,
     });
     localStorage.removeItem('accessToken');

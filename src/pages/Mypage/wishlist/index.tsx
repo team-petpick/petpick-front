@@ -1,13 +1,12 @@
 import * as S from './styles/WishList.style';
 import WishListItem from './components/WishListItem';
-// import { ProductInfo } from '@assets/mock';
 import { useEffect, useState } from 'react';
 import { getWishLists } from '@apis/wish';
 import { AxiosError } from 'axios';
 
 const WishList = () => {
   const [wishList, setWishList] = useState([]);
-  // const ProductInfos = ProductInfo;
+
   useEffect(() => {
     const loadWishProducts = async () => {
       try {
@@ -21,6 +20,10 @@ const WishList = () => {
     };
     loadWishProducts();
   }, []);
+
+  // const removeProductFromWishList = (productId: number) => {
+  //   setWishList((prevWishList) => prevWishList.filter((item) => item.id !== productId));
+  // };
   return (
     <S.Wrapper>
       <S.ContentWrapper>

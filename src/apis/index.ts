@@ -22,7 +22,7 @@ instance.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshResponse = await instance.post(
-          '/api/v1/auth/token',
+          '/v1/auth/token',
           {},
           {
             headers: {
@@ -47,16 +47,7 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-// instance.interceptors.response.use(
-//   (res) => res,
-//   async (error) => {
-//     const {config} = error;
-//     if (error.response?.status === 401) {
-//       const res = await instance.post('/api/v1/auth/token');
-//       localStorage.setItem('accessToken', res.data.access_token);
-//     }
-//   }
-// )
+
 export default instance;
 export * from './like';
 export * from './product';
