@@ -48,7 +48,13 @@ const Product = ({ productInfo }: IProductProps) => {
           <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
         </S.ProductSalePrice>
       </S.ProductInfo>
-      {isOpen && <DeleteModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} />}
+      {isOpen && (
+        <DeleteModal
+          productInfo={productInfo}
+          isOpen={isOpen}
+          onRequestClose={() => setIsOpen(false)}
+        />
+      )}
     </S.ProductContainer>
   );
 };
