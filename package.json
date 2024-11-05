@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "tsc -b && vite",
     "build": "tsc -b && vite build",
     "svgr": "npx @svgr/cli -d src/assets/svg --ignore-existing --typescript --no-dimensions public/svg",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rollup/plugin-json": "^6.1.0",
     "@types/react-modal": "^3.16.3",
     "axios": "^1.7.7",
     "prop-types": "^15.8.1",

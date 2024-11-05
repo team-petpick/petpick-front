@@ -23,7 +23,7 @@ const Product = ({ productInfo }: IProductProps) => {
   console.log(productInfo);
   return (
     <S.ProductContainer>
-      <S.ProductImage src={productInfo.productImageUrl} />
+      <S.ProductImage src={productInfo.productImg.productImgUrl} />
       <S.LikeCartButtonWrapper>
         {isLiked ? (
           <LikeFill onClick={() => setIsLiked(false)} width={30} height={30} />
@@ -49,10 +49,7 @@ const Product = ({ productInfo }: IProductProps) => {
           <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
         </S.ProductSalePrice>
       </S.ProductInfo>
-      {/* 모달 영역 */}
-
-      {isOpen && <DeleteModal isOpen={isOpen} setIsOpen={setIsOpen} />}
-      {/* <DeleteModal isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+      {isOpen && <DeleteModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} />}
     </S.ProductContainer>
   );
 };

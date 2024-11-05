@@ -18,7 +18,15 @@ export interface IProductInfoItem {
     sellerAddrDetail: string;
   };
 }
-
+export type ProductType = 'DOG' | 'CAT' | 'ETC';
+export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
+export interface IPurchaseOptionsProps {
+  productInfo: IProductInfo;
+  productCount: number;
+  handlePlusClick: () => void;
+  handleMinusClick: () => void;
+}
 export interface IProductInfo {
   content: IProductInfoItem[];
   likes: {
@@ -43,3 +51,10 @@ export interface IAddressInfo {
 export interface ITitleProps {
   titleText: string;
 }
+
+export type Breed = {
+  animal_group1_id: number;
+  animal_group2_id: number;
+  animal_group2_name: string;
+  breed_size_name: string;
+};

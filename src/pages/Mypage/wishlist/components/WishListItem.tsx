@@ -8,10 +8,10 @@ interface IProductProps {
 const WishListItem = ({ productInfo }: IProductProps) => {
   return (
     <S.Wrapper>
-      <S.ProductImage src={productInfo.productImageUrl} />
+      <S.ProductImage src={productInfo.productImg.productImgUrl} />
       <S.DescriptionWrapper>
-        <S.SellerName>{productInfo.sellerStoreName}</S.SellerName>
-        <S.ProductName>{productInfo.productTitle}</S.ProductName>
+        <S.SellerName>{productInfo.seller.sellerStoreName}</S.SellerName>
+        <S.ProductName>{productInfo.productName}</S.ProductName>
         <S.PriceWrapper>
           <S.ProductSalePercent>{productInfo.productSale}%</S.ProductSalePercent>
           <S.ProductSalePrice>{productInfo.productPrice}원</S.ProductSalePrice>

@@ -1,37 +1,14 @@
-import ReactModal from 'react-modal';
+import ReactModal, { Styles } from 'react-modal';
 import * as S from './DeleteModal.style';
 import { Minus, Plus } from '@assets/svg/index';
 import Test3 from '@assets/svg/test-3.jpg';
 
-const BasicModal = ({ isOpen, onRequestClose, children }) => {
-  // 모달 스타일 설정
-  const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    content: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transform: 'translate(-50%, -50%)', // 모달을 중앙에 위치
-      width: '440px',
-      height: 'fit-content',
-      padding: '0',
-      border: 'none',
-      borderRadius: '12px',
-      background: '#fff',
-      // maxHeight: '90vh',
-      minHeight: '330px',
-      overflow: 'auto',
-    },
-  };
+interface IBasicModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+}
 
+const BasicModal = ({ isOpen, onRequestClose }: IBasicModalProps) => {
   return (
     <ReactModal
       isOpen={isOpen}
@@ -40,7 +17,6 @@ const BasicModal = ({ isOpen, onRequestClose, children }) => {
       ariaHideApp={false} // 접근성 관련 설정
     >
       <S.ModalContainer>
-        {children}
         <S.ProductInfo>
           <S.ProductImage>
             <img src={Test3} />
@@ -83,3 +59,30 @@ const BasicModal = ({ isOpen, onRequestClose, children }) => {
 };
 
 export default BasicModal;
+
+// 모달 스타일 설정
+const customStyles: Styles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  content: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transform: 'translate(-50%, -50%)', // 모달을 중앙에 위치
+    width: '440px',
+    height: 'fit-content',
+    padding: '0',
+    border: 'none',
+    borderRadius: '12px',
+    background: '#fff',
+    minHeight: '330px',
+    overflow: 'auto',
+  },
+};

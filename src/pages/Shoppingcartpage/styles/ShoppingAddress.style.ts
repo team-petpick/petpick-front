@@ -1,7 +1,7 @@
 import { PETPICK_COLORS } from '@styles/colors';
 import styled from 'styled-components';
 
-export const Text = styled.span`
+export const Text = styled.span<{ isActive: boolean }>`
   display: flex;
   align-items: center;
 

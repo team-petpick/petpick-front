@@ -1,7 +1,6 @@
 import Layout from '@layouts/Layout';
 import Category from './components/Category';
 import Product from './components/Product';
-import { IProductInfo } from '@types';
 import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
