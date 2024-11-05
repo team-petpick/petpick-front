@@ -1,32 +1,21 @@
 import Layout from '@layouts/Layout';
-import { useState } from 'react';
-import WishList from './wishlist';
-import OrderHistory from './orderhistory';
+import MyInfo from './components/MyInfo';
+import MyPetInfo from './components/MyPetInfo';
+import FrequentlyUsedMenu from './components/FrequentlyUsedMenu';
+import * as S from './styles';
+import MyPageContent from './components/MyPageContent';
 
 const Mypage = () => {
-  const [selectedComponent, setSelectedComponent] = useState<'whishList' | 'orderHistory' | null>(
-    'whishList',
-  );
-
-  const handleSelectComponent = (component: 'whishList' | 'orderHistory') => {
-    setSelectedComponent(component);
-  };
-
   return (
-    <Layout>
-      <button
-        onClick={() => handleSelectComponent('whishList')}
-        style={{ width: '100px', border: '1px solid' }}
-      >
-        찜한 상품
-      </button>
-      <button
-        onClick={() => handleSelectComponent('orderHistory')}
-        style={{ width: '100px', border: '1px solid' }}
-      >
-        주문내역
-      </button>
-      <div>{selectedComponent === 'whishList' ? <WishList /> : <OrderHistory />}</div>
+    <Layout footerVisible={false}>
+      <S.MyPageWrapper>
+        <S.LeftSideBar>
+          <MyInfo />
+          <MyPetInfo />
+          <FrequentlyUsedMenu />
+        </S.LeftSideBar>
+        <MyPageContent />
+      </S.MyPageWrapper>
     </Layout>
   );
 };

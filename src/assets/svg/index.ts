@@ -1,5 +1,8 @@
+export { default as CatDefault } from './CatDefault';
+export { default as DogDefault } from './DogDefault';
 export { default as GoogleLogin } from './GoogleLogin';
 export { default as LikeFill } from './LikeFill';
+export { default as PetGroup } from './PetGroup';
 export { default as PetpickLogo } from './PetpickLogo';
 export { default as Bell } from './Bell';
 export { default as BottomArrow } from './BottomArrow';
@@ -11,6 +14,7 @@ export { default as Menubar } from './Menubar';
 export { default as Minus } from './Minus';
 export { default as Plus } from './Plus';
 export { default as RightArrow } from './RightArrow';
+export { default as SearchColor } from './SearchColor';
 export { default as Search } from './Search';
 export { default as ShoppingCart } from './ShoppingCart';
 export { default as TopArrow } from './TopArrow';

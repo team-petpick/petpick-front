@@ -1,3 +1,4 @@
+import { BANNER_HEIGHT } from '@constants/styles';
 import styled from 'styled-components';
 
 const Banner = () => {
@@ -22,5 +23,5 @@ const BannerText = styled.p`
   text-align: center;
   font-size: 14px;
   line-height: 42px;
-  height: 42px;
+  height: ${BANNER_HEIGHT}px;
 `;

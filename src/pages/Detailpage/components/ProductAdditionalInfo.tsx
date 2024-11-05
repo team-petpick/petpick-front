@@ -1,6 +1,10 @@
 import * as S from '../styles/ProductAdditionalInfo.style';
 
-export const ProductAdditionalInfo = ({ sellerStoreName }) => (
+interface IProductAdditionalInfoProps {
+  sellerStoreName: string;
+}
+
+export const ProductAdditionalInfo = ({ sellerStoreName }: IProductAdditionalInfoProps) => (
   <S.InfoList>
     <S.InfoListItem>
       <S.InfoTitle>배송</S.InfoTitle>

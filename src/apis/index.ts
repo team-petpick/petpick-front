@@ -58,3 +58,5 @@ instance.interceptors.response.use(
   },
 );
 export default instance;
+export * from './like';
+export * from './product';

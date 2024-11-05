@@ -1,20 +1,59 @@
+export type ProductType = 'DOG' | 'CAT' | 'ETC';
+export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
+
+// 상품 정보 데이터 타입
 export interface IProductInfo {
   productId: number;
-  sellerId: number;
-  categoryId: number;
-  productTitle: string;
-  productCnt: number;
+  productName: string;
+  seller: {
+    sellerId: number;
+    sellerStoreName: string;
+    sellerNumber: string;
+    sellerAddr: string;
+    sellerAddrDetail: string;
+  };
+  productStatus: 'ON' | 'OFF';
+  likes: {
+    likesCount: number;
+  };
   productPrice: number;
-  productType: ProductType;
-  productStatus: ProductStatus;
+  productShare: number;
   productSale: number;
-  productImageUrl: string;
-  sellerStoreName: string;
+  productCnt: number;
+  productImg: {
+    productImgId: number;
+    productImgThumb: number;
+    productImgUrl: string;
+    productImgName: string;
+  };
 }
+
+// 상품 상세 정보 API 응답 데이터 타입
+export interface ISingleProductInfo {
+  content: IProductInfo[];
+  likes: {
+    likesCount: number;
+  };
+  productShare: number;
+}
+
+// 전체 상품 정보 API 응답 데이터 타입
+export interface IAllProductInfo {
+  content: IProductInfo[];
+}
+
 export interface IOrderInfo {
   orderDate: string;
   orderNum: string;
   productInfos: IProductInfo[];
+}
+
+export interface IPurchaseOptionsProps {
+  productInfo: IProductInfo;
+  productCount: number;
+  handlePlusClick: () => void;
+  handleMinusClick: () => void;
 }
 
 export interface IAddressInfo {
@@ -24,9 +63,14 @@ export interface IAddressInfo {
   addressZipCode: string;
 }
 
-type ProductType = 'DOG' | 'CAT' | 'ETC';
-type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
-
 export interface ITitleProps {
   titleText: string;
 }
+
+// 견종 묘종 데이터 타입
+export type Breed = {
+  animal_group1_id: number;
+  animal_group2_id: number;
+  animal_group2_name: string;
+  breed_size_name: string;
+};

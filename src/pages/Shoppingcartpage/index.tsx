@@ -6,7 +6,7 @@ import OrderInfo from './components/OrderInfo.tsx';
 
 const ShoppingCartPage = () => {
   return (
-    <Layout>
+    <Layout footerVisible={false}>
       <CartLayout>
         <CartContainer>
           <CartTitle>Shopping Cart Page</CartTitle>
