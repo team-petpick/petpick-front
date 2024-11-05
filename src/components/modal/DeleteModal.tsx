@@ -34,6 +34,7 @@ const BasicModal = ({ isOpen, onRequestClose, productInfo }: IBasicModalProps) =
         alert('장바구니에 담겼습니다.');
       }
     } catch (error) {
+      alert('장바구니에 담는데 실패했습니다.');
       console.error(error);
     }
   };
