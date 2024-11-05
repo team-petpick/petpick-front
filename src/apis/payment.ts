@@ -36,8 +36,8 @@ export const sendPaymentSuccess = async (
       orderSerialCode,
       paymentKey,
       amount,
-      userId,
       orderRequest,
+      userId,
       orderDetails,
       address,
     };
