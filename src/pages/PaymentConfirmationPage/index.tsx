@@ -41,23 +41,6 @@ const PaymentConfirmationPage = () => {
                   <S.SubContent>107-1210호</S.SubContent>
                 </S.InfoContainer>
               </S.ShippingAddress>
-              {/* <S.Dropdown>
-                <S.Option>
-                  <S.SubContent>요청사항 없음</S.SubContent>
-                </S.Option>
-                <S.Option>
-                  <S.SubContent>문 앞에 놓아주세요</S.SubContent>
-                </S.Option>
-                <S.Option>
-                  <S.SubContent>경비실에 맡겨 주세요</S.SubContent>
-                </S.Option>
-                <S.Option>
-                  <S.SubContent>파손 위험 상품입니다. 배송 시 주의해주세요</S.SubContent>
-                </S.Option>
-                <S.Option>
-                  <S.SubContent>직접 입력</S.SubContent>
-                </S.Option>
-              </S.Dropdown> */}
               <DropdownSelector />
             </S.Container>
             <S.OrderContainer>
