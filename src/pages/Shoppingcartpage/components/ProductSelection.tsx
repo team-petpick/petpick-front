@@ -8,12 +8,19 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { useCallback, useEffect, useState } from 'react';
 import { deleteCartItem, getCartItem } from '@apis/cart';
 import { ICartProps } from '@types';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
 
-const ProductSelection = () => {
+interface ProductSelectionProps {
+  setTotalPrice: (price: number) => void;
+  totalPrice: number;
+}
+
+const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, totalPrice }) => {
   const deleteModal = useModal();
   const [cartList, setCartList] = useState<ICartProps[]>([]);
   const [productInfo, setProductInfo] = useState<ICartProps | null>(null);
   const [checkedList, setCheckedLists] = useState<number[]>([]);
+  // const [totalPrice, setTotalPrice] = useState(0);
 
   // 장바구니 항목을 가져오는 함수
   const fetchGetCartItem = async () => {
@@ -26,10 +33,34 @@ const ProductSelection = () => {
     fetchGetCartItem();
   }, []);
 
+  // 총 금액 계산
+  useEffect(() => {
+    const total = cartList.reduce((sum, item) => {
+      const itemTotalPrice = item.productPrice * (1 - item.productSale / 100) * item.cartCnt;
+      return sum + itemTotalPrice;
+    }, 0);
+    setTotalPrice(total);
+  }, [cartList, setTotalPrice]);
+
+  // 수량 업데이트 핸들러
+  const handleQuantityChange = (productId: number, newQuantity: number) => {
+    setCartList((prevList) =>
+      prevList.map((item) =>
+        item.productId === productId ? { ...item, cartCnt: newQuantity } : item,
+      ),
+    );
+  };
+
   // 장바구니 삭제 함수
   const handleDeleteButtonClick = async () => {
     try {
-      if (productInfo != null) await deleteCartItem(productInfo.productId);
+      // 체크된 항목별로 삭제 API 호출
+      for (const productId of checkedList) {
+        await deleteCartItem(productId);
+      }
+      // 삭제된 항목을 cartList에서 제거하고 상태 업데이트
+      setCartList((prevList) => prevList.filter((item) => !checkedList.includes(item.productId)));
+      setCheckedLists([]); // 체크된 항목 초기화
       deleteModal.setIsOpen(false); // 모달 닫기
     } catch (error) {
       console.log('장바구니 DELETE api 호출 실패', error);
@@ -128,10 +159,11 @@ const ProductSelection = () => {
               onCheck={(e: React.ChangeEvent<HTMLInputElement>) =>
                 onCheckedElement((e.target as HTMLInputElement).checked, productInfo.productId)
               }
+              onQuantityChange={handleQuantityChange}
             />
           ))}
           <S.ProductFooter>
-            <S.SubText>{productInfo.productPrice}</S.SubText>
+            <S.SubText>{addCommaToPrice(totalPrice)} 원</S.SubText>
           </S.ProductFooter>
         </S.ProductList>
       ) : (

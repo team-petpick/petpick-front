@@ -4,12 +4,20 @@ import styled from 'styled-components';
 import ShoppingAddress from './ShoppingAddress';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
+import { IProductInfo } from '@types';
+interface OrderInfoProps {
+  totalPrice: number;
+  productInfo: IProductInfo;
+}
 
-const OrderInfo = () => {
+const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
   const navigate = useNavigate();
   // const { userId } = useUserStore();
   const userId = 1; //임시 데이터
-
+  const discountedAmount = productInfo
+    ? productInfo.productPrice * (productInfo.priceSale / 100)
+    : 0;
   const handlePaymentPageClick = () => {
     navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userId.toString()));
   };
@@ -22,12 +30,12 @@ const OrderInfo = () => {
           <body>
             <ProductPriceContainer>
               <ProductPriceText>상품금액</ProductPriceText>
-              <ProductPriceBox>49,890원</ProductPriceBox>
+              <ProductPriceBox>{addCommaToPrice(totalPrice)}원</ProductPriceBox>
             </ProductPriceContainer>
             <DiscountPriceContainer>
               <ProductPriceText>상품할인금액</ProductPriceText>
               <DiscountContainer>
-                <DiscountPriceBox>-6,030원</DiscountPriceBox>
+                <DiscountPriceBox>{addCommaToPrice(discountedAmount)}</DiscountPriceBox>
                 <Text>로그인 후 할인 금액 적용</Text>
               </DiscountContainer>
             </DiscountPriceContainer>
@@ -37,7 +45,7 @@ const OrderInfo = () => {
             </DeliveryPriceContainer>
             <PaymentPriceContainer>
               <ProductPriceText>결제예정금액</ProductPriceText>
-              <PaymentPrice>43,840원</PaymentPrice>
+              <PaymentPrice>{addCommaToPrice(totalPrice - discountedAmount)}원</PaymentPrice>
             </PaymentPriceContainer>
           </body>
         </TotalPriceContainer>

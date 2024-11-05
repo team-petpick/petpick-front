@@ -12,19 +12,21 @@ interface IProductSelectItemProps {
   productInfo: ICartProps;
   isChecked: boolean;
   onCheck: (e: ChangeEvent<HTMLInputElement>) => void;
+  onQuantityChange: (productId: number, newQuantity: number) => void;
 }
 const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
   productInfo,
   isChecked,
   onCheck,
+  onQuantityChange,
 }) => {
   const [quantity, setQuantity] = useState(productInfo.cartCnt);
-  const salePrice = addCommaToPrice(productInfo.productPrice * (1 - productInfo.productSale / 100));
 
   // 상품 수량 +
   const handleIncreaseClick = async () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
+    onQuantityChange(productInfo.productId, newQuantity);
     try {
       await postCartItem(productInfo.productId, newQuantity);
     } catch (error) {
@@ -37,7 +39,7 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
-
+      onQuantityChange(productInfo.productId, newQuantity);
       try {
         await postCartItem(productInfo.productId, newQuantity);
       } catch (error) {
@@ -62,8 +64,14 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
           <ProductImage src={productInfo.productThumbnail}></ProductImage>
           <ProductContainer>
             <ProductPriceContainer>
-              <ProductPrice>{salePrice}원</ProductPrice>
-              <ProductFixedPrice>{addCommaToPrice(productInfo.productPrice)}원</ProductFixedPrice>
+              <ProductPrice>
+                {addCommaToPrice(
+                  productInfo.productPrice * (1 - productInfo.productSale / 100) * quantity,
+                )}
+              </ProductPrice>
+              <ProductFixedPrice>
+                {addCommaToPrice(productInfo.productPrice * quantity)}
+              </ProductFixedPrice>
             </ProductPriceContainer>
             <ProductCountContainer>
               <ProductCountButton onClick={handleDecreaseClick}>
