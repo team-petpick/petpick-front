@@ -2,19 +2,21 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { IProductInfo } from '@types';
 
-const ProductInfo = {
-  productCount: 5,
-};
-const ProductFilter = () => {
+interface IProductInfoProps {
+  productInfo: IProductInfo;
+}
+const ProductFilter = ({ productInfo }: IProductInfoProps) => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const handleFilterButtonClick = (filterType: string) => {
     setActiveFilter((prevFilter) => (prevFilter === filterType ? null : filterType));
   };
+  console.log(productInfo);
   return (
     <Wrapper>
       <FilterLayout>
-        <TotalCount>총 {ProductInfo.productCount}개</TotalCount>
+        <TotalCount>총 {productInfo.content.length}개</TotalCount>
         <FilterContainer>
           <FilterButton onClick={() => handleFilterButtonClick('popular')}>
             <FilterTextBox isActive={activeFilter === 'popular'}>인기순</FilterTextBox>

@@ -65,6 +65,10 @@ export const ProductOriginalPrice = styled.div`
   color: ${PETPICK_COLORS.GRAY[400]};
   text-decoration: line-through;
 `;
+export const ProductOriginalPricePlaceholder = styled.div`
+  margin-top: 5px;
+  height: 20px;
+`;
 export const ProductSalePrice = styled.div`
   display: flex;
   flex-direction: row;

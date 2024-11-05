@@ -1,3 +1,23 @@
+export interface IProductInfoItem {
+  productId: number;
+  productName: string;
+  productCnt: number;
+  productPrice: number;
+  productSale: number;
+  productStatus: 'ON' | 'SOLDOUT';
+  productThumbnail: string | null;
+  category: {
+    categoryId: number;
+    categoryName: string;
+  };
+  seller: {
+    sellerId: number;
+    sellerStoreName: string;
+    sellerNumber: string;
+    sellerAddr: string;
+    sellerAddrDetail: string;
+  };
+}
 export type ProductType = 'DOG' | 'CAT' | 'ETC';
 export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
 export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
@@ -8,30 +28,13 @@ export interface IPurchaseOptionsProps {
   handleMinusClick: () => void;
 }
 export interface IProductInfo {
-  productId: number;
-  productName: string;
-  seller: {
-    sellerId: number;
-    sellerStoreName: string;
-    sellerNumber: string;
-    sellerAddr: string;
-    sellerAddrDetail: string;
-  };
-  productStatus: 'ON' | 'OFF';
+  content: IProductInfoItem[];
   likes: {
     likesCount: number;
   };
-  productPrice: number;
   productShare: number;
-  productSale: number;
-  productCnt: number;
-  productImg: {
-    productImgId: number;
-    productImgThumb: number;
-    productImgUrl: string;
-    productImgName: string;
-  };
 }
+
 export interface IOrderInfo {
   orderDate: string;
   orderNum: string;
