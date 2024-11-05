@@ -1,5 +1,6 @@
 import { loadTossPayments, TossPaymentsPayment } from '@tosspayments/tosspayments-sdk';
 import { useEffect, useState } from 'react';
+import { nanoid } from 'nanoid';
 
 // ------  SDK 초기화 ------
 // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
@@ -7,6 +8,7 @@ const clientKey = import.meta.env.VITE_TOSS_CLIENT_KEY;
 const customerKey = 'apFoQd6epLlSu-1VMDPcd';
 
 export default function CheckoutPage() {
+  const orderId = nanoid();
   const [payment, setPayment] = useState<TossPaymentsPayment | null>(null);
   const [amount] = useState({
     currency: 'KRW',
@@ -47,7 +49,7 @@ export default function CheckoutPage() {
     await payment.requestPayment({
       method: 'CARD', // 카드 및 간편결제
       amount: amount,
-      orderId: 'dRS7Ep8DESWVkN4j4GySI', // 고유 주분번호
+      orderId: orderId, // 고유 주분번호
       orderName: '토스 티셔츠 외 2건',
       successUrl: window.location.origin + '/success', // 결제 요청이 성공하면 리다이렉트되는 URL
       failUrl: window.location.origin + '/fail', // 결제 요청이 실패하면 리다이렉트되는 URL

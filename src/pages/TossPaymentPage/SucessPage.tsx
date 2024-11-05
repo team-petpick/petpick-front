@@ -11,6 +11,7 @@ export default function SuccessPage() {
   const amount = searchParams.get('amount');
 
   // 임시데이터
+
   const userId = 1;
   const orderRequest = '빨리 주이소 !!';
   useEffect(() => {
