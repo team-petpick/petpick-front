@@ -5,9 +5,14 @@ export type ProductType = 'DOG' | 'CAT' | 'ETC';
 export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
 export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
 
+
 // 상품 정보 데이터 타입
 export interface IProductInfo {
   productId: number;
+  category: {
+    categoryId: number;
+    categoryName: string;
+  };
   productName: string;
   seller: {
     sellerId: number;
@@ -17,19 +22,11 @@ export interface IProductInfo {
     sellerAddrDetail: string;
   };
   productStatus: 'ON' | 'OFF';
-  likes: {
-    likesCount: number;
-  };
   productPrice: number;
-  productShare: number;
   productSale: number;
   productCnt: number;
-  productImg: {
-    productImgId: number;
-    productImgThumb: number;
-    productImgUrl: string;
-    productImgName: string;
-  };
+  productThumbnail: string;
+
 }
 
 // 상품 상세 정보 API 응답 데이터 타입

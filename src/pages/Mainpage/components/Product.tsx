@@ -23,7 +23,7 @@ const Product = ({ productInfo }: IProductProps) => {
 
   return (
     <S.ProductContainer>
-      <S.ProductImage src={productInfo.productImg?.productImgUrl} />
+      <S.ProductImage src={productInfo.productThumbnail} />
       <S.LikeCartButtonWrapper>
         {isLiked ? (
           <LikeFill onClick={() => setIsLiked(false)} width={30} height={30} />
