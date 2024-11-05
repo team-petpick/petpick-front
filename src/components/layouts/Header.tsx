@@ -4,10 +4,10 @@ import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import * as S from './styles/Header.style';
 import { LoggedInMenu } from './LoggedInMenu';
 import { LoggedOutMenu } from './LoggedOutMenu';
-import { useAuthStore } from '@store/authStore';
+import { useAuthStatus } from '@hooks/useAuthStatus';
 
 const Header = () => {
-  const { isLoggedIn } = useAuthStore();
+  const isLoggedIn = useAuthStatus();
   const navigate = useNavigate();
 
   const handleNavigation = (path: string, requireLogin = false) => {

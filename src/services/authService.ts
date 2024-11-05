@@ -1,5 +1,5 @@
 import { authLogout } from '@apis/auth/logout';
-import { useAuthStore } from '@store/authStore';
+// import { useAuthStore } from '@store/authStore';
 import { useUserStore } from '@store/userStore';
 
 export const setUserAuthInfo = (userName: string, accessToken: string) => {
@@ -12,11 +12,11 @@ export const setUserAuthInfo = (userName: string, accessToken: string) => {
 };
 
 export const handleLogout = async (clearUserName: () => void, onLogOut: () => void) => {
-  const logout = useAuthStore.getState().logout;
+  // const logout = useAuthStore.getState().logout;
   try {
-    await authLogout();
-    logout();
     localStorage.removeItem('accessToken');
+    await authLogout();
+    // logout();
     clearUserName();
     onLogOut();
   } catch (error) {
