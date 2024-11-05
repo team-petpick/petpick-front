@@ -2,7 +2,7 @@ import { Like, LikeFill, ShoppingCart } from '@assets/svg';
 import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { useState } from 'react';
-import DeleteModal from '../../../components/modal/CartModal';
+import CartModal from '@components/modal/CartModal';
 import { IProductInfo } from '@types';
 
 interface IProductProps {
@@ -49,7 +49,7 @@ const Product = ({ productInfo }: IProductProps) => {
         </S.ProductSalePrice>
       </S.ProductInfo>
       {isOpen && (
-        <DeleteModal
+        <CartModal
           productInfo={productInfo}
           isOpen={isOpen}
           onRequestClose={() => setIsOpen(false)}
