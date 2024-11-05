@@ -12,7 +12,7 @@ export const PaymentSuccessPageContainer = styled.div`
 `;
 
 export const OrderedProductWrapper = styled.div`
-  width: 80vw;
+  width: 60vw;
   height: 50px;
   border-bottom: 1px solid ${PETPICK_COLORS.GRAY[900]};
   border-top: 1px solid ${PETPICK_COLORS.GRAY[900]};

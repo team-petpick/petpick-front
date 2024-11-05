@@ -3,7 +3,7 @@ import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 
 export const OrderedProductWrapper = styled.div`
-  width: 80vw;
+  width: 60vw;
   padding: 24px;
   display: flex;
   align-items: center;

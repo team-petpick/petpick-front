@@ -6,30 +6,33 @@ interface IOrderedProductListProps {
 }
 
 const OrderedProductList = ({ orderDetail }: IOrderedProductListProps) => {
+  const { sellerStoreName, productName, orderDetailPrice, productThumbnail, orderDetailCnt } =
+    orderDetail;
+  const formattedPrice = orderDetailPrice.toLocaleString('ko-KR');
   return (
     <S.OrderedProductWrapper>
-      <S.OrderedProductImage src={orderDetail.productThumbnail} />
+      <S.OrderedProductImage src={productThumbnail} />
       <S.OrderedProductInfo>
         <S.ProductNamePriceDiscountWrapper>
           <div>
-            <S.OrderedProductSeller>{orderDetail.sellerStoreName}</S.OrderedProductSeller>
-            <S.OrderedProductName>{orderDetail.productName}</S.OrderedProductName>
+            <S.OrderedProductSeller>{sellerStoreName}</S.OrderedProductSeller>
+            <S.OrderedProductName>{productName}</S.OrderedProductName>
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', gap: '10vw', alignItems: 'center' }}>
             <div>
-              <S.OrderedProductInfoText>12,000원</S.OrderedProductInfoText>
+              <S.OrderedProductInfoText>{formattedPrice}원</S.OrderedProductInfoText>
             </div>
             <div>
-              <S.OrderedProductInfoText>1,100원</S.OrderedProductInfoText>
+              <S.OrderedProductInfoText>0원</S.OrderedProductInfoText>
             </div>
           </div>
         </S.ProductNamePriceDiscountWrapper>
         <div style={{ display: 'flex', flexDirection: 'row', gap: '30vw' }}>
           <div>
-            <S.OrderedProductInfoText>1개</S.OrderedProductInfoText>
+            <S.OrderedProductInfoText>{orderDetailCnt}개</S.OrderedProductInfoText>
           </div>
           <div>
-            <S.OrderedProductInfoText>10,900원</S.OrderedProductInfoText>
+            <S.OrderedProductInfoText>{formattedPrice}원</S.OrderedProductInfoText>
           </div>
         </div>
       </S.OrderedProductInfo>
