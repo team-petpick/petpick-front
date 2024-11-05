@@ -51,7 +51,6 @@ instance.interceptors.response.use(
         }
       }
     } else {
-      // Handle case where error.response is undefined
       console.error('Error response is undefined', error);
     }
     return Promise.reject(error);

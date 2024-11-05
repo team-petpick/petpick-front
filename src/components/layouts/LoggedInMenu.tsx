@@ -1,6 +1,6 @@
 import { useUserStore } from '@store/userStore';
 import * as S from './styles/Header.style';
-import { logout } from '@apis/auth/logout';
+import { handleLogout } from '../../services/authService';
 
 interface ILoggedInMenuProps {
   onLogOut: () => void;
@@ -8,21 +8,14 @@ interface ILoggedInMenuProps {
 export const LoggedInMenu = ({ onLogOut }: ILoggedInMenuProps) => {
   const { userName, clearUserName } = useUserStore();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      localStorage.removeItem('accessToken');
-      clearUserName();
-      onLogOut();
-    } catch (error) {
-      console.log(error, '로그아웃 실패');
-    }
+  const onLogoutClick = () => {
+    handleLogout(clearUserName, onLogOut);
   };
   return (
     <>
       <S.LoginButtonText>{userName}님</S.LoginButtonText>
       <S.TextBox>|</S.TextBox>
-      <S.LoginButtonText onClick={handleLogout}>로그아웃</S.LoginButtonText>
+      <S.LoginButtonText onClick={onLogoutClick}>로그아웃</S.LoginButtonText>
     </>
   );
 };
