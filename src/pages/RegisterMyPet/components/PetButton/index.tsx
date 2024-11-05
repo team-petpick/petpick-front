@@ -6,7 +6,7 @@ interface IButtonProps extends IButtonStatus {
   onClick?: () => void;
   style?: React.CSSProperties;
 }
-const Button = ({ style, onClick, buttonDirection, isActive, buttonName }: IButtonProps) => {
+const PetButton = ({ style, onClick, buttonDirection, isActive, buttonName }: IButtonProps) => {
   return (
     <S.ButtonWrapper
       style={style}
@@ -19,4 +19,4 @@ const Button = ({ style, onClick, buttonDirection, isActive, buttonName }: IButt
     </S.ButtonWrapper>
   );
 };
-export default Button;
+export default PetButton;

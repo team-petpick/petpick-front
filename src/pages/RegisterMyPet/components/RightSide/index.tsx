@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Button from '../Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
 import First from './First';
@@ -7,6 +6,7 @@ import Second from './Second';
 import Third from './Third';
 import { useState, useEffect } from 'react';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
+import PetButton from '../PetButton';
 
 const RightSide = () => {
   const navigate = useNavigate();
@@ -44,14 +44,14 @@ const RightSide = () => {
         {step === '3' && <Third setIsNextButtonActive={setIsNextButtonActive} />}
       </div>
       <ButtonWrapper>
-        <Button
+        <PetButton
           style={{ width: '18vw', maxWidth: '250px' }}
           onClick={handleNextButtonClick}
           buttonDirection="next"
           buttonName={step === '3' ? '완료' : '다음'}
           isActive={isNextButtonActive}
         />
-        <Button
+        <PetButton
           style={{ width: '18vw', maxWidth: '250px' }}
           onClick={handlePrevButtonClick}
           buttonDirection="prev"
