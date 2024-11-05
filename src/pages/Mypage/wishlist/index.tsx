@@ -9,13 +9,15 @@ const WishList = () => {
   const ProductInfos = ProductInfo;
   useEffect(() => {
     const loadWishProducts = async () => {
-      const response = await getWishLists();
-      const wishList = response.data;
-      setWishList(wishList);
+      try {
+        const response = await getWishLists();
+        console.log(response);
+      } catch (error) {
+        console.error(error.message); // 에러가 발생했을 때 로그 출력
+      }
     };
     loadWishProducts();
   }, []);
-  console.log(wishList);
   return (
     <S.Wrapper>
       <S.ContentWrapper>
