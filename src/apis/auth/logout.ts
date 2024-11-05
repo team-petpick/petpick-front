@@ -1,6 +1,6 @@
 import instance from '@apis';
 
-export const logout = async () => {
+export const authLogout = async () => {
   try {
     await instance.post('/api/v1/auth/logout', null, {
       withCredentials: true,
