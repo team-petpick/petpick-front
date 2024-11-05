@@ -74,3 +74,12 @@ export type Breed = {
   animal_group2_name: string;
   breed_size_name: string;
 };
+
+// 반려동물 프로필 데이터 타입
+export interface IMyPetInfo {
+  petName: string | null;
+  petSpecies: string | null;
+  petKind: ProductType | null;
+  petImg: string | null;
+  petAge: number | null;
+}
