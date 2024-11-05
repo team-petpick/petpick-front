@@ -2,7 +2,7 @@ import instance from '@apis/instance';
 
 export const postCartItem = async (productId: number, cartCnt: number) => {
   const response = await instance.post(
-    '/api/v1/cart',
+    '/cart',
     {
       productId,
       cartCnt,
