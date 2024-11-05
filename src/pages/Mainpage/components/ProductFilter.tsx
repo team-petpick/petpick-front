@@ -1,29 +1,41 @@
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { IAllProductInfo } from '@types';
+import { IAllProductInfo, TProductFilterType } from '@types';
+import { PRODUCT_FILTER_TYPE } from '@constants/productFilter';
 
 interface IProductInfoProps {
   productInfo: IAllProductInfo;
 }
+
 const ProductFilter = ({ productInfo }: IProductInfoProps) => {
-  const [activeFilter, setActiveFilter] = useState<string | null>(null);
-  const handleFilterButtonClick = (filterType: string) => {
-    setActiveFilter((prevFilter) => (prevFilter === filterType ? null : filterType));
+  const [activeFilter, setActiveFilter] = useState<TProductFilterType | null>(
+    PRODUCT_FILTER_TYPE.POPULAR,
+  );
+  const handleFilterButtonClick = (filterType: TProductFilterType) => {
+    setActiveFilter(filterType);
   };
-  console.log(productInfo);
+
+  useEffect(() => {
+    console.log(activeFilter);
+  }, [activeFilter]);
+
   return (
     <Wrapper>
       <FilterLayout>
         <TotalCount>총 {productInfo.content.length}개</TotalCount>
         <FilterContainer>
-          <FilterButton onClick={() => handleFilterButtonClick('popular')}>
-            <FilterTextBox isActive={activeFilter === 'popular'}>인기순</FilterTextBox>
+          <FilterButton onClick={() => handleFilterButtonClick(PRODUCT_FILTER_TYPE.POPULAR)}>
+            <FilterTextBox isActive={activeFilter === PRODUCT_FILTER_TYPE.POPULAR}>
+              인기순
+            </FilterTextBox>
           </FilterButton>
           <FilterDivideBox></FilterDivideBox>
-          <FilterButton onClick={() => handleFilterButtonClick('sales')}>
-            <FilterTextBox isActive={activeFilter === 'sales'}>판매순</FilterTextBox>
+          <FilterButton onClick={() => handleFilterButtonClick(PRODUCT_FILTER_TYPE.SALES)}>
+            <FilterTextBox isActive={activeFilter === PRODUCT_FILTER_TYPE.SALES}>
+              판매순
+            </FilterTextBox>
           </FilterButton>
         </FilterContainer>
       </FilterLayout>
@@ -60,7 +72,8 @@ const FilterButton = styled.button``;
 const FilterTextBox = styled.span<{ isActive: boolean }>`
   ${TextStyles.subText.smallM}
   color: ${({ isActive }) =>
-    isActive ? `${PETPICK_COLORS.GRAY[500]}` : `${PETPICK_COLORS.GRAY[900]}`};
+    isActive ? `${PETPICK_COLORS.BLUE[400]}` : `${PETPICK_COLORS.GRAY[700]}`};
+  font-weight: ${({ isActive }) => (isActive ? '00' : '400')};
 `;
 const FilterDivideBox = styled.div`
   display: flex;

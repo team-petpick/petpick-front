@@ -1,3 +1,6 @@
+import { ANIMAL_TYPE } from '@constants';
+import { PRODUCT_FILTER_TYPE } from '@constants/productFilter';
+
 export type ProductType = 'DOG' | 'CAT' | 'ETC';
 export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
 export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
@@ -74,3 +77,7 @@ export type Breed = {
   animal_group2_name: string;
   breed_size_name: string;
 };
+
+export type TProductFilterType = (typeof PRODUCT_FILTER_TYPE)[keyof typeof PRODUCT_FILTER_TYPE];
+
+export type TAnimalType = (typeof ANIMAL_TYPE)[keyof typeof ANIMAL_TYPE];

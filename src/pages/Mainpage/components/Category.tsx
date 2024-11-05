@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import * as S from '../styles/Category.style';
-import { animalType } from '@constants';
-import { categories } from '@constants';
+import { animalType, PRODUCT_CATEGORY_INDEX } from '@constants';
+import { TAnimalType } from '@types';
 
 interface ICategoryProps {
-  onAnimalTypeChange: (type: string | null) => void;
+  onAnimalTypeChange: (type: TAnimalType | null) => void;
   onCategoryChange: (category: number | null) => void;
 }
 
@@ -21,7 +21,7 @@ const Category = ({ onAnimalTypeChange, onCategoryChange }: ICategoryProps) => {
     } else {
       setActiveButton(index);
       setShowCategory(index + 1);
-      onAnimalTypeChange(animalType[index].type);
+      onAnimalTypeChange(animalType[index].type as TAnimalType);
     }
   };
 
@@ -54,7 +54,7 @@ const Category = ({ onAnimalTypeChange, onCategoryChange }: ICategoryProps) => {
 
       {showCategory && (
         <S.CategoryWrapper>
-          {categories.map((category, index) => (
+          {PRODUCT_CATEGORY_INDEX.map((category, index) => (
             <S.CategoryButton key={category} onClick={() => handleClickCategory(index)}>
               <S.CategoryText isActive={activeCategoryButton === index}>{category}</S.CategoryText>
             </S.CategoryButton>

@@ -20,6 +20,7 @@ const Product = ({ productInfo }: IProductProps) => {
   const handleDeleteModalClick = () => {
     setIsOpen(true);
   };
+
   return (
     <S.ProductContainer>
       <S.ProductImage src={productInfo.productImg?.productImgUrl} />

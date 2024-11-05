@@ -5,17 +5,17 @@ import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@apis';
-import { IAllProductInfo } from '@types';
+import { IAllProductInfo, TAnimalType } from '@types';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
-  const [type, setType] = useState<string | null>(null);
-  const [category, setCategory] = useState<number | null>(null);
+  const [productType, setProductType] = useState<TAnimalType | null>(null);
+  const [category, setCategory] = useState<number | null>(0);
   const [error, setError] = useState<string | null>(null);
 
   const loadProducts = async () => {
     try {
-      const data = await getProducts(type, category);
+      const data = await getProducts(productType, category);
       setProductInfo(data);
       setError(null);
     } catch (error) {
@@ -25,11 +25,12 @@ const MainPage = () => {
   };
 
   useEffect(() => {
+    console.log(productType, category);
     loadProducts();
-  }, [type, category]);
+  }, [productType, category]);
 
-  const handleAnimalTypeChange = (type: string | null) => {
-    setType(type);
+  const handleAnimalTypeChange = (type: TAnimalType | null) => {
+    setProductType(type);
   };
 
   const handleCategoryChange = (category: number | null) => {

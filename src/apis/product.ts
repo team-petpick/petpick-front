@@ -1,13 +1,13 @@
 import { AxiosError } from 'axios';
 import instance from './instance';
-import { IAllProductInfo } from '@types';
+import { IAllProductInfo, TAnimalType, TProductFilterType } from '@types';
 
 export const getProducts = async (
-  type: string | null,
+  productType: TAnimalType | null,
   category: number | null,
 ): Promise<IAllProductInfo> => {
-  const params: { type?: string; category?: number } = {
-    ...(type ? { type } : {}),
+  const params: { type?: TProductFilterType; category?: number } = {
+    ...(productType ? { productType } : {}),
     ...(category !== null && category !== 0 ? { category } : {}),
   };
   try {
