@@ -4,11 +4,12 @@ import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import * as S from './styles/Header.style';
 import { LoggedInMenu } from './LoggedInMenu';
 import { LoggedOutMenu } from './LoggedOutMenu';
-import { useAuthStatus } from '@hooks/useAuthStatus';
+// import { useAuthStatus } from '@hooks/useAuthStatus';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
-  const isLoggedIn = useAuthStatus();
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const handleNavigation = (path: string, requireLogin = false) => {
     if (requireLogin && !isLoggedIn) {
@@ -21,6 +22,14 @@ const Header = () => {
   const handleLogout = () => {
     handleNavigation('/');
   };
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const accessToken = localStorage.getItem('accessToken');
+      setIsLoggedIn(!!accessToken);
+    };
+    checkLoginStatus();
+  }, [isLoggedIn]);
 
   return (
     <S.HeaderLayout>
