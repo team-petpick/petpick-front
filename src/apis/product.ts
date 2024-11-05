@@ -11,7 +11,7 @@ export const getProducts = async (
     ...(category !== null && category !== 0 ? { category } : {}),
   };
   try {
-    const response = await instance.get('/api/v1/products', { params });
+    const response = await instance.get('/products', { params });
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;
@@ -23,6 +23,6 @@ export const getProducts = async (
   }
 };
 export const fetchProductDetails = async (productId: number) => {
-  const response = await instance.get(`/api/v1/products/${productId}`);
+  const response = await instance.get(`/products/${productId}`);
   return response.data;
 };

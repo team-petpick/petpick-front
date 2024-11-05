@@ -22,7 +22,7 @@ instance.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshResponse = await instance.post(
-          '/api/v1/auth/token',
+          '/auth/token',
           {},
           {
             headers: {
