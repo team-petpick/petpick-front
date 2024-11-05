@@ -2,10 +2,10 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IProductInfo } from '@types';
+import { ISingleProductInfo } from '@types';
 
 interface IProductInfoProps {
-  productInfo: IProductInfo;
+  productInfo: ISingleProductInfo;
 }
 const ProductFilter = ({ productInfo }: IProductInfoProps) => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);

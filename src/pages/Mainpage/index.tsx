@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@apis';
+import { ISingleProductInfo } from '@types';
 
 const MainPage = () => {
-  const [productInfo, setProductInfo] = useState<IProductInfo>({
+  const [productInfo, setProductInfo] = useState<ISingleProductInfo>({
     content: [],
     likes: { likesCount: 0 },
     productShare: 0,

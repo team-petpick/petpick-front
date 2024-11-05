@@ -1,15 +1,11 @@
-export interface IProductInfoItem {
+export type ProductType = 'DOG' | 'CAT' | 'ETC';
+export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
+
+// 상품 정보 데이터 타입
+export interface IProductInfo {
   productId: number;
   productName: string;
-  productCnt: number;
-  productPrice: number;
-  productSale: number;
-  productStatus: 'ON' | 'SOLDOUT';
-  productThumbnail: string | null;
-  category: {
-    categoryId: number;
-    categoryName: string;
-  };
   seller: {
     sellerId: number;
     sellerStoreName: string;
@@ -17,28 +13,47 @@ export interface IProductInfoItem {
     sellerAddr: string;
     sellerAddrDetail: string;
   };
+  productStatus: 'ON' | 'OFF';
+  likes: {
+    likesCount: number;
+  };
+  productPrice: number;
+  productShare: number;
+  productSale: number;
+  productCnt: number;
+  productImg: {
+    productImgId: number;
+    productImgThumb: number;
+    productImgUrl: string;
+    productImgName: string;
+  };
 }
-export type ProductType = 'DOG' | 'CAT' | 'ETC';
-export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
-export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
-export interface IPurchaseOptionsProps {
-  productInfo: IProductInfo;
-  productCount: number;
-  handlePlusClick: () => void;
-  handleMinusClick: () => void;
-}
-export interface IProductInfo {
-  content: IProductInfoItem[];
+
+// 상품 상세 정보 API 응답 데이터 타입
+export interface ISingleProductInfo {
+  content: IProductInfo[];
   likes: {
     likesCount: number;
   };
   productShare: number;
 }
 
+// 전체 상품 정보 API 응답 데이터 타입
+export interface IAllProductInfo {
+  content: IProductInfo[];
+}
+
 export interface IOrderInfo {
   orderDate: string;
   orderNum: string;
   productInfos: IProductInfo[];
+}
+
+export interface IPurchaseOptionsProps {
+  productInfo: IProductInfo;
+  productCount: number;
+  handlePlusClick: () => void;
+  handleMinusClick: () => void;
 }
 
 export interface IAddressInfo {
@@ -52,6 +67,7 @@ export interface ITitleProps {
   titleText: string;
 }
 
+// 견종 묘종 데이터 타입
 export type Breed = {
   animal_group1_id: number;
   animal_group2_id: number;

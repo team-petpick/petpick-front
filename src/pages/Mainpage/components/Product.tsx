@@ -1,12 +1,12 @@
 import { Like, LikeFill, ShoppingCart } from '@assets/svg';
 import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import { IProductInfoItem } from '@types';
 import { useState } from 'react';
 import DeleteModal from '../../../components/modal/DeleteModal';
+import { IProductInfo } from '@types';
 
 interface IProductProps {
-  productInfo: IProductInfoItem;
+  productInfo: IProductInfo;
 }
 
 const Product = ({ productInfo }: IProductProps) => {
@@ -20,7 +20,6 @@ const Product = ({ productInfo }: IProductProps) => {
   const handleDeleteModalClick = () => {
     setIsOpen(true);
   };
-  console.log(productInfo);
   return (
     <S.ProductContainer>
       <S.ProductImage src={productInfo.productImg.productImgUrl} />
