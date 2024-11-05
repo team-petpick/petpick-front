@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import First from './First';
 import Button from '../Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
+import First from './First';
 import Second from './Second';
 import Third from './Third';
 import { useState, useEffect } from 'react';
