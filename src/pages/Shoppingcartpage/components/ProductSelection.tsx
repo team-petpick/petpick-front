@@ -5,30 +5,37 @@ import useModal from '@components/modal/useModal';
 import DeleteModal from '@components/modal/DeleteModal';
 import EmptyCart from './EmptyCart';
 import { PETPICK_COLORS } from '@styles/colors';
-import { useCallback, useState } from 'react';
-interface IDataListItem {
-  id: number;
-  data: string;
-}
+import { useCallback, useEffect, useState } from 'react';
+import { getCartItem } from '@apis/cart';
+import { ICartProps } from '@types';
+
 const ProductSelection = () => {
   const deleteModal = useModal();
-  const dataLists: IDataListItem[] = [
-    { id: 1, data: 'aaa' },
-    { id: 2, data: 'bbb' },
-    { id: 3, data: 'ccc' },
-  ];
+  const [cartList, setCartList] = useState<ICartProps[]>([]);
+  const [productInfo, setProductInfo] = useState<ICartProps | null>(null);
   const [checkedList, setCheckedLists] = useState<number[]>([]);
+
+  // 장바구니 항목을 가져오는 함수
+  const fetchGetCartItem = async () => {
+    const response = await getCartItem();
+    setCartList(response);
+    setProductInfo(response);
+  };
+
+  useEffect(() => {
+    fetchGetCartItem();
+  }, []);
 
   // 전체 체크 클릭 시 발생하는 함수
   const onCheckedAll = useCallback(
     (checked: boolean) => {
       if (checked) {
-        setCheckedLists(dataLists.map((list) => list.id)); // 모든 항목의 id를 추가
+        setCheckedLists(cartList.map((list) => list.productId)); // 모든 항목의 id를 추가
       } else {
         setCheckedLists([]); // 선택 해제 시 빈 배열로 초기화
       }
     },
-    [dataLists],
+    [cartList],
   );
 
   // 개별 체크 클릭 시 발생하는 함수
@@ -65,11 +72,11 @@ const ProductSelection = () => {
             <CheckboxLabal
               text="text"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => onCheckedAll(e.target.checked)}
-              checked={checkedList.length === dataLists.length && dataLists.length > 0}
+              checked={checkedList.length === cartList.length && cartList.length > 0}
             />
             <S.SelectText>전체 선택</S.SelectText>
             <S.SelectText>
-              {checkedList.length}/{dataLists.length}
+              {checkedList.length}/{cartList.length}
             </S.SelectText>
           </S.SelectBox>
           <S.DeleteButton onClick={deleteModal.openModal}>
@@ -101,20 +108,20 @@ const ProductSelection = () => {
         </S.SelectContainer>
       )}
 
-      {dataLists.length > 0 ? (
+      {cartList.length > 0 && productInfo ? (
         <S.ProductList>
-          {dataLists.map((product) => (
+          {cartList.map((productInfo) => (
             <ProductSelectItem
-              key={product.id}
-              product={product}
-              isChecked={checkedList.includes(product.id)}
+              key={productInfo.productId}
+              productInfo={productInfo}
+              isChecked={checkedList.includes(productInfo.productId)}
               onCheck={(e: React.ChangeEvent<HTMLInputElement>) =>
-                onCheckedElement((e.target as HTMLInputElement).checked, product.id)
+                onCheckedElement((e.target as HTMLInputElement).checked, productInfo.productId)
               }
             />
           ))}
           <S.ProductFooter>
-            <S.SubText>가격</S.SubText>
+            <S.SubText>{productInfo.productPrice}</S.SubText>
           </S.ProductFooter>
         </S.ProductList>
       ) : (

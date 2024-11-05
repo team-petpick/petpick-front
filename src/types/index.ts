@@ -74,3 +74,12 @@ export type Breed = {
   animal_group2_name: string;
   breed_size_name: string;
 };
+
+export interface ICartProps {
+  productId: number;
+  productName: string;
+  productPrice: number;
+  productSale: number;
+  productThumbnail: string;
+  cartCnt: number;
+}

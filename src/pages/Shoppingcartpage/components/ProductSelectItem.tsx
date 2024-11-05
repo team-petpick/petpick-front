@@ -2,26 +2,53 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import { Delete } from '@assets/svg';
 import { Minus, Plus } from '@assets/svg/index';
-import Test3 from '@assets/svg/test-3.jpg';
 import styled from 'styled-components';
 import CheckboxLabal from './CheckboxLabal';
-import { ChangeEvent } from 'react';
-interface IDataListItem {
-  id: number;
-  data: string;
-}
+import { ChangeEvent, useState } from 'react';
+import { ICartProps } from '@types';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
+import { postCartItem } from '@apis/cart';
 interface IProductSelectItemProps {
-  product: IDataListItem;
+  productInfo: ICartProps;
   isChecked: boolean;
   onCheck: (e: ChangeEvent<HTMLInputElement>) => void;
 }
-const ProductSelectItem: React.FC<IProductSelectItemProps> = ({ product, isChecked, onCheck }) => {
+const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
+  productInfo,
+  isChecked,
+  onCheck,
+}) => {
+  const [quantity, setQuantity] = useState(productInfo.cartCnt);
+  const salePrice = addCommaToPrice(productInfo.productPrice * (1 - productInfo.productSale / 100));
+
+  const handleIncreaseClick = async () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    try {
+      await postCartItem(productInfo.productId, newQuantity);
+    } catch (error) {
+      console.error('장바구니 api 호출 업데이트 실패:', error);
+    }
+  };
+
+  const handleDecreaseClick = async () => {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+
+      try {
+        await postCartItem(productInfo.productId, newQuantity);
+      } catch (error) {
+        console.error('Error updating cart item:', error);
+      }
+    }
+  };
   return (
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
           <CheckboxLabal text="text" checked={isChecked} onChange={onCheck} />
-          <SelectText> {product.id} </SelectText>
+          <SelectText> {productInfo.productName} </SelectText>
         </SelectBox>
         <SelectButton>
           <Delete width="20px" height="20px" />
@@ -29,18 +56,18 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({ product, isCheck
       </SelectWrapper>
       <ProductItemContainer>
         <ProductInfo>
-          <ProductImage src={Test3}></ProductImage>
+          <ProductImage src={productInfo.productThumbnail}></ProductImage>
           <ProductContainer>
             <ProductPriceContainer>
-              <ProductPrice>29,900원</ProductPrice>
-              <ProductFixedPrice> 34,900원</ProductFixedPrice>
+              <ProductPrice>{salePrice}원</ProductPrice>
+              <ProductFixedPrice>{addCommaToPrice(productInfo.productPrice)}원</ProductFixedPrice>
             </ProductPriceContainer>
             <ProductCountContainer>
-              <ProductCountButton>
+              <ProductCountButton onClick={handleDecreaseClick}>
                 <Minus width="20px" height="20px" />
               </ProductCountButton>
-              <ProductCount>5</ProductCount>
-              <ProductCountButton>
+              <ProductCount>{quantity}</ProductCount>
+              <ProductCountButton onClick={handleIncreaseClick}>
                 <Plus width="20px" height="20px" />
               </ProductCountButton>
             </ProductCountContainer>
