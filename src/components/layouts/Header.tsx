@@ -2,12 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
 import { Cart, Search, PetpickLogo, User } from '@assets/svg/index';
 import * as S from './styles/Header.style';
-import { LoggedInMenu } from './LoggedInMenu';
-import { LoggedOutMenu } from './LoggedOutMenu';
-// import { useAuthStatus } from '@hooks/useAuthStatus';
 import { useEffect, useState } from 'react';
+import { useUserStore } from '@store/userStore';
 
 const Header = () => {
+  const { userName } = useUserStore();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
@@ -35,7 +34,21 @@ const Header = () => {
     <S.HeaderLayout>
       <S.HeaderContainer>
         <S.LoginMenuContainer>
-          {isLoggedIn ? <LoggedInMenu onLogOut={handleLogout} /> : <LoggedOutMenu />}
+          {isLoggedIn ? (
+            <>
+              <S.LoginButtonText>{userName}</S.LoginButtonText>
+              <S.TextBox>|</S.TextBox>
+              <S.LoginButtonText onClick={handleLogout}>로그아웃</S.LoginButtonText>
+            </>
+          ) : (
+            <>
+              <S.LoginButtonText onClick={handleLogout}>로그인</S.LoginButtonText>
+              <S.TextBox>|</S.TextBox>
+              <S.LoginButtonText onClick={() => handleNavigation('/signup')}>
+                회원가입
+              </S.LoginButtonText>
+            </>
+          )}
         </S.LoginMenuContainer>
         <S.ContentContainer>
           <button onClick={() => handleNavigation('/')}>
