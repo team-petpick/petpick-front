@@ -1,5 +1,4 @@
 import * as S from '../../../styles/registerMyPetFirst.style';
-import Button from '../../Button';
 import BirthdaySelectForm from './BirthdaySelectForm';
 import BreedSelectForm from './BreedSelectForm';
 import { useCallback, useEffect, useState } from 'react';
@@ -7,6 +6,7 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { PetGender } from '@types';
 import { DAY_OPTIONS, MONTH_OPTIONS, PET_GENDER, YEAR_OPTIONS } from '@constants';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
+import PetButton from '../../PetButton';
 interface IThirdProps {
   setIsNextButtonActive: (value: boolean) => void;
 }
@@ -53,7 +53,7 @@ const Third = ({ setIsNextButtonActive }: IThirdProps) => {
       <div>
         <S.Title>우리 아이 성별을 알려주세요</S.Title>
         <div style={{ display: 'flex', gap: '10px' }}>
-          <Button
+          <PetButton
             buttonName="남아"
             isActive={true}
             buttonDirection="next"
@@ -65,7 +65,7 @@ const Third = ({ setIsNextButtonActive }: IThirdProps) => {
             }}
             onClick={handleClickGenderButton}
           />
-          <Button
+          <PetButton
             buttonName="여아"
             isActive={true}
             buttonDirection="next"

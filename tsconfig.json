@@ -21,6 +21,7 @@
       "@layouts/*": ["components/layouts/*"],
       "@pages/*": ["pages/*"]
     },
-    "module": "esnext" // 모듈 타입을 설정
+    "module": "esnext", // 모듈 타입을 설정
+    "types": ["node", "vite/client"]
   }
 }
