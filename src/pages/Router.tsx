@@ -9,6 +9,7 @@ import ShoppingCartPage from './Shoppingcartpage';
 import Loading from '@components/Loading';
 import AddressInputPage from './Shoppingcartpage/components/AddressInputPage';
 import PaymentConfirmationPage from './PaymentConfirmationPage';
+import GoogleCallbackPage from './GoogleCallbackPage';
 import CheckoutPage from './TossPaymentPage/CheckoutPage';
 import FailPage from './TossPaymentPage/FailPage';
 import SuccessPage from './TossPaymentPage/SucessPage';
@@ -21,6 +22,7 @@ export const Router = () => {
         <Route path={ROUTE.MAINPAGE} element={<MainPage />} />
         <Route path={ROUTE.LOGINPAGE} element={<LoginPage />} />
         <Route path={ROUTE.SIGNUPPAGE} element={<LoginPage />} />
+        <Route path={ROUTE.GOOGLECALLBACKPAGE} element={<GoogleCallbackPage />} />
         <Route path={ROUTE.MYPAGE} element={<Mypage />} />
         <Route path={ROUTE.DETAILPAGE} element={<DetailPage />} />
         <Route path={ROUTE.SHOPPINGCART} element={<ShoppingCartPage />} />

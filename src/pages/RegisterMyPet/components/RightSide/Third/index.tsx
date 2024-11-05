@@ -1,5 +1,5 @@
 import * as S from '../../../styles/registerMyPetFirst.style';
-import Button from '../../Button';
+import PetButton from '../../PetButton';
 import BirthdaySelectForm from './BirthdaySelectForm';
 import BreedSelectForm from './BreedSelectForm';
 import { useCallback, useEffect, useState } from 'react';
@@ -53,7 +53,7 @@ const Third = ({ setIsNextButtonActive }: IThirdProps) => {
       <div>
         <S.Title>우리 아이 성별을 알려주세요</S.Title>
         <div style={{ display: 'flex', gap: '10px' }}>
-          <Button
+          <PetButton
             buttonName="남아"
             isActive={true}
             buttonDirection="next"
@@ -65,7 +65,7 @@ const Third = ({ setIsNextButtonActive }: IThirdProps) => {
             }}
             onClick={handleClickGenderButton}
           />
-          <Button
+          <PetButton
             buttonName="여아"
             isActive={true}
             buttonDirection="next"
