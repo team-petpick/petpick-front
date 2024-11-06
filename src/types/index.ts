@@ -83,3 +83,14 @@ export interface IMyPetInfo {
   petImg: string | null;
   petAge: number | null;
 }
+
+// 반려동물 프로필 데이터 타입
+export interface IPetInfo {
+  petId: number;
+  petName: string;
+  petKind: ProductType;
+  petSpecies: string;
+  petImg: string;
+  petAge: number;
+  petGender: PetGender | null;
+}
