@@ -16,10 +16,10 @@ const GoogleCallbackPage = () => {
     };
     try {
       const res = await instance.post('/auth/google', data);
-      const userName = res.data.user_name;
-      const userImage = res.data.user_profile;
-      const userId = res.data.user_id;
-      const accessToken = res.data.access_token;
+      const userName = res.data.user_name[0];
+      const userImage = res.data.user_profile[0];
+      const userId = res.data.user_id[0];
+      const accessToken = res.data.access_token[0];
 
       if (accessToken) {
         const userInfo = { userName, userImage, userId };
