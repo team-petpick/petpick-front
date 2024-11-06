@@ -9,7 +9,8 @@ import { useProductSearchStore } from '@store/productSearchStore';
 
 const Header = () => {
   // 로그인 상태 관리
-  const { userName } = useUserStore();
+  const { userInfo, clearUserInfo } = useUserStore();
+  const { userName } = userInfo;
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   // 검색어 관리
@@ -59,7 +60,7 @@ const Header = () => {
       await logout();
       localStorage.removeItem('accessToken');
       setIsLoggedIn(false);
-      useUserStore.getState().clearUserName();
+      clearUserInfo();
     } catch (error) {
       console.log(error, '로그아웃 실패');
     }
