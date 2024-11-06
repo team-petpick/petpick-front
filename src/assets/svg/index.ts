@@ -1,3 +1,4 @@
+export { default as Alert } from './Alert';
 export { default as Bell } from './Bell';
 export { default as BottomArrow } from './BottomArrow';
 export { default as Cart } from './Cart';

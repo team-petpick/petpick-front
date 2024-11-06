@@ -70,6 +70,16 @@ export type TBreed = {
   breed_size_name: string;
 };
 
+export interface ICartProps {
+  productId: number;
+  productName: string;
+  productPrice: number;
+  productSale: number;
+  productThumbnail: string;
+  cartCnt: number;
+  sellerName: string;
+}
+
 // 반려동물 프로필 데이터 타입
 export interface IMyPetInfo {
   petName: string | null;

@@ -1,5 +1,4 @@
 import * as S from '../../../styles/registerMyPetFirst.style';
-import PetButton from '../../PetButton';
 import BirthdaySelectForm from './BirthdaySelectForm';
 import BreedSelectForm from './BreedSelectForm';
 import { useCallback, useState } from 'react';
@@ -7,6 +6,7 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TPetGender } from '@types';
 import { DAY_OPTIONS, MONTH_OPTIONS, PET_GENDER, YEAR_OPTIONS } from '@constants';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
+import PetButton from '../../PetButton';
 interface IThirdProps {
   setIsNextButtonActive: (value: boolean) => void;
 }
