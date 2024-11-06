@@ -46,7 +46,6 @@ const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
               <ProductPriceText>상품할인금액</ProductPriceText>
               <DiscountContainer>
                 <DiscountPriceBox>{addCommaToPrice(discountedAmount)}</DiscountPriceBox>
-                <Text>로그인 후 할인 금액 적용</Text>
               </DiscountContainer>
             </DiscountPriceContainer>
             <DeliveryPriceContainer>
