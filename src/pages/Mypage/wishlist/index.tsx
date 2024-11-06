@@ -1,16 +1,16 @@
 import * as S from './styles/WishList.style';
 import WishListItem from './components/WishListItem';
 import { useEffect, useState } from 'react';
-import { deleteWishListItem, getWishLists } from '@apis/wish';
+import { getWishLists } from '@apis/wish';
 import { AxiosError } from 'axios';
 import { IProductInfo } from '@types';
+import { fetchToggleLike } from '@apis';
 
 interface IWishProduct extends IProductInfo {
   productId: number;
 }
 const WishList = () => {
   const [wishList, setWishList] = useState<IWishProduct[]>([]);
-
   useEffect(() => {
     const loadWishProducts = async () => {
       try {
@@ -27,7 +27,7 @@ const WishList = () => {
 
   const handleDeleteWishItem = async (productId: number) => {
     try {
-      await deleteWishListItem(productId);
+      await fetchToggleLike(productId);
       setWishList((prevWishList) => prevWishList.filter((item) => item.productId !== productId));
     } catch (error) {
       console.log(error);
