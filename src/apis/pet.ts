@@ -3,22 +3,25 @@ import { IMyPetInfo } from '@types';
 import instance from './instance';
 import { AxiosError } from 'axios';
 
-export const postPetInfo = async (petInfo: IMyPetInfo) => {
-  const formData = new FormData();
-
-  const imageTransformed = await fetch(petInfo.petImg as string);
+const transformImage = async (image: string) => {
+  const imageTransformed = await fetch(image);
   const blob = await imageTransformed.blob();
 
   const fileType = blob.type.split('/')[1];
+  return { blob, fileType };
+};
+
+export const postPetInfo = async (petInfo: IMyPetInfo) => {
+  const formData = new FormData();
+
+  const { blob, fileType } = await transformImage(petInfo.petImg as string);
 
   formData.append('petImg', blob, `petImg.${fileType}`);
-
   formData.append('petName', petInfo.petName as string);
   formData.append('petSpecies', petInfo.petSpecies as string);
   formData.append('petKind', petInfo.petKind as ProductType);
   formData.append('petAge', petInfo.petAge?.toString() || '');
   formData.append('userId', '1');
-  console.log('form', formData);
 
   const response = await instance.post('/pets', formData, {
     headers: {
@@ -28,6 +31,29 @@ export const postPetInfo = async (petInfo: IMyPetInfo) => {
   });
 
   return response;
+};
+
+export const putPetInfo = async (petInfo: IMyPetInfo) => {
+  const formData = new FormData();
+
+  formData.append('petName', petInfo.petName as string);
+  formData.append('petSpecies', petInfo.petSpecies as string);
+  formData.append('petKind', petInfo.petKind as ProductType);
+  formData.append('petAge', petInfo.petAge?.toString() || '');
+  if (petInfo.petImg?.slice(0, 4) !== 'http') {
+    const { blob, fileType } = await transformImage(petInfo.petImg as string);
+    formData.append('petImg', blob, `petImg.${fileType}`);
+  } else {
+    formData.append('petImg', petInfo.petImg as string);
+  }
+  const response = await instance.put(`/pets`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+
+  return response.data;
 };
 
 export const putPetImageInfo = async (petInfo: IMyPetInfo) => {
@@ -50,16 +76,6 @@ export const putPetImageInfo = async (petInfo: IMyPetInfo) => {
   });
 
   return response;
-};
-
-export const putPetInfo = async (petInfo: IMyPetInfo) => {
-  const response = await instance.put(`/pets`, petInfo, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-    },
-  });
-
-  return response.data;
 };
 
 export const getPetInfo = async () => {

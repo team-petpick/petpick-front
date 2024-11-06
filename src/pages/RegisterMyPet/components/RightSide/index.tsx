@@ -21,7 +21,7 @@ const RightSide = () => {
       if (userId) {
         if (petId) {
           await putPetInfo(myPetInfo);
-          await putPetImageInfo(myPetInfo);
+          // await putPetImageInfo(myPetInfo);
         } else {
           await postPetInfo(myPetInfo);
         }
