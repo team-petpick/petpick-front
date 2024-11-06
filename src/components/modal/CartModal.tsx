@@ -16,8 +16,9 @@ interface ICartModalProps {
 }
 const CartModal = ({ isOpen, onRequestClose, productInfo }: ICartModalProps) => {
   const navigate = useNavigate();
-  const { userId } = useUserStore();
+  const { userInfo } = useUserStore();
   const [productCount, setProductCount] = useState(1);
+  const userId = userInfo.userId;
 
   const handleCartButtonClick = async () => {
     if (!userId) return;
