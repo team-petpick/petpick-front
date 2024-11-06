@@ -10,14 +10,16 @@ interface IOrderProps {
 const OrderHistoryItem = ({ orderInfo }: IOrderProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const visibleProducts = isExpanded ? orderInfo.orderDetails : orderInfo.orderDetails.slice(0, 3);
-  console.log(orderInfo);
+  const formattedDate = orderInfo.orderCreateAt.split('T')[0];
+
   const handleMoreInfoClick = () => {
     setIsExpanded(!isExpanded);
   };
+
   return (
     <S.Wrapper>
       <S.Header>
-        <S.DateWrapper>{orderInfo.orderCreateAt}</S.DateWrapper>
+        <S.DateWrapper>{formattedDate}</S.DateWrapper>
         <S.orderNumWrapper>주문번호 {orderInfo.ordersId}</S.orderNumWrapper>
       </S.Header>
       <S.ProductList>

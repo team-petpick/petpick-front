@@ -18,8 +18,12 @@ export const ProductImage = styled.img`
     cursor: pointer;
   }
 `;
-export const DescriptionWrapper = styled.div`
+export const Container = styled.div`
+  display: flex;
   width: 100%;
+`;
+export const DescriptionWrapper = styled.div`
+  width: 50%;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -49,4 +53,20 @@ export const ProductOriginalPrice = styled.div`
 export const ProductSalePrice = styled.div`
   ${TextStyles.body.mediumM};
   color: ${PETPICK_COLORS.GRAY[800]};
+`;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+export const CancelButton = styled.div`
+  ${TextStyles.subText.smallM};
+  background: ${PETPICK_COLORS.BLUE[300]};
+  color: #fff;
+  &:hover {
+    background: ${PETPICK_COLORS.BLUE[400]};
+    cursor: pointer;
+  }
+  border-radius: 12px;
+  text-align: center;
+  padding: 4px 8px;
 `;

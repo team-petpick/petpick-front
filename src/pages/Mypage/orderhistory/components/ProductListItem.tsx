@@ -13,14 +13,19 @@ const ProductListItem = ({ productInfo }: IOrderProps) => {
   return (
     <S.Wrapper>
       <S.ProductImage src={productInfo.productThumbnail} />
-      <S.DescriptionWrapper>
-        <S.SellerName>{productInfo.sellerStoreName}</S.SellerName>
-        <S.ProductName>{productInfo.productName}</S.ProductName>
-        <S.PriceWrapper>
-          <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
-          <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
-        </S.PriceWrapper>
-      </S.DescriptionWrapper>
+      <S.Container>
+        <S.DescriptionWrapper>
+          <S.SellerName>{productInfo.sellerStoreName}</S.SellerName>
+          <S.ProductName>{productInfo.productName}</S.ProductName>
+          <S.PriceWrapper>
+            <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
+            <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
+          </S.PriceWrapper>
+        </S.DescriptionWrapper>
+        <S.ButtonWrapper>
+          <S.CancelButton>주문 취소</S.CancelButton>
+        </S.ButtonWrapper>
+      </S.Container>
     </S.Wrapper>
   );
 };
