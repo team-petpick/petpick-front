@@ -16,11 +16,13 @@ const OrderHistory = () => {
     const loadOrderData = async () => {
       const selectedPeriod = orderPeriods[activePeriod].split('')[0];
       try {
-        console.log(selectedPeriod);
         const response = await getOrderLists(0, Number(selectedPeriod));
-        const orderList = response.data;
-        console.log(orderList);
-        setOrderInfo(orderList);
+        if (response && response.data) {
+          const orderList = response.data;
+          setOrderInfo(orderList);
+        } else {
+          console.log('응답 데이터가 없습니다.');
+        }
       } catch (error) {
         console.log('주문내역을 불러오는 도중 오류가 발생했습니다', error);
       }
