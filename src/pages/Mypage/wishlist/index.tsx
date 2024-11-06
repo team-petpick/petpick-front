@@ -1,7 +1,7 @@
 import * as S from './styles/WishList.style';
 import WishListItem from './components/WishListItem';
 import { useEffect, useState } from 'react';
-import { getWishLists } from '@apis/wish';
+import { deleteWishListItem, getWishLists } from '@apis/wish';
 import { AxiosError } from 'axios';
 
 const WishList = () => {
@@ -21,9 +21,15 @@ const WishList = () => {
     loadWishProducts();
   }, []);
 
-  // const removeProductFromWishList = (productId: number) => {
-  //   setWishList((prevWishList) => prevWishList.filter((item) => item.productId !== productId));
-  // };
+  const handleDeleteWishItem = async (productId: number) => {
+    try {
+      await deleteWishListItem(productId);
+      setWishList((prevWishList) => prevWishList.filter((item) => item.productId !== productId));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <S.Wrapper>
       <S.ContentWrapper>
@@ -31,7 +37,7 @@ const WishList = () => {
         <S.CountWrapper>전체 {wishList.length}개</S.CountWrapper>
         <S.ProductList>
           {wishList.map((product) => (
-            <WishListItem productInfo={product} />
+            <WishListItem productInfo={product} deleteItem={handleDeleteWishItem} />
           ))}
         </S.ProductList>
       </S.ContentWrapper>
