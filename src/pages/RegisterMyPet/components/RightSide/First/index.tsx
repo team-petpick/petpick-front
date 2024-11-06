@@ -1,13 +1,13 @@
 import { CatDefault, DogDefault, PetGroup } from '@assets/svg';
 import * as S from '../../../styles/registerMyPetFirst.style';
 import { ANIMAL_TYPE } from '@constants';
-import { ProductType } from '@types';
+import { TProductType } from '@types';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 
 const First = ({ setIsNextButtonActive }: { setIsNextButtonActive: (value: boolean) => void }) => {
   const { myPetInfo, setMyPetInfo } = useMyPetInfoStore();
   setIsNextButtonActive(myPetInfo.petKind !== null);
-  const handleAnimalClick = (animal: ProductType) => {
+  const handleAnimalClick = (animal: TProductType) => {
     setMyPetInfo({ petKind: animal });
     setIsNextButtonActive(true);
   };

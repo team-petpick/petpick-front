@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as S from '../styles/Category.style';
 import { animalType, PRODUCT_CATEGORY_INDEX } from '@constants';
-import { TAnimalType } from '@types';
+import { TProductType } from '@types';
 import { useProductSearchStore } from '@store/productSearchStore';
 
 const Category = () => {
@@ -42,7 +42,7 @@ const Category = () => {
     } else {
       setActiveButton(index);
       setShowCategory(index + 1);
-      setProductListParams({ ...productListParams, type: animalType[index].type as TAnimalType });
+      setProductListParams({ ...productListParams, type: animalType[index].type as TProductType });
     }
   };
 
