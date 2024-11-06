@@ -1,25 +1,21 @@
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IAllProductInfo, TProductFilterType } from '@types';
 import { PRODUCT_FILTER_TYPE } from '@constants/productFilter';
 
 interface IProductInfoProps {
+  activeFilter: TProductFilterType;
+  setActiveFilter: (filterType: TProductFilterType) => void;
   productInfo: IAllProductInfo;
 }
 
-const ProductFilter = ({ productInfo }: IProductInfoProps) => {
-  const [activeFilter, setActiveFilter] = useState<TProductFilterType | null>(
-    PRODUCT_FILTER_TYPE.POPULAR,
-  );
+const ProductFilter = ({ activeFilter, setActiveFilter, productInfo }: IProductInfoProps) => {
+
   const handleFilterButtonClick = (filterType: TProductFilterType) => {
     setActiveFilter(filterType);
   };
 
-  useEffect(() => {
-    console.log(activeFilter);
-  }, [activeFilter]);
 
   return (
     <Wrapper>

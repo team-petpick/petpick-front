@@ -5,19 +5,15 @@ import { IAllProductInfo, TAnimalType, TProductFilterType } from '@types';
 export const getProducts = async (
   productType: TAnimalType | null,
   category: number | null,
+  activeFilter: TProductFilterType,
 ): Promise<IAllProductInfo> => {
-  const params: { type?: TProductFilterType; category?: number } = {
-    ...(productType ? { productType } : {}),
-    ...(category !== null && category !== 0 ? { category } : {}),
-  };
 
   try {
-    console.log("params",params);
-
     const response = await instance.get('/products', {
       params: {
         type: productType,
         category: category === 0 ? null : category,
+        filter: activeFilter,
       },
     });
 

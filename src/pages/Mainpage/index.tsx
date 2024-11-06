@@ -5,17 +5,20 @@ import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@apis';
-import { IAllProductInfo, TAnimalType } from '@types';
+import { IAllProductInfo, TProductFilterType, TAnimalType } from '@types';
+import { PRODUCT_FILTER_TYPE } from '@constants/productFilter';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
   const [productType, setProductType] = useState<TAnimalType | null>(null);
   const [category, setCategory] = useState<number | null>(0);
   const [error, setError] = useState<string | null>(null);
-
+  const [activeFilter, setActiveFilter] = useState<TProductFilterType>(
+    PRODUCT_FILTER_TYPE.POPULAR,
+  );
   const loadProducts = async () => {
     try {
-      const data = await getProducts(productType, category);
+      const data = await getProducts(productType, category, activeFilter);
       setProductInfo(data);
       setError(null);
     } catch (error) {
@@ -25,9 +28,8 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    console.log(productType, category);
     loadProducts();
-  }, [productType, category]);
+  }, [productType, category, activeFilter]);
 
   const handleAnimalTypeChange = (type: TAnimalType | null) => {
     setProductType(type);
@@ -44,7 +46,11 @@ const MainPage = () => {
         onAnimalTypeChange={handleAnimalTypeChange}
         onCategoryChange={handleCategoryChange}
       />
-      <ProductFilter productInfo={productInfo} />
+      <ProductFilter
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
+        productInfo={productInfo}
+      />
       <Body>
         {error ? (
           <div>{error}</div>
