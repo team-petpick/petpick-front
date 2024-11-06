@@ -20,8 +20,8 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
   const deleteModal = useModal();
   const [cartList, setCartList] = useState<ICartProps[]>([]);
   const [productInfo, setProductInfo] = useState<ICartProps | null>(null);
-  const [checkedList, setCheckedLists] = useState<number[]>([]);
-  const { setCartItems, setCheckedTotalPrice } = useCartStore();
+  // const [checkedList, setCheckedLists] = useState<number[]>([]);
+  const { setCartItems, toggleChecked, checkedList, setCheckedTotalPrice } = useCartStore();
 
   // 장바구니 항목을 가져오는 함수
   const fetchGetCartItem = async () => {
@@ -71,7 +71,7 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
       }
       // 삭제된 항목을 cartList에서 제거하고 상태 업데이트
       setCartList((prevList) => prevList.filter((item) => !checkedList.includes(item.productId)));
-      setCheckedLists([]); // 체크된 항목 초기화
+      // setCheckedLists([]); // 체크된 항목 초기화
       deleteModal.setIsOpen(false); // 모달 닫기
     } catch (error) {
       console.log('장바구니 DELETE api 호출 실패', error);
@@ -82,25 +82,17 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
   const onCheckedAll = useCallback(
     (checked: boolean) => {
       if (checked) {
-        setCheckedLists(cartList.map((list) => list.productId)); // 모든 항목의 id를 추가
+        const allIds = cartList.map((list) => list.productId);
+        allIds.forEach((id) => toggleChecked(id)); // 모든 항목 체크
       } else {
-        setCheckedLists([]); // 선택 해제 시 빈 배열로 초기화
+        checkedList.forEach((id) => toggleChecked(id)); // 모든 항목 해제
       }
     },
-    [cartList],
+    [cartList, checkedList, toggleChecked],
   );
-
-  // 개별 체크 클릭 시 발생하는 함수
-  const onCheckedElement = useCallback(
-    (checked: boolean, id: number) => {
-      if (checked) {
-        setCheckedLists([...checkedList, id]);
-      } else {
-        setCheckedLists(checkedList.filter((el) => el !== id));
-      }
-    },
-    [checkedList],
-  );
+  const onCheckedElement = (checked: boolean, id: number) => {
+    toggleChecked(id); // 체크된 상태를 store에 반영
+  };
 
   // 전체 선택 체크박스 onChange 핸들러
   const handleAllCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {

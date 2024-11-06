@@ -28,6 +28,9 @@ interface CartStore {
   setUserAddress: (userAddress: string) => void;
   getCartItems: () => CartItem[];
   calculateCheckedTotalPrice: () => void;
+  checkedList: number[];
+  setCheckedList: (list: number[]) => void;
+  toggleChecked: (productId: number) => void; // 상품 체크/해제
 }
 
 export const useCartStore = create(
@@ -38,6 +41,8 @@ export const useCartStore = create(
       originalTotalPrice: 0,
       userAddress: '배송지를 입력해주세요',
       checkedTotalPrice: 0,
+      checkedList: [],
+      setCheckedList: (list: any) => set(() => ({ checkedList: list })),
 
       setCheckedTotalPrice: (price: any) => set({ checkedTotalPrice: price }),
 
@@ -61,13 +66,14 @@ export const useCartStore = create(
         })),
 
       // 수량 업데이트
-      updateQuantity: (productId, quantity) =>
+      updateQuantity: (productId, quantity) => {
         set((state) => ({
           cartItems: state.cartItems.map((item) =>
             item.productId === productId ? { ...item, cartCnt: quantity } : item,
           ),
-        })),
-
+        }));
+        get().calculateTotalPrice();
+      },
       // 총 가격 계산
       calculateTotalPrice: () =>
         set((state) => {
@@ -85,9 +91,18 @@ export const useCartStore = create(
           return { ...state, totalPrice, originalTotalPrice };
         }),
 
+      // 체크된 상품 리스트 업데이트
+      toggleChecked: (productId) => {
+        const { checkedList } = get();
+        const newCheckedList = checkedList.includes(productId)
+          ? checkedList.filter((id) => id !== productId)
+          : [...checkedList, productId];
+        set({ checkedList: newCheckedList });
+        get().calculateTotalPrice();
+      },
       // 체크된 항목의 총 금액을 계산하여 저장
       calculateCheckedTotalPrice: () => {
-        const { cartItems } = get();
+        const { cartItems, checkedList } = get();
         const checkedTotal = cartItems
           .filter((item) => item.isChecked)
           .reduce(

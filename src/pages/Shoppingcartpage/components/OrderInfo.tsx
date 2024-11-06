@@ -21,6 +21,7 @@ const OrderInfo = ({ productInfo }: OrderInfoProps) => {
   const calculateTotalPrice = useCartStore((state) => state.calculateTotalPrice);
   const totalPrice = useCartStore((state) => state.totalPrice);
   const originalTotalPrice = useCartStore((state) => state.originalTotalPrice);
+  // const { checkedTotalPrice } = useCartStore();
 
   useEffect(() => {
     calculateTotalPrice(); // 총 가격을 계산하여 상태에 저장

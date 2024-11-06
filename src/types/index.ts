@@ -80,7 +80,6 @@ export interface ICartProps {
   sellerName: string;
 }
 
-export type TProductFilterType = (typeof PRODUCT_FILTER_TYPE)[keyof typeof PRODUCT_FILTER_TYPE];
 // 반려동물 프로필 데이터 타입
 export interface IMyPetInfo {
   petName: string | null;
