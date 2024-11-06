@@ -3,22 +3,35 @@ import * as S from '../styles/WishListItem.style';
 import Button from './Button';
 import { deleteWishListItem } from '@apis/wish';
 import { AxiosError } from 'axios';
+import { postCartItem } from '@apis/cart';
 
 interface IProductProps {
   productInfo: IProductInfo;
-  removeProduct: (productId: number) => void;
+  // removeProduct: (productId: number) => void;
 }
-const WishListItem = ({ productInfo, removeProduct }: IProductProps) => {
+const WishListItem = ({ productInfo }: IProductProps) => {
   const handleDelete = async (productId: number) => {
     try {
       console.log(Number(productId));
       await deleteWishListItem(Number(productId));
-      removeProduct(productId);
+      // removeProduct(productId);
     } catch (error) {
       const axiosError = error as AxiosError;
       console.error(axiosError.message);
       if (axiosError.response) {
-        console.error(axiosError.response); // 서버가 제공하는 추가 정보 확인
+        console.error(axiosError.response);
+      }
+    }
+  };
+
+  const handleCart = async (productId: number, count: number) => {
+    try {
+      await postCartItem(productId, count);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.error(axiosError.message);
+      if (axiosError.response) {
+        console.error(axiosError.response);
       }
     }
   };
@@ -34,7 +47,7 @@ const WishListItem = ({ productInfo, removeProduct }: IProductProps) => {
         </S.PriceWrapper>
         <S.ButtonsWrapper>
           <Button text="삭제하기" onClick={() => handleDelete(productInfo.productId)} />
-          <Button text="담기" onClick={() => console.log('담기')} />
+          <Button text="담기" onClick={() => handleCart(productInfo.productId, 1)} />
         </S.ButtonsWrapper>
       </S.DescriptionWrapper>
     </S.Wrapper>

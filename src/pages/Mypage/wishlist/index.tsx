@@ -21,9 +21,9 @@ const WishList = () => {
     loadWishProducts();
   }, []);
 
-  const removeProductFromWishList = (productId: number) => {
-    setWishList((prevWishList) => prevWishList.filter((item) => item.productId !== productId));
-  };
+  // const removeProductFromWishList = (productId: number) => {
+  //   setWishList((prevWishList) => prevWishList.filter((item) => item.productId !== productId));
+  // };
   return (
     <S.Wrapper>
       <S.ContentWrapper>
@@ -31,11 +31,7 @@ const WishList = () => {
         <S.CountWrapper>전체 {wishList.length}개</S.CountWrapper>
         <S.ProductList>
           {wishList.map((product) => (
-            <WishListItem
-              key={product.productId}
-              productInfo={product}
-              removeProduct={removeProductFromWishList}
-            />
+            <WishListItem productInfo={product} />
           ))}
         </S.ProductList>
       </S.ContentWrapper>
