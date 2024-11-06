@@ -4,7 +4,7 @@ import BirthdaySelectForm from './BirthdaySelectForm';
 import BreedSelectForm from './BreedSelectForm';
 import { useCallback, useState } from 'react';
 import { PETPICK_COLORS } from '@styles/colors';
-import { PetGender } from '@types';
+import { TPetGender } from '@types';
 import { DAY_OPTIONS, MONTH_OPTIONS, PET_GENDER, YEAR_OPTIONS } from '@constants';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 interface IThirdProps {
@@ -12,7 +12,7 @@ interface IThirdProps {
 }
 
 const Third = ({ setIsNextButtonActive }: IThirdProps) => {
-  const [gender, setGender] = useState<PetGender>(PET_GENDER.MALE);
+  const [gender, setGender] = useState<TPetGender>(PET_GENDER.MALE);
   const { myPetInfo } = useMyPetInfoStore();
 
   const getBackgroundColor = useCallback((isMale: boolean) => {
@@ -26,7 +26,9 @@ const Third = ({ setIsNextButtonActive }: IThirdProps) => {
   }, []);
 
   const handleClickGenderButton = () => {
-    setGender((prev) => (prev === PET_GENDER.MALE ? PET_GENDER.FEMALE : PET_GENDER.MALE));
+    setGender((prev: TPetGender) =>
+      prev === PET_GENDER.MALE ? PET_GENDER.FEMALE : PET_GENDER.MALE,
+    );
   };
 
   return (

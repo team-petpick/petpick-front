@@ -7,7 +7,7 @@ import Third from './Third';
 import { useState, useEffect } from 'react';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 import PetButton from '../PetButton';
-import { postPetInfo, putPetImageInfo, putPetInfo } from '@apis/pet';
+import { postPetInfo, putPetInfo } from '@apis/pet';
 
 const RightSide = () => {
   const navigate = useNavigate();

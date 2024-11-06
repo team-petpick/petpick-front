@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import dogSpecies from '../../../../../assets/dogSpecies.json';
 import catSpecies from '../../../../../assets/catSpecies.json';
-import { Breed } from '@types';
+import { TBreed } from '@types';
 import * as S from '../../../styles/registerMyPetFirst.style';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 
@@ -26,7 +26,7 @@ const BreedSelectForm = ({ setIsNextButtonActive }: IBreedSelectFormProps) => {
     );
   };
 
-  const handleBreedClick = (breed: Breed) => {
+  const handleBreedClick = (breed: TBreed) => {
     setMyPetInfo({ petSpecies: breed.animal_group2_name });
     setIsOpenDropdown(false);
     setIsNextButtonActive(true);

@@ -1,11 +1,10 @@
-import { TProductFilterType } from '@types';
-import { TAnimalType } from '@types';
+import { TProductFilterType, TProductType } from '@types';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface IProductSearchParam {
   search: string;
-  type: TAnimalType | null;
+  type: TProductType | null;
   category: number | null;
   sort: TProductFilterType | null;
 }

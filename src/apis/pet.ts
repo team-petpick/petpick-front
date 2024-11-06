@@ -1,4 +1,4 @@
-import { ProductType } from '@types';
+import { TProductType } from '@types';
 import { IMyPetInfo } from '@types';
 import instance from './instance';
 import { AxiosError } from 'axios';
@@ -19,7 +19,7 @@ export const postPetInfo = async (petInfo: IMyPetInfo) => {
   formData.append('petImg', blob, `petImg.${fileType}`);
   formData.append('petName', petInfo.petName as string);
   formData.append('petSpecies', petInfo.petSpecies as string);
-  formData.append('petKind', petInfo.petKind as ProductType);
+  formData.append('petKind', petInfo.petKind as TProductType);
   formData.append('petAge', petInfo.petAge?.toString() || '');
   formData.append('userId', '1');
 
@@ -38,7 +38,7 @@ export const putPetInfo = async (petInfo: IMyPetInfo) => {
 
   formData.append('petName', petInfo.petName as string);
   formData.append('petSpecies', petInfo.petSpecies as string);
-  formData.append('petKind', petInfo.petKind as ProductType);
+  formData.append('petKind', petInfo.petKind as TProductType);
   formData.append('petAge', petInfo.petAge?.toString() || '');
   if (petInfo.petImg?.slice(0, 4) !== 'http') {
     const { blob, fileType } = await transformImage(petInfo.petImg as string);
