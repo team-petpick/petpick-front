@@ -1,9 +1,9 @@
 import { TPetGender, TProductType } from '@types';
 
 export const animalType = [
-  { name: '강아지', type: 'dog', icon: '/src/assets/png/dog.png' },
-  { name: '고양이', type: 'cat', icon: '/src/assets/png/cat.png' },
-  { name: '기타', type: 'etc', icon: '/src/assets/png/sole.png' },
+  { name: '강아지', type: 'dog', icon: '/png/dog.png' },
+  { name: '고양이', type: 'cat', icon: '/png/cat.png' },
+  { name: '기타', type: 'etc', icon: '/png/sole.png' },
 ];
 
 export const PRODUCT_CATEGORY_NAME = {
