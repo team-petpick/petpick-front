@@ -10,12 +10,14 @@ import { useProductSearchStore } from '@store/productSearchStore';
 import useGetLikeAll from './hooks/useGetLikeAll';
 import Loading from '@components/Loading';
 import ProductList from './components/ProductList';
+import { useLikeIdsStore } from './stores/likeIds';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { productListParams } = useProductSearchStore();
-  const { likedProductIds, loading } = useGetLikeAll();
+  const { loading } = useGetLikeAll();
+  const { likedProductIds } = useLikeIdsStore();
 
   const loadProducts = async () => {
     try {
@@ -28,6 +30,10 @@ const MainPage = () => {
     }
   };
 
+  useEffect(() => {
+    console.log('main', likedProductIds);
+    console.log('-----------');
+  }, [likedProductIds, loading]);
   useEffect(() => {
     loadProducts();
   }, [productListParams]);

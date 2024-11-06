@@ -1,9 +1,10 @@
 import { fetchGetLikeAll } from '@apis';
 import { IProductInfo } from '@types';
 import { useCallback, useEffect, useState } from 'react';
+import { useLikeIdsStore } from '../stores/likeIds';
 
 const useGetLikeAll = () => {
-  const [likedProductIds, setLikedProductIds] = useState<number[]>([]);
+  const { likedProductIds, setLikedProductIds } = useLikeIdsStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [reloadTrigger, setReloadTrigger] = useState(false);
 
