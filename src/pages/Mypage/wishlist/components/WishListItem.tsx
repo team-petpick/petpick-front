@@ -8,7 +8,7 @@ interface IProductProps {
 const WishListItem = ({ productInfo }: IProductProps) => {
   return (
     <S.Wrapper>
-      <S.ProductImage src={productInfo.productImg.productImgUrl} />
+      <S.ProductImage src={productInfo.productThumbnail} />
       <S.DescriptionWrapper>
         <S.SellerName>{productInfo.seller.sellerStoreName}</S.SellerName>
         <S.ProductName>{productInfo.productName}</S.ProductName>

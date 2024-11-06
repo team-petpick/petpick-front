@@ -6,16 +6,16 @@ import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@apis';
 import { IAllProductInfo } from '@types';
+import { useProductSearchStore } from '@store/productSearchStore';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
-  const [type, setType] = useState<string | null>(null);
-  const [category, setCategory] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const { productListParams } = useProductSearchStore();
+  
   const loadProducts = async () => {
     try {
-      const data = await getProducts(type, category);
+      const data = await getProducts(productListParams);
       setProductInfo(data);
       setError(null);
     } catch (error) {
@@ -26,23 +26,12 @@ const MainPage = () => {
 
   useEffect(() => {
     loadProducts();
-  }, [type, category]);
-
-  const handleAnimalTypeChange = (type: string | null) => {
-    setType(type);
-  };
-
-  const handleCategoryChange = (category: number | null) => {
-    setCategory(category);
-  };
+  }, [productListParams]);
 
   if (!productInfo) return null;
   return (
     <Layout>
-      <Category
-        onAnimalTypeChange={handleAnimalTypeChange}
-        onCategoryChange={handleCategoryChange}
-      />
+      <Category />
       <ProductFilter productInfo={productInfo} />
       <Body>
         {error ? (

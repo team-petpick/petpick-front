@@ -25,6 +25,7 @@ const CartModal = ({ isOpen, onRequestClose, productInfo }: ICartModalProps) => 
     const url = ROUTE.SHOPPINGCART.replace(':userId', userId.toString());
     navigate(url);
   };
+
   const fetchPostCartItem = async () => {
     try {
       const response = await postCartItem(productInfo.productId, productCount);
@@ -53,7 +54,7 @@ const CartModal = ({ isOpen, onRequestClose, productInfo }: ICartModalProps) => 
       <S.ModalContainer>
         <S.ProductInfo>
           <S.ProductImage>
-            <img src={productInfo.productImg?.productImgUrl} />
+            <img src={productInfo.productThumbnail} />
           </S.ProductImage>
           <S.ProductTitle>
             [{productInfo.seller.sellerStoreName}] {productInfo.productName}

@@ -1,3 +1,6 @@
+import { ANIMAL_TYPE } from '@constants';
+import { PRODUCT_FILTER_TYPE } from '@constants/productFilter';
+
 export type ProductType = 'DOG' | 'CAT' | 'ETC';
 export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
 export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
@@ -6,6 +9,10 @@ export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
 export interface IProductInfo {
   priceSale: number;
   productId: number;
+  category: {
+    categoryId: number;
+    categoryName: string;
+  };
   productName: string;
   seller: {
     sellerId: number;
@@ -15,19 +22,10 @@ export interface IProductInfo {
     sellerAddrDetail: string;
   };
   productStatus: 'ON' | 'OFF';
-  likes: {
-    likesCount: number;
-  };
   productPrice: number;
-  productShare: number;
   productSale: number;
   productCnt: number;
-  productImg: {
-    productImgId: number;
-    productImgThumb: number;
-    productImgUrl: string;
-    productImgName: string;
-  };
+  productThumbnail: string;
 }
 
 // 상품 상세 정보 API 응답 데이터 타입
@@ -84,3 +82,7 @@ export interface ICartProps {
   productThumbnail: string;
   cartCnt: number;
 }
+
+export type TProductFilterType = (typeof PRODUCT_FILTER_TYPE)[keyof typeof PRODUCT_FILTER_TYPE];
+
+export type TAnimalType = (typeof ANIMAL_TYPE)[keyof typeof ANIMAL_TYPE];
