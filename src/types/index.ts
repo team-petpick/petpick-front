@@ -80,6 +80,7 @@ export interface ICartProps {
   productSale: number;
   productThumbnail: string;
   cartCnt: number;
+  sellerName: string;
 }
 
 export type TProductFilterType = (typeof PRODUCT_FILTER_TYPE)[keyof typeof PRODUCT_FILTER_TYPE];

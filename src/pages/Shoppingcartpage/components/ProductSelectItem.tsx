@@ -86,7 +86,9 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
       <SelectWrapper>
         <SelectBox>
           <CheckboxLabal text="text" checked={isChecked} onChange={onCheck} />
-          <SelectText> {productInfo.productName} </SelectText>
+          <SelectText>
+            [{productInfo.sellerName}] {productInfo.productName}{' '}
+          </SelectText>
         </SelectBox>
         <SelectButton>
           <Delete width="20px" height="20px" />
