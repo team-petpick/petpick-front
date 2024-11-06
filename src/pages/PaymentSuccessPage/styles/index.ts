@@ -99,7 +99,7 @@ export const Discount = styled.div`
 
 export const TotalPrice = styled.div`
   width: 80px;
-  text-align: right;
+  text-align: center;
   font-size: 1rem;
   font-weight: bold;
 `;

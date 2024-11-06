@@ -56,6 +56,7 @@ export interface IOrderDetail {
   orderDetailPrice: number;
   orderDetailCnt: number;
   productThumbnail: string;
+  productSale: number;
 }
 
 export interface IOrder {
