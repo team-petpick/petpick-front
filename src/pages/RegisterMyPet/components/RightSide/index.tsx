@@ -7,18 +7,24 @@ import Third from './Third';
 import { useState, useEffect } from 'react';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 import PetButton from '../PetButton';
-import { postPetInfo } from '@apis/pet';
+import { postPetInfo, putPetImageInfo, putPetInfo } from '@apis/pet';
 
 const RightSide = () => {
   const navigate = useNavigate();
   const { step, userId } = useParams();
   const { myPetInfo } = useMyPetInfoStore();
   const [isNextButtonActive, setIsNextButtonActive] = useState<boolean>(false);
+  const petId = localStorage.getItem('petId');
 
   const handleNextButtonClick = async () => {
     if (Number(step) === 3) {
       if (userId) {
-        await postPetInfo(myPetInfo);
+        if (petId) {
+          await putPetInfo(myPetInfo);
+          await putPetImageInfo(myPetInfo);
+        } else {
+          await postPetInfo(myPetInfo);
+        }
         navigate(ROUTE.MYPAGE.replace(':userId', userId));
       } else {
         navigate(ROUTE.LOGINPAGE);

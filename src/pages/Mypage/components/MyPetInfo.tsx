@@ -4,6 +4,7 @@ import { ROUTE } from '@constants/ROUTE';
 import { getPetInfo } from '@apis/pet';
 import { useEffect, useState } from 'react';
 import { IPetInfo } from '@types';
+import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 const MyPetInfo = () => {
   const navigate = useNavigate();
   const userId = '1';
@@ -13,9 +14,11 @@ const MyPetInfo = () => {
   };
   const [petInfo, setPetInfo] = useState<IPetInfo | null>(null);
   const { petName, petSpecies, petAge, petImg } = petInfo || {};
+  const { setMyPetInfo } = useMyPetInfoStore();
   useEffect(() => {
     getPetInfo().then((res) => {
       setPetInfo(res);
+      setMyPetInfo(res);
       localStorage.setItem('petId', res.petId.toString());
     });
   }, []);

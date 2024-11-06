@@ -16,10 +16,10 @@ interface IMyPetInfoStore {
 
 export const useMyPetInfoStore = create<IMyPetInfoStore>((set) => ({
   myPetInfo: {
-    petName: '장미',
-    petSpecies: '푸들',
-    petKind: 'DOG',
-    petAge: 1,
+    petName: '',
+    petSpecies: '',
+    petKind: null,
+    petAge: null,
     petImg: null,
   },
   myPetBirthday: {

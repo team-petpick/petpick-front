@@ -30,6 +30,38 @@ export const postPetInfo = async (petInfo: IMyPetInfo) => {
   return response;
 };
 
+export const putPetImageInfo = async (petInfo: IMyPetInfo) => {
+  const formData = new FormData();
+
+  const imageTransformed = await fetch(petInfo.petImg as string);
+  const blob = await imageTransformed.blob();
+
+  const fileType = blob.type.split('/')[1];
+
+  formData.append('petImg', blob, `petImg.${fileType}`);
+  console.log('form', formData);
+
+  const petId = localStorage.getItem('petId');
+  const response = await instance.put(`/pets/${petId}/image`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+
+  return response;
+};
+
+export const putPetInfo = async (petInfo: IMyPetInfo) => {
+  const response = await instance.put(`/pets`, petInfo, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+
+  return response.data;
+};
+
 export const getPetInfo = async () => {
   try {
     const response = await instance.get(`/pets`, {
