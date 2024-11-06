@@ -6,7 +6,7 @@ import { IProductSearchParam } from '@store/productSearchStore';
 export const getProducts = async (params: IProductSearchParam): Promise<IAllProductInfo> => {
   try {
     const response = await instance.get('/products', {
-      params,
+      params: { ...params, category: params.category || null },
     });
 
     return response.data;

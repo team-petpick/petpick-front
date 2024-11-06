@@ -12,7 +12,7 @@ const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { productListParams } = useProductSearchStore();
-
+  
   const loadProducts = async () => {
     try {
       const data = await getProducts(productListParams);

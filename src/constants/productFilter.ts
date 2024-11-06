@@ -1,6 +1,6 @@
 export const PRODUCT_FILTER_TYPE = {
-  DESC: 'desc',
-  POPULAR: 'popular',
+  DESC: 'createAt_desc',
+  POPULAR: 'productLikesTotal_desc',
 } as const;
 
 export const PRODUCT_CATEGORY_NAME = {
