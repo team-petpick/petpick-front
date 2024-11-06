@@ -3,35 +3,29 @@ import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 import { IAllProductInfo, TProductFilterType } from '@types';
 import { PRODUCT_FILTER_TYPE } from '@constants/productFilter';
-
+import { useProductSearchStore } from '@store/productSearchStore';
 interface IProductInfoProps {
-  activeFilter: TProductFilterType;
-  setActiveFilter: (filterType: TProductFilterType) => void;
   productInfo: IAllProductInfo;
 }
 
-const ProductFilter = ({ activeFilter, setActiveFilter, productInfo }: IProductInfoProps) => {
-
+const ProductFilter = ({ productInfo }: IProductInfoProps) => {
+  const { productListParams, setProductListParams } = useProductSearchStore();
+  const { sort } = productListParams;
   const handleFilterButtonClick = (filterType: TProductFilterType) => {
-    setActiveFilter(filterType);
+    setProductListParams({ ...productListParams, sort: filterType });
   };
-
 
   return (
     <Wrapper>
       <FilterLayout>
         <TotalCount>총 {productInfo.content.length}개</TotalCount>
         <FilterContainer>
-          <FilterButton onClick={() => handleFilterButtonClick(PRODUCT_FILTER_TYPE.POPULAR)}>
-            <FilterTextBox isActive={activeFilter === PRODUCT_FILTER_TYPE.POPULAR}>
-              인기순
-            </FilterTextBox>
+          <FilterButton onClick={() => handleFilterButtonClick(PRODUCT_FILTER_TYPE.DESC)}>
+            <FilterTextBox isActive={sort === PRODUCT_FILTER_TYPE.DESC}>최신순</FilterTextBox>
           </FilterButton>
           <FilterDivideBox></FilterDivideBox>
-          <FilterButton onClick={() => handleFilterButtonClick(PRODUCT_FILTER_TYPE.SALES)}>
-            <FilterTextBox isActive={activeFilter === PRODUCT_FILTER_TYPE.SALES}>
-              판매순
-            </FilterTextBox>
+          <FilterButton onClick={() => handleFilterButtonClick(PRODUCT_FILTER_TYPE.POPULAR)}>
+            <FilterTextBox isActive={sort === PRODUCT_FILTER_TYPE.POPULAR}>인기순</FilterTextBox>
           </FilterButton>
         </FilterContainer>
       </FilterLayout>

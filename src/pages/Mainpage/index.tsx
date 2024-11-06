@@ -5,20 +5,17 @@ import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@apis';
-import { IAllProductInfo, TProductFilterType, TAnimalType } from '@types';
-import { PRODUCT_FILTER_TYPE } from '@constants/productFilter';
+import { IAllProductInfo } from '@types';
+import { useProductSearchStore } from '@store/productSearchStore';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
-  const [productType, setProductType] = useState<TAnimalType | null>(null);
-  const [category, setCategory] = useState<number | null>(0);
   const [error, setError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<TProductFilterType>(
-    PRODUCT_FILTER_TYPE.POPULAR,
-  );
+  const { productListParams } = useProductSearchStore();
+
   const loadProducts = async () => {
     try {
-      const data = await getProducts(productType, category, activeFilter);
+      const data = await getProducts(productListParams);
       setProductInfo(data);
       setError(null);
     } catch (error) {
@@ -29,28 +26,13 @@ const MainPage = () => {
 
   useEffect(() => {
     loadProducts();
-  }, [productType, category, activeFilter]);
-
-  const handleAnimalTypeChange = (type: TAnimalType | null) => {
-    setProductType(type);
-  };
-
-  const handleCategoryChange = (category: number | null) => {
-    setCategory(category);
-  };
+  }, [productListParams]);
 
   if (!productInfo) return null;
   return (
     <Layout>
-      <Category
-        onAnimalTypeChange={handleAnimalTypeChange}
-        onCategoryChange={handleCategoryChange}
-      />
-      <ProductFilter
-        activeFilter={activeFilter}
-        setActiveFilter={setActiveFilter}
-        productInfo={productInfo}
-      />
+      <Category />
+      <ProductFilter productInfo={productInfo} />
       <Body>
         {error ? (
           <div>{error}</div>

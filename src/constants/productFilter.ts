@@ -1,6 +1,6 @@
 export const PRODUCT_FILTER_TYPE = {
+  DESC: 'desc',
   POPULAR: 'popular',
-  SALES: 'sales',
 } as const;
 
 export const PRODUCT_CATEGORY_NAME = {

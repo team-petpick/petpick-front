@@ -1,20 +1,12 @@
 import { AxiosError } from 'axios';
 import instance from './instance';
-import { IAllProductInfo, TAnimalType, TProductFilterType } from '@types';
+import { IAllProductInfo } from '@types';
+import { IProductSearchParam } from '@store/productSearchStore';
 
-export const getProducts = async (
-  productType: TAnimalType | null,
-  category: number | null,
-  activeFilter: TProductFilterType,
-): Promise<IAllProductInfo> => {
-
+export const getProducts = async (params: IProductSearchParam): Promise<IAllProductInfo> => {
   try {
     const response = await instance.get('/products', {
-      params: {
-        type: productType,
-        category: category === 0 ? null : category,
-        filter: activeFilter,
-      },
+      params,
     });
 
     return response.data;

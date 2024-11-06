@@ -2,13 +2,10 @@ import { useState } from 'react';
 import * as S from '../styles/Category.style';
 import { animalType, PRODUCT_CATEGORY_INDEX } from '@constants';
 import { TAnimalType } from '@types';
+import { useProductSearchStore } from '@store/productSearchStore';
 
-interface ICategoryProps {
-  onAnimalTypeChange: (type: TAnimalType | null) => void;
-  onCategoryChange: (category: number | null) => void;
-}
-
-const Category = ({ onAnimalTypeChange, onCategoryChange }: ICategoryProps) => {
+const Category = () => {
+  const { productListParams, setProductListParams } = useProductSearchStore();
   const [showCategory, setShowCategory] = useState<number | null>(null);
   const [activeButton, setActiveButton] = useState<number | null>(null);
   const [activeCategoryButton, setActiveCategoryButton] = useState<number | null>(null);
@@ -17,21 +14,25 @@ const Category = ({ onAnimalTypeChange, onCategoryChange }: ICategoryProps) => {
     if (activeButton === index) {
       setActiveButton(null);
       setShowCategory(null);
-      onAnimalTypeChange(null);
+      // onAnimalTypeChange(null);
+      setProductListParams({ ...productListParams, type: null });
     } else {
       setActiveButton(index);
       setShowCategory(index + 1);
-      onAnimalTypeChange(animalType[index].type as TAnimalType);
+      // onAnimalTypeChange(animalType[index].type as TAnimalType);
+      setProductListParams({ ...productListParams, type: animalType[index].type as TAnimalType });
     }
   };
 
   const handleClickCategory = (index: number) => {
     if (activeCategoryButton === index) {
       setActiveCategoryButton(null);
-      onCategoryChange(null);
+      // onCategoryChange(null);
+      setProductListParams({ ...productListParams, category: null });
     } else {
       setActiveCategoryButton(index);
-      onCategoryChange(index);
+      // onCategoryChange(index);
+      setProductListParams({ ...productListParams, category: index });
     }
   };
 
@@ -51,7 +52,6 @@ const Category = ({ onAnimalTypeChange, onCategoryChange }: ICategoryProps) => {
           </S.AnimalTypeButton>
         ))}
       </S.AnimalTypeWrapper>
-
       {showCategory && (
         <S.CategoryWrapper>
           {PRODUCT_CATEGORY_INDEX.map((category, index) => (

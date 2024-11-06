@@ -5,12 +5,15 @@ import { useEffect, useState } from 'react';
 import * as S from './styles/Header.style';
 import { useUserStore } from '@store/userStore';
 import { logout } from '@apis/auth/logout';
+import { useProductSearchStore } from '@store/productSearchStore';
 
 const Header = () => {
   // 로그인 상태 관리
   const { userName } = useUserStore();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
+  // 검색어 관리
+  const { productListParams, setProductListParams } = useProductSearchStore();
   // router 설정
   const navigate = useNavigate();
 
@@ -25,12 +28,15 @@ const Header = () => {
   const handleHomeClick = () => {
     navigate('/');
   };
+
   const handleClickNavigateToLoginPage = () => {
     navigate(ROUTE.LOGINPAGE);
   };
+
   const handleClickNavigateToSignUpPage = () => {
     navigate(ROUTE.SIGNUPPAGE);
   };
+
   const handleLMyPageButtonClick = () => {
     // 비회원 로직
     if (!isLoggedIn) {
@@ -39,6 +45,7 @@ const Header = () => {
       navigate(ROUTE.MYPAGE.replace(':userId', '1'));
     }
   };
+
   const handleCartButtonClick = () => {
     if (isLoggedIn) {
       navigate(ROUTE.SHOPPINGCART.replace(':userId', '1'));
@@ -55,6 +62,16 @@ const Header = () => {
     } catch (error) {
       console.log(error, '로그아웃 실패');
     }
+  };
+
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const handleSearchKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const keyword = e.target.value;
+    setSearchKeyword(keyword);
+  };
+
+  const handleSearchButtonClick = () => {
+    setProductListParams({ ...productListParams, search: searchKeyword });
   };
 
   // 비회원 로직
@@ -84,9 +101,18 @@ const Header = () => {
             <PetpickLogo width="115" height="100" />
           </button>
           <S.SearchContainer>
-            <S.SearchBox type="text" placeholder="검색어를 입력해주세요" />
+            <S.SearchBox
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearchButtonClick();
+                }
+              }}
+              onChange={handleSearchKeywordChange}
+              type="text"
+              placeholder="검색어를 입력해주세요"
+            />
             <S.SearchButton>
-              <Search width="30" height="30" />
+              <Search width="30" height="30" onClick={handleSearchButtonClick} />
             </S.SearchButton>
           </S.SearchContainer>
           <S.ButtonContainer>
