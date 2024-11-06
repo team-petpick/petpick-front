@@ -8,11 +8,12 @@ interface IOrderCancelModalProps {
     orderDetailCnt: number;
     orderId: number;
   };
+  onClose: () => void;
 }
-const OrderCancelModal = ({ orderDetails }: IOrderCancelModalProps) => {
+const OrderCancelModal = ({ orderDetails, onClose }: IOrderCancelModalProps) => {
   const [cancelReason, setCancelReason] = useState<string>('');
 
-  const handleCancelReasonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCancelReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCancelReason(e.target.value);
   };
 
@@ -29,15 +30,17 @@ const OrderCancelModal = ({ orderDetails }: IOrderCancelModalProps) => {
     <S.Wrapper>
       <S.Header>주문 취소</S.Header>
       <S.Body>
-        <S.Input
-          type="text"
+        <S.TextArea
+          as="textarea"
           value={cancelReason}
           onChange={handleCancelReasonChange}
           placeholder="취소 사유를 입력하세요"
         />
         <S.ButtonWrapper>
-          <S.SubmitButton onClick={handleSubmit}>제출</S.SubmitButton>
-          <S.CloseButton>닫기</S.CloseButton>
+          <S.SubmitButton disabled={!cancelReason} onClick={handleSubmit}>
+            제출
+          </S.SubmitButton>
+          <S.CloseButton onClick={onClose}>닫기</S.CloseButton>
         </S.ButtonWrapper>
       </S.Body>
     </S.Wrapper>

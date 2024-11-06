@@ -13,7 +13,7 @@ const OrderHistoryItem = ({ orderInfo }: IOrderProps) => {
   const visibleProducts = isExpanded ? orderInfo.orderDetails : orderInfo.orderDetails.slice(0, 3);
   const formattedDate = orderInfo.orderCreateAt.split('T')[0];
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [orderDetails, setOrderDetails] = useState({
+  const [orderDetails] = useState({
     orderDetailId: String(orderInfo.orderDetails[0].orderDetailId),
     orderDetailCnt: orderInfo.orderDetails[0].orderDetailCnt,
     orderId: orderInfo.ordersId,
@@ -24,8 +24,11 @@ const OrderHistoryItem = ({ orderInfo }: IOrderProps) => {
   };
 
   const openModal = () => {
-    console.log('click');
     setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -37,7 +40,7 @@ const OrderHistoryItem = ({ orderInfo }: IOrderProps) => {
         </S.Header>
         <S.ProductList>
           {visibleProducts.map((product) => (
-            <ProductListItem productInfo={product} onOpenModal={() => openModal(product)} />
+            <ProductListItem productInfo={product} onOpenModal={() => openModal()} />
           ))}
           {orderInfo.orderDetails.length > 3 && (
             <MoreInfo
@@ -48,7 +51,7 @@ const OrderHistoryItem = ({ orderInfo }: IOrderProps) => {
           )}
         </S.ProductList>
       </S.Wrapper>
-      {isModalOpen && <OrderCancelModal orderDetails={orderDetails} />}
+      {isModalOpen && <OrderCancelModal orderDetails={orderDetails} onClose={closeModal} />}
     </>
   );
 };
