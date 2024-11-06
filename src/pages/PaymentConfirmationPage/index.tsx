@@ -7,6 +7,7 @@ import ByingFooter from './components/ByingFooter';
 import Title from '@components/layouts/Title';
 import { useState } from 'react';
 import DropdownSelector from './components/DropdownSelector';
+import { useCartStore } from '@store/cart';
 
 const AddressInfo: IAddressInfo = {
   addressId: 1,
@@ -16,6 +17,9 @@ const AddressInfo: IAddressInfo = {
 };
 const PaymentConfirmationPage = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const { userAddress } = useCartStore();
+  const cartItems = useCartStore((state) => state.getCartItems());
+
   const handleButtonClick = () => {
     setIsClicked(!isClicked);
   };
@@ -32,13 +36,13 @@ const PaymentConfirmationPage = () => {
                   <S.SubTitle>받는 분</S.SubTitle>
                   <S.SubTitle>연락처</S.SubTitle>
                   <S.SubTitle>주소</S.SubTitle>
-                  <S.SubTitle>상세 주소</S.SubTitle>
+                  {/* <S.SubTitle>상세 주소</S.SubTitle> */}
                 </S.InfoContainer>
                 <S.InfoContainer>
                   <S.SubContent>{AddressInfo.addressName}</S.SubContent>
                   <S.SubContent>010-3386-9999</S.SubContent>
-                  <S.SubContent>주소</S.SubContent>
-                  <S.SubContent>107-1210호</S.SubContent>
+                  <S.SubContent>{userAddress}</S.SubContent>
+                  {/* <S.SubContent>107-1210호</S.SubContent> */}
                 </S.InfoContainer>
               </S.ShippingAddress>
               <DropdownSelector />
@@ -50,7 +54,9 @@ const PaymentConfirmationPage = () => {
                   <S.SectionTitle>총 2건</S.SectionTitle>
                 </S.HeaderWrapper>
                 <S.OrderItemContainer>
-                  <ByingProductItem />
+                  {/* {cartItems.map((productInfo) => (
+                  {/* 상품 내역 리스트 */}
+                  {/* <ByingProductItem key={productInfo.productId}/>))} */}
                 </S.OrderItemContainer>
                 <S.CouponContainer>
                   <S.CouponTitle>할인쿠폰</S.CouponTitle>

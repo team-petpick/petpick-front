@@ -7,15 +7,25 @@ import { ROUTE } from '@constants/ROUTE';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { ICartProps } from '@types';
 import { patchCartInfo } from '@apis/cart';
+import { useCartStore } from '@store/cart';
+import { useEffect } from 'react';
 interface OrderInfoProps {
   totalPrice: number;
   productInfo?: ICartProps;
 }
 
-const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
+const OrderInfo = ({ productInfo }: OrderInfoProps) => {
   const navigate = useNavigate();
   // const { userId } = useUserStore();
   const userId = 1; //임시 데이터
+  const calculateTotalPrice = useCartStore((state) => state.calculateTotalPrice);
+  const totalPrice = useCartStore((state) => state.totalPrice);
+  const originalTotalPrice = useCartStore((state) => state.originalTotalPrice);
+
+  useEffect(() => {
+    calculateTotalPrice(); // 총 가격을 계산하여 상태에 저장
+  }, [calculateTotalPrice]);
+
   const discountedAmount = productInfo
     ? productInfo.productPrice * (productInfo.productSale / 100)
     : 0;
@@ -37,10 +47,10 @@ const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
         <ShoppingAddress />
         <TotalPriceContainer>
           <Title>결제금액</Title>
-          <body>
+          <div>
             <ProductPriceContainer>
               <ProductPriceText>상품금액</ProductPriceText>
-              <ProductPriceBox>{addCommaToPrice(totalPrice)}원</ProductPriceBox>
+              <ProductPriceBox>{addCommaToPrice(originalTotalPrice)}원</ProductPriceBox>
             </ProductPriceContainer>
             <DiscountPriceContainer>
               <ProductPriceText>상품할인금액</ProductPriceText>
@@ -54,9 +64,9 @@ const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
             </DeliveryPriceContainer>
             <PaymentPriceContainer>
               <ProductPriceText>결제예정금액</ProductPriceText>
-              <PaymentPrice>{addCommaToPrice(totalPrice - discountedAmount)}원</PaymentPrice>
+              <PaymentPrice>{addCommaToPrice(totalPrice)}원</PaymentPrice>
             </PaymentPriceContainer>
-          </body>
+          </div>
         </TotalPriceContainer>
         <PaymentButton onClick={handlePaymentPageClick}>결제하기</PaymentButton>
       </Wrapper>

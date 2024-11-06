@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { deleteCartItem, getCartItem } from '@apis/cart';
 import { ICartProps } from '@types';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
+import { useCartStore } from '@store/cart';
 
 interface ProductSelectionProps {
   setTotalPrice: (price: number) => void;
@@ -20,6 +21,7 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
   const [cartList, setCartList] = useState<ICartProps[]>([]);
   const [productInfo, setProductInfo] = useState<ICartProps | null>(null);
   const [checkedList, setCheckedLists] = useState<number[]>([]);
+  const { setCartItems, setCheckedTotalPrice } = useCartStore();
 
   // 장바구니 항목을 가져오는 함수
   const fetchGetCartItem = async () => {
@@ -30,20 +32,26 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
     localStorage.setItem('cartInfo', JSON.stringify(result));
     setCartList(response);
     setProductInfo(response);
+
+    setCartItems(response);
   };
 
   useEffect(() => {
     fetchGetCartItem();
   }, []);
 
-  // 총 금액 계산
+  // 체크된 항목의 총 금액 계산
   useEffect(() => {
-    const total = cartList.reduce((sum, item) => {
-      const itemTotalPrice = item.productPrice * (1 - item.productSale / 100) * item.cartCnt;
-      return sum + itemTotalPrice;
+    const checkedTotalPrice = cartList.reduce((sum, item) => {
+      if (checkedList.includes(item.productId)) {
+        return sum + item.productPrice * (1 - item.productSale / 100) * item.cartCnt;
+      }
+      return sum;
     }, 0);
-    setTotalPrice(total);
-  }, [cartList, setTotalPrice]);
+
+    setCheckedTotalPrice(checkedTotalPrice); // Zustand 스토어에 체크된 항목의 가격을 저장
+    setTotalPrice(checkedTotalPrice); // prop으로 받은 setTotalPrice 함수로도 전달
+  }, [cartList, checkedList, setCheckedTotalPrice, setTotalPrice]);
 
   // 수량 업데이트 핸들러
   const handleQuantityChange = (productId: number, newQuantity: number) => {

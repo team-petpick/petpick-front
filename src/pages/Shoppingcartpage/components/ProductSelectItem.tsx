@@ -8,6 +8,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { ICartProps } from '@types';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { patchCartInfo } from '@apis/cart';
+import { useCartStore } from '@store/cart';
 interface IProductSelectItemProps {
   productInfo: ICartProps;
   isChecked: boolean;
@@ -20,8 +21,10 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
   onCheck,
   onQuantityChange,
 }) => {
-  const [quantity, setQuantity] = useState(productInfo.cartCnt);
+  const cartItems = useCartStore((state) => state.cartItems);
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
 
+  const [quantity, setQuantity] = useState(productInfo.cartCnt);
   const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
 
   const parsedCartData = JSON.parse(cartInfoDatoFromLocalStorage || '');
@@ -69,7 +72,9 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
   const handleIncreaseClick = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
-    onQuantityChange(productInfo.productId, newQuantity);
+    updateQuantity(productInfo.productId, newQuantity);
+
+    useCartStore.getState().calculateTotalPrice();
   };
 
   // 상품 수량 -
@@ -77,7 +82,9 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
-      onQuantityChange(productInfo.productId, newQuantity);
+      updateQuantity(productInfo.productId, newQuantity);
+
+      useCartStore.getState().calculateTotalPrice();
     }
   };
 
