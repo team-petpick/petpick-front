@@ -7,6 +7,7 @@ export const animalType = [
 ];
 export const categories = ['전체', '용품', '사료', '간식', '의류'];
 export const orderPeriods = ['3개월', '6개월', '1년', '3년'];
+export const orderPeriodNumbers = [3, 6, 12, 36];
 export const ANIMAL_TYPE: { [key in ProductType]: ProductType } = {
   DOG: 'DOG',
   CAT: 'CAT',

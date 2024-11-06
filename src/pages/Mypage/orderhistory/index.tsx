@@ -3,7 +3,7 @@ import Header from './components/Header';
 import OrderHistoryItem from './components/OrderHistoryItem';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { orderPeriods } from '@constants';
+import { orderPeriodNumbers, orderPeriods } from '@constants';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import { getOrderLists } from '@apis/order';
@@ -14,7 +14,7 @@ const OrderHistory = () => {
 
   useEffect(() => {
     const loadOrderData = async () => {
-      const selectedPeriod = orderPeriods[activePeriod].split('')[0];
+      const selectedPeriod = orderPeriodNumbers[activePeriod];
       try {
         const response = await getOrderLists(0, Number(selectedPeriod));
         if (response && response.data) {
@@ -33,11 +33,12 @@ const OrderHistory = () => {
   const handlePeriodChange = (index: number) => {
     setActivePeriod(index);
   };
+  console.log(orderInfo);
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Header onPeriodChange={handlePeriodChange} activePeriod={activePeriod} />
       <Container>
-        {orderInfo.length > 0 ? (
+        {orderInfo?.length > 0 ? (
           orderInfo.map((orderItem) => <OrderHistoryItem orderInfo={orderItem} />)
         ) : (
           <Message>
