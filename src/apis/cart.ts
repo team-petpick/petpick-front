@@ -35,3 +35,23 @@ export const deleteCartItem = async (productId: number) => {
   });
   return response.data;
 };
+
+export const patchCartInfo = async (modifiedCartInfo: any) => {
+  try {
+    const res = await instance.patch(
+      '/cart',
+      {
+        ...modifiedCartInfo,
+      },
+      {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNzMwNzg2NDYwLCJleHAiOjE3MzQzODY0NjB9.ayqNjgzvP3KBJplxac-sywbuOL_MTSs86nTxFt_pUq8',
+        },
+      },
+    );
+    console.log('수정 API 결과', res);
+  } catch (e) {
+    console.log(e);
+  }
+};

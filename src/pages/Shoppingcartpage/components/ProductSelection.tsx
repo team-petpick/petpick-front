@@ -20,7 +20,6 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
   const [cartList, setCartList] = useState<ICartProps[]>([]);
   const [productInfo, setProductInfo] = useState<ICartProps | null>(null);
   const [checkedList, setCheckedLists] = useState<number[]>([]);
-  // const [totalPrice, setTotalPrice] = useState(0);
 
   // 장바구니 항목을 가져오는 함수
   const fetchGetCartItem = async () => {

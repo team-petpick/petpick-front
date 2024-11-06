@@ -5,10 +5,11 @@ import ShoppingAddress from './ShoppingAddress';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import { IProductInfo } from '@types';
+import { ICartProps } from '@types';
+import { patchCartInfo } from '@apis/cart';
 interface OrderInfoProps {
   totalPrice: number;
-  productInfo: IProductInfo;
+  productInfo?: ICartProps;
 }
 
 const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
@@ -16,11 +17,20 @@ const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
   // const { userId } = useUserStore();
   const userId = 1; //임시 데이터
   const discountedAmount = productInfo
-    ? productInfo.productPrice * (productInfo.priceSale / 100)
+    ? productInfo.productPrice * (productInfo.productSale / 100)
     : 0;
-  const handlePaymentPageClick = () => {
+
+  const handlePaymentPageClick = async () => {
+    const cartInfoFromLocalStorage = localStorage.getItem('cartInfo');
+    const parsedCartData = JSON.parse(cartInfoFromLocalStorage || '[]');
+
+    for (const item of parsedCartData) {
+      await patchCartInfo(item);
+    }
+
     navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userId.toString()));
   };
+
   return (
     <Container>
       <Wrapper>

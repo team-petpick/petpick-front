@@ -7,8 +7,7 @@ import CheckboxLabal from './CheckboxLabal';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { ICartProps } from '@types';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import instance from '@apis';
-// import { postCartItem } from '@apis/cart';
+import { patchCartInfo } from '@apis/cart';
 interface IProductSelectItemProps {
   productInfo: ICartProps;
   isChecked: boolean;
@@ -44,35 +43,16 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
     localStorage.setItem('cartInfo', JSON.stringify(final));
   }, [quantity]);
 
-  const patchCartInfo = async (modifiedCartInfo: any) => {
-    try {
-      const res = await instance.patch(
-        '/cart',
-        {
-          ...modifiedCartInfo,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem('accessToken'),
-          },
-        },
-      );
-      console.log('수정 API 결과', res);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
     const handleBeforeUnload = (event: any) => {
       const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
       const parsedInfo = JSON.parse(cartInfoDatoFromLocalStorage || '');
 
+      event.preventDefault();
       parsedInfo?.forEach(async (element: any) => {
         await patchCartInfo(element);
       });
       console.log('새로고침 또는 페이지 이동이 감지되었습니다.');
-      event.preventDefault();
 
       event.returnValue = ''; // 이 설정은 대부분의 브라우저에서 경고 메시지 표시를 위한 기본 설정입니다.
     };
