@@ -1,22 +1,17 @@
 import { IOrderDetail } from '@types';
 import * as S from '../styles/ProductListItem.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-// import { useState } from 'react';
 
 interface IOrderProps {
   productInfo: IOrderDetail;
   onOpenModal: () => void;
 }
 const ProductListItem = ({ productInfo, onOpenModal }: IOrderProps) => {
-  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
   const formattedOriginalPrice = addCommaToPrice(productInfo.orderDetailPrice);
   const formattedSalePrice = addCommaToPrice(
     productInfo.orderDetailPrice * (1 - productInfo.productSale / 100),
   );
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
+
   return (
     <S.Wrapper>
       <S.ProductImage src={productInfo.productThumbnail} />

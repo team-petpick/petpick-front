@@ -3,12 +3,12 @@ import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  max-width: 718px;
   width: 100%;
   height: 100px;
   display: flex;
   gap: 11px;
-  padding: 0 13px;
+  padding: 0 36px;
+  box-sizing: border-box;
 `;
 export const ProductImage = styled.img`
   width: 82px;
@@ -20,6 +20,7 @@ export const ProductImage = styled.img`
 `;
 export const Container = styled.div`
   display: flex;
+  justify-content: space-between;
   width: 100%;
 `;
 export const DescriptionWrapper = styled.div`
@@ -60,7 +61,7 @@ export const ButtonWrapper = styled.div`
 `;
 export const CancelButton = styled.div`
   ${TextStyles.subText.smallM};
-  background: ${PETPICK_COLORS.BLUE[300]};
+  background: ${PETPICK_COLORS.BLUE[200]};
   color: #fff;
   &:hover {
     background: ${PETPICK_COLORS.BLUE[400]};

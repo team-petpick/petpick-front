@@ -3,11 +3,13 @@ import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: absolute;
-  max-width: 747px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 440px;
   height: 350px;
   width: 100%;
-  margin: 0 auto;
   border: 1px solid ${PETPICK_COLORS.GRAY[400]};
   border-radius: 8px;
   background: #fff;

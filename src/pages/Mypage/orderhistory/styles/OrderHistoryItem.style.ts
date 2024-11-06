@@ -2,6 +2,15 @@ import styled from 'styled-components';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+`;
 export const Wrapper = styled.div`
   max-width: 745px;
   width: 100%;

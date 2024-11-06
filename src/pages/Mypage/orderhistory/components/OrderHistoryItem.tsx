@@ -80,6 +80,7 @@ const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
         </S.ProductList>
       </S.Wrapper>
 
+      {isModalOpen && <S.Overlay />}
       {isModalOpen && orderDetails && (
         <OrderCancelModal
           orderDetails={orderDetails}
