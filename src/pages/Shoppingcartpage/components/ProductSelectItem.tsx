@@ -2,16 +2,93 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import { Delete } from '@assets/svg';
 import { Minus, Plus } from '@assets/svg/index';
-import Test3 from '@assets/svg/test-3.jpg';
 import styled from 'styled-components';
 import CheckboxLabal from './CheckboxLabal';
-const ProductSelectItem = () => {
+import { ChangeEvent, useEffect, useState } from 'react';
+import { ICartProps } from '@types';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
+import { patchCartInfo } from '@apis/cart';
+interface IProductSelectItemProps {
+  productInfo: ICartProps;
+  isChecked: boolean;
+  onCheck: (e: ChangeEvent<HTMLInputElement>) => void;
+  onQuantityChange: (productId: number, newQuantity: number) => void;
+}
+const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
+  productInfo,
+  isChecked,
+  onCheck,
+  onQuantityChange,
+}) => {
+  const [quantity, setQuantity] = useState(productInfo.cartCnt);
+
+  const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
+
+  const parsedCartData = JSON.parse(cartInfoDatoFromLocalStorage || '');
+  const currentCartData = parsedCartData.filter(
+    (info: any) => info.productId === productInfo.productId,
+  )[0];
+
+  useEffect(() => {
+    const newCartData = {
+      ...currentCartData,
+      cartCnt: quantity,
+    };
+
+    const final = parsedCartData.map((d: any) =>
+      d.productId === productInfo.productId ? newCartData : d,
+    );
+
+    console.log('final', final);
+    localStorage.setItem('cartInfo', JSON.stringify(final));
+  }, [quantity]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: any) => {
+      const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
+      const parsedInfo = JSON.parse(cartInfoDatoFromLocalStorage || '');
+
+      event.preventDefault();
+      parsedInfo?.forEach(async (element: any) => {
+        await patchCartInfo(element);
+      });
+      console.log('새로고침 또는 페이지 이동이 감지되었습니다.');
+
+      event.returnValue = ''; // 이 설정은 대부분의 브라우저에서 경고 메시지 표시를 위한 기본 설정입니다.
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다.
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  // 상품 수량 +
+  const handleIncreaseClick = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    onQuantityChange(productInfo.productId, newQuantity);
+  };
+
+  // 상품 수량 -
+  const handleDecreaseClick = () => {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      onQuantityChange(productInfo.productId, newQuantity);
+    }
+  };
+
   return (
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
-          <CheckboxLabal text="text" />
-          <SelectText> 상품명 </SelectText>
+          <CheckboxLabal text="text" checked={isChecked} onChange={onCheck} />
+          <SelectText>
+            [{productInfo.sellerName}] {productInfo.productName}{' '}
+          </SelectText>
         </SelectBox>
         <SelectButton>
           <Delete width="20px" height="20px" />
@@ -19,18 +96,25 @@ const ProductSelectItem = () => {
       </SelectWrapper>
       <ProductItemContainer>
         <ProductInfo>
-          <ProductImage src={Test3}></ProductImage>
+          <ProductImage src={productInfo.productThumbnail}></ProductImage>
           <ProductContainer>
             <ProductPriceContainer>
-              <ProductPrice>29,900원</ProductPrice>
-              <ProductFixedPrice> 34,900원</ProductFixedPrice>
+              <ProductPrice>
+                {addCommaToPrice(
+                  productInfo.productPrice * (1 - productInfo.productSale / 100) * quantity,
+                )}
+                원
+              </ProductPrice>
+              <ProductFixedPrice>
+                {addCommaToPrice(productInfo.productPrice * quantity)} 원
+              </ProductFixedPrice>
             </ProductPriceContainer>
             <ProductCountContainer>
-              <ProductCountButton>
+              <ProductCountButton onClick={handleDecreaseClick}>
                 <Minus width="20px" height="20px" />
               </ProductCountButton>
-              <ProductCount>5</ProductCount>
-              <ProductCountButton>
+              <ProductCount>{quantity}</ProductCount>
+              <ProductCountButton onClick={handleIncreaseClick}>
                 <Plus width="20px" height="20px" />
               </ProductCountButton>
             </ProductCountContainer>
