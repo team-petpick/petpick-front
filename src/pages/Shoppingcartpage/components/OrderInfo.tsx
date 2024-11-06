@@ -82,11 +82,7 @@ const DeliveryPriceContainer = styled.div`
   justify-content: space-between;
   margin-top: 12px;
 `;
-const Text = styled.span`
-  color: ${PETPICK_COLORS.GRAY[600]};
-  margin-top: 4px;
-  ${TextStyles.caption.xsmallM}
-`;
+
 const DiscountPriceBox = styled.span`
   ${TextStyles.body.mediumSB};
   color: ${PETPICK_COLORS.RED[200]};
