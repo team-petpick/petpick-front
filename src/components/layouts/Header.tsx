@@ -27,6 +27,7 @@ const Header = () => {
 
   const handleHomeClick = () => {
     navigate('/');
+    setProductListParams({ ...productListParams, search: '' });
   };
 
   const handleClickNavigateToLoginPage = () => {
@@ -64,7 +65,11 @@ const Header = () => {
     }
   };
 
-  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  useEffect(() => {
+    setSearchKeyword(productListParams.search);
+  }, [productListParams.search]);
+
+  const [searchKeyword, setSearchKeyword] = useState<string>(productListParams.search);
   const handleSearchKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const keyword = e.target.value;
     setSearchKeyword(keyword);
@@ -110,6 +115,7 @@ const Header = () => {
               onChange={handleSearchKeywordChange}
               type="text"
               placeholder="검색어를 입력해주세요"
+              value={searchKeyword}
             />
             <S.SearchButton>
               <Search width="30" height="30" onClick={handleSearchButtonClick} />
