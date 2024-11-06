@@ -4,10 +4,11 @@ import { Delete } from '@assets/svg';
 import { Minus, Plus } from '@assets/svg/index';
 import styled from 'styled-components';
 import CheckboxLabal from './CheckboxLabal';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { ICartProps } from '@types';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import { postCartItem } from '@apis/cart';
+import instance from '@apis';
+// import { postCartItem } from '@apis/cart';
 interface IProductSelectItemProps {
   productInfo: ICartProps;
   isChecked: boolean;
@@ -22,29 +23,81 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
 }) => {
   const [quantity, setQuantity] = useState(productInfo.cartCnt);
 
-  // 상품 수량 +
-  const handleIncreaseClick = async () => {
-    const newQuantity = quantity + 1;
-    setQuantity(newQuantity);
-    onQuantityChange(productInfo.productId, newQuantity);
+  const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
+
+  const parsedCartData = JSON.parse(cartInfoDatoFromLocalStorage || '');
+  const currentCartData = parsedCartData.filter(
+    (info: any) => info.productId === productInfo.productId,
+  )[0];
+
+  useEffect(() => {
+    const newCartData = {
+      ...currentCartData,
+      cartCnt: quantity,
+    };
+
+    const final = parsedCartData.map((d: any) =>
+      d.productId === productInfo.productId ? newCartData : d,
+    );
+
+    console.log('final', final);
+    localStorage.setItem('cartInfo', JSON.stringify(final));
+  }, [quantity]);
+
+  const patchCartInfo = async (modifiedCartInfo: any) => {
     try {
-      await postCartItem(productInfo.productId, newQuantity);
-    } catch (error) {
-      console.error('장바구니 POST api 호출 실패:', error);
+      const res = await instance.patch(
+        '/cart',
+        {
+          ...modifiedCartInfo,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem('accessToken'),
+          },
+        },
+      );
+      console.log('수정 API 결과', res);
+    } catch (e) {
+      console.log(e);
     }
   };
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: any) => {
+      const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
+      const parsedInfo = JSON.parse(cartInfoDatoFromLocalStorage || '');
+
+      parsedInfo?.forEach(async (element: any) => {
+        await patchCartInfo(element);
+      });
+      console.log('새로고침 또는 페이지 이동이 감지되었습니다.');
+      event.preventDefault();
+
+      event.returnValue = ''; // 이 설정은 대부분의 브라우저에서 경고 메시지 표시를 위한 기본 설정입니다.
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다.
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  // 상품 수량 +
+  const handleIncreaseClick = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    onQuantityChange(productInfo.productId, newQuantity);
+  };
+
   // 상품 수량 -
-  const handleDecreaseClick = async () => {
+  const handleDecreaseClick = () => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
       onQuantityChange(productInfo.productId, newQuantity);
-      try {
-        await postCartItem(productInfo.productId, newQuantity);
-      } catch (error) {
-        console.error('장바구니 POST api 호출 실패:', error);
-      }
     }
   };
 
@@ -68,9 +121,10 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
                 {addCommaToPrice(
                   productInfo.productPrice * (1 - productInfo.productSale / 100) * quantity,
                 )}
+                원
               </ProductPrice>
               <ProductFixedPrice>
-                {addCommaToPrice(productInfo.productPrice * quantity)}
+                {addCommaToPrice(productInfo.productPrice * quantity)} 원
               </ProductFixedPrice>
             </ProductPriceContainer>
             <ProductCountContainer>

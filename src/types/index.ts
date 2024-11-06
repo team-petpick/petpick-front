@@ -4,6 +4,7 @@ export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
 
 // 상품 정보 데이터 타입
 export interface IProductInfo {
+  priceSale: number;
   productId: number;
   productName: string;
   seller: {

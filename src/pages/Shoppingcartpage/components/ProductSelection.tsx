@@ -25,6 +25,10 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
   // 장바구니 항목을 가져오는 함수
   const fetchGetCartItem = async () => {
     const response = await getCartItem();
+    const result = response.map(
+      ({ productId, cartCnt }: { productId: number; cartCnt: number }) => ({ productId, cartCnt }),
+    );
+    localStorage.setItem('cartInfo', JSON.stringify(result));
     setCartList(response);
     setProductInfo(response);
   };
