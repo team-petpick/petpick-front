@@ -26,6 +26,7 @@ export default function DeleteModal({
   cancelText,
   onConfirm,
 }: DeleteModalProps) {
+
   return (
     <BasicModal isOpen={isOpen} setIsOpen={setIsOpen} width="280px" height="fit-content">
       <Block.FlexBox direction="column">

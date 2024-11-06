@@ -1,14 +1,5 @@
-import { PetGender, ProductType } from '@types';
+import { IMyPetInfo } from '@types';
 import { create } from 'zustand';
-
-interface IMyPetInfo {
-  petName: string | null;
-  petSpecies: string | null;
-  petKind: ProductType | null;
-  petAge?: number | null;
-  petGender?: PetGender | null;
-  imageSrc?: string | null;
-}
 
 interface IMyPetBirthday {
   year: number | null;
@@ -25,12 +16,11 @@ interface IMyPetInfoStore {
 
 export const useMyPetInfoStore = create<IMyPetInfoStore>((set) => ({
   myPetInfo: {
-    petName: null,
-    petSpecies: null,
+    petName: '',
+    petSpecies: '',
     petKind: null,
     petAge: null,
-    petGender: null,
-    imageSrc: null,
+    petImg: null,
   },
   myPetBirthday: {
     year: null,
