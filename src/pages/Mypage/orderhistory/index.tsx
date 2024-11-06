@@ -2,61 +2,41 @@ import { IOrderInfo } from '@types';
 import Header from './components/Header';
 import OrderHistoryItem from './components/OrderHistoryItem';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { orderPeriods } from '@constants';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
-import { ProductInfo } from '@assets/mock';
+import { getOrderLists } from '@apis/order';
 
 const OrderHistory = () => {
-  const [activePeriod, setAcrivePeriod] = useState<number>(0);
+  const [activePeriod, setActivePeriod] = useState<number>(0);
+  const [orderInfo, setOrderInfo] = useState<IOrderInfo[]>([]);
 
-  const OrderInfo: IOrderInfo[] = [
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-  ];
+  useEffect(() => {
+    const loadOrderData = async () => {
+      const selectedPeriod = orderPeriods[activePeriod].split('')[0];
+      try {
+        console.log(selectedPeriod);
+        const response = await getOrderLists(0, Number(selectedPeriod));
+        const orderList = response.data;
+        console.log(orderList);
+        setOrderInfo(orderList);
+      } catch (error) {
+        console.log('주문내역을 불러오는 도중 오류가 발생했습니다', error);
+      }
+    };
+    loadOrderData();
+  }, [activePeriod]);
+
   const handlePeriodChange = (index: number) => {
-    setAcrivePeriod(index);
+    setActivePeriod(index);
   };
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Header onPeriodChange={handlePeriodChange} activePeriod={activePeriod} />
       <Container>
-        {OrderInfo.length > 0 ? (
-          OrderInfo.map((orderItem) => <OrderHistoryItem orderInfo={orderItem} />)
+        {orderInfo.length > 0 ? (
+          orderInfo.map((orderItem) => <OrderHistoryItem orderInfo={orderItem} />)
         ) : (
           <Message>
             {activePeriod !== null
