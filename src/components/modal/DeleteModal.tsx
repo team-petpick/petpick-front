@@ -17,7 +17,8 @@ interface IBasicModalProps {
 
 const BasicModal = ({ isOpen, onRequestClose, productInfo }: IBasicModalProps) => {
   const navigate = useNavigate();
-  const { userId } = useUserStore();
+  const { userInfo } = useUserStore();
+  const { userId } = userInfo;
   const [productCount, setProductCount] = useState(1);
 
   const handleClickCartButton = async () => {
