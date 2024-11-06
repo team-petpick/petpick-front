@@ -1,4 +1,4 @@
-import { PetGender, ProductType } from '@types';
+import { TPetGender, TProductType } from '@types';
 
 export const animalType = [
   { name: '강아지', type: 'dog', icon: '/src/assets/png/dog.png' },
@@ -23,13 +23,13 @@ export const PRODUCT_CATEGORY_INDEX = [
 ] as const;
 
 export const orderPeriods = ['3개월', '6개월', '1년', '3년'];
-export const ANIMAL_TYPE: { [key in ProductType]: ProductType } = {
+export const ANIMAL_TYPE: { [key in TProductType]: TProductType } = {
   DOG: 'DOG',
   CAT: 'CAT',
   ETC: 'ETC',
 } as const;
 
-export const PET_GENDER: { [key in PetGender]: PetGender } = {
+export const PET_GENDER: { [key in TPetGender]: TPetGender } = {
   MALE: 'MALE',
   FEMALE: 'FEMALE',
   OTHER: 'OTHER',

@@ -8,12 +8,13 @@ interface ISecondProps {
 const Second = ({ setIsNextButtonActive }: ISecondProps) => {
   const { myPetInfo, setMyPetInfo } = useMyPetInfoStore();
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e?.target?.files?.[0];
+    const file = e.target.files?.[0];
     if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
       const reader = new FileReader();
       reader.onload = () => {
-        setMyPetInfo({ imageSrc: reader.result as string });
+        setMyPetInfo({ petImg: reader.result as string });
       };
+      console.log(file);
       reader.readAsDataURL(file);
     } else {
       alert('PNG 또는 JPG 파일만 업로드할 수 있습니다.');
@@ -34,7 +35,7 @@ const Second = ({ setIsNextButtonActive }: ISecondProps) => {
         <S.Title>우리 아이 사진을 등록해주세요</S.Title>
         <S.InputWrapper>
           <S.ImageWrapper>
-            {myPetInfo.imageSrc ? <S.Image src={myPetInfo.imageSrc} alt="미리보기" /> : null}
+            {myPetInfo.petImg ? <S.Image src={myPetInfo.petImg} alt="미리보기" /> : null}
           </S.ImageWrapper>
           <S.UploadButton htmlFor="fileUpload">사진 등록하기</S.UploadButton>{' '}
           <S.FileInput

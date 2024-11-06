@@ -4,7 +4,6 @@ import MyPetInfo from './components/MyPetInfo';
 import FrequentlyUsedMenu from './components/FrequentlyUsedMenu';
 import * as S from './styles';
 import MyPageContent from './components/MyPageContent';
-
 const Mypage = () => {
   return (
     <Layout footerVisible={false}>

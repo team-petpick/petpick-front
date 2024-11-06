@@ -1,10 +1,7 @@
-import { ANIMAL_TYPE } from '@constants';
-import { PRODUCT_FILTER_TYPE } from '@constants/productFilter';
-
-export type ProductType = 'DOG' | 'CAT' | 'ETC';
-export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
-export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
-
+export type TProductType = 'DOG' | 'CAT' | 'ETC';
+export type TProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
+export type TPetGender = 'MALE' | 'FEMALE' | 'OTHER';
+export type TProductFilterType = 'createAt_desc' | 'productLikesTotal_desc';
 // 상품 정보 데이터 타입
 export interface IProductInfo {
   productId: number;
@@ -66,13 +63,29 @@ export interface ITitleProps {
 }
 
 // 견종 묘종 데이터 타입
-export type Breed = {
+export type TBreed = {
   animal_group1_id: number;
   animal_group2_id: number;
   animal_group2_name: string;
   breed_size_name: string;
 };
 
-export type TProductFilterType = (typeof PRODUCT_FILTER_TYPE)[keyof typeof PRODUCT_FILTER_TYPE];
+// 반려동물 프로필 데이터 타입
+export interface IMyPetInfo {
+  petName: string | null;
+  petSpecies: string | null;
+  petKind: TProductType | null;
+  petImg: string | null;
+  petAge: number | null;
+}
 
-export type TAnimalType = (typeof ANIMAL_TYPE)[keyof typeof ANIMAL_TYPE];
+// 반려동물 프로필 데이터 타입
+export interface IPetInfo {
+  petId: number;
+  petName: string;
+  petKind: TProductType;
+  petSpecies: string;
+  petImg: string;
+  petAge: number;
+  petGender: TPetGender | null;
+}

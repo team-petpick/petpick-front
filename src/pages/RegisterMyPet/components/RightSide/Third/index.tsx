@@ -2,9 +2,9 @@ import * as S from '../../../styles/registerMyPetFirst.style';
 import PetButton from '../../PetButton';
 import BirthdaySelectForm from './BirthdaySelectForm';
 import BreedSelectForm from './BreedSelectForm';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { PETPICK_COLORS } from '@styles/colors';
-import { PetGender } from '@types';
+import { TPetGender } from '@types';
 import { DAY_OPTIONS, MONTH_OPTIONS, PET_GENDER, YEAR_OPTIONS } from '@constants';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 interface IThirdProps {
@@ -12,8 +12,8 @@ interface IThirdProps {
 }
 
 const Third = ({ setIsNextButtonActive }: IThirdProps) => {
-  const [gender, setGender] = useState<PetGender>(PET_GENDER.MALE);
-  const { myPetInfo, setMyPetInfo } = useMyPetInfoStore();
+  const [gender, setGender] = useState<TPetGender>(PET_GENDER.MALE);
+  const { myPetInfo } = useMyPetInfoStore();
 
   const getBackgroundColor = useCallback((isMale: boolean) => {
     return isMale ? PETPICK_COLORS.BLUE[300] : 'transparent';
@@ -25,12 +25,10 @@ const Third = ({ setIsNextButtonActive }: IThirdProps) => {
     return isMale ? 'none' : `2px solid ${PETPICK_COLORS.GRAY[300]}`;
   }, []);
 
-  useEffect(() => {
-    setMyPetInfo({ petGender: gender });
-  }, [gender]);
-
   const handleClickGenderButton = () => {
-    setGender((prev) => (prev === PET_GENDER.MALE ? PET_GENDER.FEMALE : PET_GENDER.MALE));
+    setGender((prev: TPetGender) =>
+      prev === PET_GENDER.MALE ? PET_GENDER.FEMALE : PET_GENDER.MALE,
+    );
   };
 
   return (
