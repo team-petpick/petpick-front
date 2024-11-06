@@ -5,7 +5,6 @@ export type ProductType = 'DOG' | 'CAT' | 'ETC';
 export type ProductStatus = 'ON' | 'OFF' | 'SOLDOUT';
 export type PetGender = 'MALE' | 'FEMALE' | 'OTHER';
 
-
 // 상품 정보 데이터 타입
 export interface IProductInfo {
   productId: number;
@@ -26,7 +25,6 @@ export interface IProductInfo {
   productSale: number;
   productCnt: number;
   productThumbnail: string;
-
 }
 
 // 상품 상세 정보 API 응답 데이터 타입

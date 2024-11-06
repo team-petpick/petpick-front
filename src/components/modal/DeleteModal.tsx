@@ -55,7 +55,7 @@ const BasicModal = ({ isOpen, onRequestClose, productInfo }: IBasicModalProps) =
       <S.ModalContainer>
         <S.ProductInfo>
           <S.ProductImage>
-            <img src={productInfo.productImg?.productImgUrl} />
+            <img src={productInfo.productThumbnail} />
           </S.ProductImage>
           <S.ProductTitle>
             [{productInfo.seller.sellerStoreName}] {productInfo.productName}
