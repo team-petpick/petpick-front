@@ -1,7 +1,11 @@
-import axios from 'axios';
-import { IOrder } from '@types';
+import { IOrderDetail } from '@types';
+import instance from './instance';
 
-export const getOrderById = async (orderId: number): Promise<IOrder> => {
-  const response = await axios.get(`/orders/${orderId}`);
+export const getOrderById = async (orderId: number): Promise<IOrderDetail[]> => {
+  const response = await instance.get(`/orders/${orderId}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
   return response.data;
 };

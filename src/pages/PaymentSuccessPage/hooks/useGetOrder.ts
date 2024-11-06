@@ -1,9 +1,9 @@
 import { getOrderById } from '@apis/order';
-import { IOrder } from '@types';
+import { IOrderDetail } from '@types';
 import { useEffect, useState } from 'react';
 
 const useGetOrder = (userId: number) => {
-  const [orders, setOrders] = useState<IOrder>();
+  const [orders, setOrders] = useState<IOrderDetail[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

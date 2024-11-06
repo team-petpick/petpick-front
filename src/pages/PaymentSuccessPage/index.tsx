@@ -2,46 +2,36 @@ import Layout from '@components/layouts/Layout';
 import Header from './components/Header';
 import * as S from './styles';
 import Announcement from './components/Announcement';
-import OrderedProductList from './components/OrderedProductList';
-import { useParams } from 'react-router-dom';
 import useGetOrder from './hooks/useGetOrder';
 import Loading from '@components/Loading';
-import styled from 'styled-components';
-import { PETPICK_COLORS } from '@styles/colors';
+import OrderItem from './components/OrderedProduct';
 import { TextStyles } from '@styles/textStyles';
+import { PETPICK_COLORS } from '@styles/colors';
 
 const PaymentSuccessPage = () => {
-  const { userId } = useParams();
-  const { orders, isLoading } = useGetOrder(Number(userId));
-  const formattedOrdersPrice = orders?.ordersPrice.toLocaleString('ko-KR');
+  const orderId = 1;
+  const { orders, isLoading } = useGetOrder(Number(orderId));
+
   if (!orders) return null;
+
   return (
     <Layout footerVisible={true}>
       <S.PaymentSuccessPageContainer>
         <Header />
-        <Announcement orders={orders} />
-        <div style={{ width: '60vw', display: 'flex' }}>
-          <S.OrderedProductMenuText>주문상품</S.OrderedProductMenuText>
-        </div>
-        <S.OrderedProductWrapper>
-          <S.OrderedProductMenuText>상품정보</S.OrderedProductMenuText>
-          <S.OrderedProductMenuText>정가</S.OrderedProductMenuText>
-          <S.OrderedProductMenuText>할인</S.OrderedProductMenuText>
-          <S.OrderedProductMenuText>수량</S.OrderedProductMenuText>
-          <S.OrderedProductMenuText>결제금액</S.OrderedProductMenuText>
-        </S.OrderedProductWrapper>
+        <Announcement orderId={orderId} />
         {isLoading && <Loading />}
-        <div style={{ width: '60vw', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {orders &&
-            orders.orderDetails.map((orderDetail) => (
-              <OrderedProductList orderDetail={orderDetail} />
-            ))}
-        </div>
-        <ConfirmOrder>
-          주문 금액 {formattedOrdersPrice}원 - 할인금액 0원 + 배송비 0원
-          <br />
-          <FinalPrice>최종 결제금액 {formattedOrdersPrice}원</FinalPrice>
-        </ConfirmOrder>
+        <S.OrderContainer>
+          <S.Title>주문 상품</S.Title>
+          <S.Table>
+            <S.TableHeader>
+              <S.ProductInfo>상품 정보</S.ProductInfo>
+              <S.Price>정가</S.Price>
+              <S.Discount>할인 금액</S.Discount>
+              <S.TotalPrice>결제 금액</S.TotalPrice>
+            </S.TableHeader>
+            {orders && orders.map((orderDetail) => <OrderItem orderDetail={orderDetail} />)}
+          </S.Table>
+        </S.OrderContainer>
       </S.PaymentSuccessPageContainer>
     </Layout>
   );
