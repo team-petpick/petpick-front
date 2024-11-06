@@ -43,10 +43,26 @@ export interface IAllProductInfo {
   content: IProductInfo[];
 }
 
+export interface IOrderInfos {
+  content: IOrderInfo[];
+}
 export interface IOrderInfo {
-  orderDate: string;
-  orderNum: string;
-  productInfos: IProductInfo[];
+  orderCreateAt: string;
+  ordersId: number;
+  ordersPrice: number;
+  orderStatus: string;
+  orderDetails: IOrderDetail[];
+}
+export interface IOrderDetail {
+  orderDetailCnt: number;
+  orderDetailId: number;
+  orderDetailPrice: number;
+  orderDetailStatus: string;
+  productId: number;
+  productName: string;
+  productSale: number;
+  productThumbnail: string;
+  sellerStoreName: string;
 }
 
 export interface IPurchaseOptionsProps {

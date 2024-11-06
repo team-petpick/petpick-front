@@ -6,10 +6,11 @@ import { orderPeriods } from '@constants';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import useOrderList from '@hooks/useOrderList';
+import { IOrderInfo } from '@types';
 
 const OrderHistory = () => {
   const [activePeriod, setActivePeriod] = useState<number>(0);
-  const orderInfo = useOrderList(activePeriod);
+  const { orderInfo, loading } = useOrderList(activePeriod);
 
   const handlePeriodChange = (index: number) => {
     setActivePeriod(index);
@@ -18,14 +19,14 @@ const OrderHistory = () => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Header onPeriodChange={handlePeriodChange} activePeriod={activePeriod} />
       <Container>
-        {orderInfo?.length > 0 ? (
-          orderInfo.map((orderItem) => <OrderHistoryItem orderInfo={orderItem} />)
+        {loading ? (
+          <Message>로딩 중입니다...</Message>
+        ) : orderInfo?.content && orderInfo?.content?.length > 0 ? (
+          orderInfo?.content.map((orderItem: IOrderInfo) => (
+            <OrderHistoryItem orderInfo={orderItem} />
+          ))
         ) : (
-          <Message>
-            {activePeriod !== null
-              ? `${orderPeriods[activePeriod]} 간의 주문내역이 없습니다.`
-              : '주문내역이 없습니다.'}
-          </Message>
+          <Message>{`${orderPeriods[activePeriod]} 간의 주문내역이 없습니다.`}</Message>
         )}
       </Container>
     </div>
