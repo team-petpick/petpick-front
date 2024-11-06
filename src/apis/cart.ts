@@ -21,3 +21,8 @@ export const getCartItem = async () => {
   const response = await instance.get('/cart');
   return response.data;
 };
+
+export const deleteCartItem = async (productId: number) => {
+  const response = await instance.delete(`/cart/${productId}`);
+  return response.data;
+};

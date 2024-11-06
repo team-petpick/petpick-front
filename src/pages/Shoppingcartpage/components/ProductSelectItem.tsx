@@ -13,11 +13,13 @@ interface IProductItemProps {
     productPrice: string;
     originalPrice?: string;
     quantity: number;
+    cartCnt: number;
   };
+  deleteItem: (productId: number) => void;
 }
-const ProductSelectItem = ({ item }: IProductItemProps) => {
-  const { productName, productPrice } = item;
-  console.log(item);
+const ProductSelectItem = ({ item, deleteItem }: IProductItemProps) => {
+  const { productId, productName, productPrice, cartCnt } = item;
+
   return (
     <ProductItem>
       <SelectWrapper>
@@ -26,7 +28,7 @@ const ProductSelectItem = ({ item }: IProductItemProps) => {
           <SelectText> {productName} </SelectText>
         </SelectBox>
         <SelectButton>
-          <Delete width="20px" height="20px" />
+          <Delete width="20px" height="20px" onClick={() => deleteItem(productId)} />
         </SelectButton>
       </SelectWrapper>
       <ProductItemContainer>
@@ -41,7 +43,7 @@ const ProductSelectItem = ({ item }: IProductItemProps) => {
               <ProductCountButton>
                 <Minus width="20px" height="20px" />
               </ProductCountButton>
-              <ProductCount>5</ProductCount>
+              <ProductCount>{cartCnt}</ProductCount>
               <ProductCountButton>
                 <Plus width="20px" height="20px" />
               </ProductCountButton>

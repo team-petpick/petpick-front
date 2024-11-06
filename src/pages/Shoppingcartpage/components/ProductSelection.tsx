@@ -4,10 +4,18 @@ import { TextStyles } from '@styles/textStyles';
 import ProductSelectItem from './ProductSelectItem';
 import CheckboxLabal from './CheckboxLabal';
 import { useEffect, useState } from 'react';
-import { getCartItem } from '@apis/cart';
+import { deleteCartItem, getCartItem } from '@apis/cart';
 const ProductSelection = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState<IProduct[]>([]);
 
+  interface IProduct {
+    productId: number;
+    productName: string;
+    productPrice: string;
+    originalPrice?: string;
+    quantity: number;
+    cartCnt: number;
+  }
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -20,6 +28,15 @@ const ProductSelection = () => {
     };
     fetchCartItems();
   }, []);
+
+  const handleDeleteItem = async (productId: number) => {
+    try {
+      await deleteCartItem(productId);
+      setCartItems((prevItems) => prevItems.filter((item) => item.productId !== productId));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Wrapper>
@@ -34,7 +51,7 @@ const ProductSelection = () => {
       </SelectContainer>
       <ProductList>
         {cartItems.length > 0 ? (
-          cartItems.map((item) => <ProductSelectItem item={item} />)
+          cartItems.map((item) => <ProductSelectItem item={item} deleteItem={handleDeleteItem} />)
         ) : (
           <div>장바구니에 상품이 없습니다.</div>
         )}
