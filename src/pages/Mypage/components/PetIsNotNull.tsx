@@ -1,4 +1,4 @@
-import { deletePetInfo, getPetInfo } from '@apis/pet';
+import { deletePetInfo } from '@apis/pet';
 import * as S from '../styles/MyPetMenu';
 import { IPetInfo } from '@types';
 import { ThreeDotIcon } from '@assets/svg';

@@ -15,7 +15,7 @@ interface IProductProps {
 const Product = ({ productInfo, isLiked }: IProductProps) => {
   const formattedOriginalPrice = addCommaToPrice(productInfo.productPrice);
   const formattedSalePrice = addCommaToPrice(
-    productInfo.productPrice * (1 - productInfo.productSale / 100),
+    Math.floor(productInfo.productPrice * (1 - productInfo.productSale / 100)),
   );
   const { reloadLikedProducts } = useGetLikeAll();
   const [isOpen, setIsOpen] = useState(false);
