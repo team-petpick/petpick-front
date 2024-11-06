@@ -2,7 +2,7 @@ import Layout from '@components/layouts/Layout';
 import * as S from './styles/index.style';
 import { IAddressInfo } from '@types';
 import ByingProductItem from './components/ByingProductItem';
-import TossLogo from '@assets/png/Toss_Logo_Primary.png';
+import TossLogo from '/png/Toss_Logo_Primary.png';
 import ByingFooter from './components/ByingFooter';
 import Title from '@components/layouts/Title';
 import { useState } from 'react';
