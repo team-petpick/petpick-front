@@ -3,9 +3,13 @@ import WishListItem from './components/WishListItem';
 import { useEffect, useState } from 'react';
 import { deleteWishListItem, getWishLists } from '@apis/wish';
 import { AxiosError } from 'axios';
+import { IProductInfo } from '@types';
 
+interface IWishProduct extends IProductInfo {
+  productId: number;
+}
 const WishList = () => {
-  const [wishList, setWishList] = useState([]);
+  const [wishList, setWishList] = useState<IWishProduct[]>([]);
 
   useEffect(() => {
     const loadWishProducts = async () => {
