@@ -1,39 +1,19 @@
-import { IOrderInfo } from '@types';
 import Header from './components/Header';
 import OrderHistoryItem from './components/OrderHistoryItem';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { orderPeriodNumbers, orderPeriods } from '@constants';
+import { useState } from 'react';
+import { orderPeriods } from '@constants';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
-import { getOrderLists } from '@apis/order';
+import useOrderList from '@hooks/useOrderList';
 
 const OrderHistory = () => {
   const [activePeriod, setActivePeriod] = useState<number>(0);
-  const [orderInfo, setOrderInfo] = useState<IOrderInfo[]>([]);
-
-  useEffect(() => {
-    const loadOrderData = async () => {
-      const selectedPeriod = orderPeriodNumbers[activePeriod];
-      try {
-        const response = await getOrderLists(0, Number(selectedPeriod));
-        if (response && response.data) {
-          const orderList = response.data;
-          setOrderInfo(orderList);
-        } else {
-          console.log('응답 데이터가 없습니다.');
-        }
-      } catch (error) {
-        console.log('주문내역을 불러오는 도중 오류가 발생했습니다', error);
-      }
-    };
-    loadOrderData();
-  }, [activePeriod]);
+  const orderInfo = useOrderList(activePeriod);
 
   const handlePeriodChange = (index: number) => {
     setActivePeriod(index);
   };
-  console.log(orderInfo);
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Header onPeriodChange={handlePeriodChange} activePeriod={activePeriod} />
