@@ -3,7 +3,24 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import ProductSelectItem from './ProductSelectItem';
 import CheckboxLabal from './CheckboxLabal';
+import { useEffect, useState } from 'react';
+import { getCartItem } from '@apis/cart';
 const ProductSelection = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const data = await getCartItem();
+        console.log(data);
+        setCartItems(data);
+      } catch (error) {
+        console.error('장바구니 조회 오류: ', error);
+      }
+    };
+    fetchCartItems();
+  }, []);
+
   return (
     <Wrapper>
       <SelectContainer>
@@ -16,13 +33,11 @@ const ProductSelection = () => {
         </DeleteButton>
       </SelectContainer>
       <ProductList>
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
+        {cartItems.length > 0 ? (
+          cartItems.map((item) => <ProductSelectItem item={item} />)
+        ) : (
+          <div>장바구니에 상품이 없습니다.</div>
+        )}
         <ProductFooter>
           <SubText>가격</SubText>
         </ProductFooter>

@@ -16,3 +16,8 @@ export const postCartItem = async (productId: number, cartCnt: number) => {
   );
   return response.data;
 };
+
+export const getCartItem = async () => {
+  const response = await instance.get('/cart');
+  return response.data;
+};

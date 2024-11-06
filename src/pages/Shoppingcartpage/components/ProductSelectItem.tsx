@@ -5,13 +5,25 @@ import { Minus, Plus } from '@assets/svg/index';
 import Test3 from '@assets/svg/test-3.jpg';
 import styled from 'styled-components';
 import CheckboxLabal from './CheckboxLabal';
-const ProductSelectItem = () => {
+
+interface IProductItemProps {
+  item: {
+    productId: number;
+    productName: string;
+    productPrice: string;
+    originalPrice?: string;
+    quantity: number;
+  };
+}
+const ProductSelectItem = ({ item }: IProductItemProps) => {
+  const { productName, productPrice } = item;
+  console.log(item);
   return (
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
           <CheckboxLabal text="text" />
-          <SelectText> 상품명 </SelectText>
+          <SelectText> {productName} </SelectText>
         </SelectBox>
         <SelectButton>
           <Delete width="20px" height="20px" />
@@ -22,7 +34,7 @@ const ProductSelectItem = () => {
           <ProductImage src={Test3}></ProductImage>
           <ProductContainer>
             <ProductPriceContainer>
-              <ProductPrice>29,900원</ProductPrice>
+              <ProductPrice>{productPrice}</ProductPrice>
               <ProductFixedPrice> 34,900원</ProductFixedPrice>
             </ProductPriceContainer>
             <ProductCountContainer>
