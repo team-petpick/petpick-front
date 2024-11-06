@@ -21,7 +21,6 @@ export const postPetInfo = async (petInfo: IMyPetInfo) => {
   formData.append('petSpecies', petInfo.petSpecies as string);
   formData.append('petKind', petInfo.petKind as TProductType);
   formData.append('petAge', petInfo.petAge?.toString() || '');
-  formData.append('userId', '1');
 
   const response = await instance.post('/pets', formData, {
     headers: {
@@ -42,6 +41,7 @@ export const putPetInfo = async (petInfo: IMyPetInfo) => {
   formData.append('petAge', petInfo.petAge?.toString() || '');
   if (petInfo.petImg?.slice(0, 4) !== 'http') {
     const { blob, fileType } = await transformImage(petInfo.petImg as string);
+    console.log('blob', blob);
     formData.append('petImg', blob, `petImg.${fileType}`);
   } else {
     formData.append('petImg', petInfo.petImg as string);
@@ -85,7 +85,6 @@ export const getPetInfo = async () => {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     });
-    console.log(response);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;
@@ -94,5 +93,20 @@ export const getPetInfo = async () => {
     } else {
       throw new Error('데이터를 불러오는 데 실패했습니다.');
     }
+  }
+};
+
+export const deletePetInfo = async () => {
+  const response = await instance.delete(`/pets`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+  if (response.status === 200) {
+    alert('삭제되었습니다.');
+    localStorage.removeItem('petId');
+    return response;
+  } else {
+    throw new Error('반려동물 정보를 삭제하는데 실패했습니다.');
   }
 };

@@ -1,18 +1,22 @@
 import Layout from '@layouts/Layout';
 import Category from './components/Category';
-import Product from './components/Product';
+
 import styled from 'styled-components';
 import ProductFilter from './components/ProductFilter';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@apis';
 import { IAllProductInfo } from '@types';
 import { useProductSearchStore } from '@store/productSearchStore';
+import useGetLikeAll from './hooks/useGetLikeAll';
+import Loading from '@components/Loading';
+import ProductList from './components/ProductList';
 
 const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { productListParams } = useProductSearchStore();
-  
+  const { likedProductIds, loading } = useGetLikeAll();
+
   const loadProducts = async () => {
     try {
       const data = await getProducts(productListParams);
@@ -36,12 +40,10 @@ const MainPage = () => {
       <Body>
         {error ? (
           <div>{error}</div>
+        ) : loading ? (
+          <Loading />
         ) : (
-          <ProductList>
-            {productInfo.content.map((product) => (
-              <Product key={product.productId} productInfo={product} />
-            ))}
-          </ProductList>
+          <ProductList productInfo={productInfo} likedProductIds={likedProductIds} />
         )}
       </Body>
     </Layout>
@@ -49,18 +51,6 @@ const MainPage = () => {
 };
 
 export default MainPage;
-
-const ProductList = styled.div`
-  height: 100%;
-  background-color: #fff;
-  overflow-y: scroll;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  block-size: 100%;
-  align-items: center;
-  justify-content: center;
-`;
 
 const Body = styled.div`
   width: 100%;
