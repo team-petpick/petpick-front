@@ -10,19 +10,40 @@ const useOrderList = (activePeriod: number) => {
   useEffect(() => {
     const loadOrderData = async () => {
       const selectedPeriod = orderPeriodNumbers[activePeriod];
-      setLoading(true);
       try {
-        const response = await getOrderLists(0, Number(selectedPeriod));
-        setOrderInfo(response);
-      } catch (err) {
-        console.log(err);
+        const res = await getOrderLists(0, Number(selectedPeriod));
+        console.log(res.content);
+        setOrderInfo(res);
+        setLoading(true);
+      } catch (error) {
+        console.log(error);
       } finally {
         setLoading(false);
       }
     };
     loadOrderData();
   }, [activePeriod]);
-  console.log('useOrderList 결과:', { orderInfo, loading });
-  return { orderInfo, loading };
+
+  const updateOrderListData = (orderId: number, orderDetailId: number) => {
+    const updateData = {
+      ...orderInfo,
+      content:
+        orderInfo?.content.map((order) => {
+          if (order?.ordersId === orderId) {
+            return {
+              ...order,
+              orderDetails: order?.orderDetails.filter((product) => {
+                return product?.orderDetailId !== orderDetailId;
+              }),
+            };
+          }
+          return order;
+        }) || [],
+    };
+
+    setOrderInfo(updateData);
+  };
+
+  return { orderInfo, loading, updateOrderListData };
 };
 export default useOrderList;

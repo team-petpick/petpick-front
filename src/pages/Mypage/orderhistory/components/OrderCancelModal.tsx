@@ -9,8 +9,10 @@ interface IOrderCancelModalProps {
     orderId: number;
   };
   onClose: () => void;
+  onSubmit: (updatedOrderDetail: { orderDetailId: string; orderId: number }) => void;
 }
-const OrderCancelModal = ({ orderDetails, onClose }: IOrderCancelModalProps) => {
+
+const OrderCancelModal = ({ orderDetails, onClose, onSubmit }: IOrderCancelModalProps) => {
   const [cancelReason, setCancelReason] = useState<string>('');
 
   const handleCancelReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -21,6 +23,7 @@ const OrderCancelModal = ({ orderDetails, onClose }: IOrderCancelModalProps) => 
     try {
       const { orderDetailId, orderDetailCnt, orderId } = orderDetails;
       await deleteOrderItem(orderDetailId, orderDetailCnt, orderId, cancelReason);
+      onSubmit({ orderDetailId, orderId });
     } catch (error) {
       console.log('주문 취소 실패', error);
     }
@@ -46,4 +49,5 @@ const OrderCancelModal = ({ orderDetails, onClose }: IOrderCancelModalProps) => 
     </S.Wrapper>
   );
 };
+
 export default OrderCancelModal;
