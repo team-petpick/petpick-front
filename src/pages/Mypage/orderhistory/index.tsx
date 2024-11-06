@@ -7,14 +7,32 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import useOrderList from '@hooks/useOrderList';
 import { IOrderInfo } from '@types';
+// import OrderCancelModal from './components/OrderCancelModal';
 
 const OrderHistory = () => {
   const [activePeriod, setActivePeriod] = useState<number>(0);
   const { orderInfo, loading } = useOrderList(activePeriod);
+  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  // const [selectedProduct, setSelectedProduct] = useState<IOrderDetail | null>(null);
 
   const handlePeriodChange = (index: number) => {
     setActivePeriod(index);
   };
+
+  // const openModal = (product: IOrderDetail) => {
+  //   console.log('click');
+  //   setSelectedProduct(product);
+  //   setIsModalOpen(true);
+  // };
+
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  //   setSelectedProduct(null); // 선택된 상품 초기화
+  // };
+
+  // const handleSubmitCancel = (cancelReason: string) => {
+  //   console.log('취소 사유:', cancelReason);
+  // };
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Header onPeriodChange={handlePeriodChange} activePeriod={activePeriod} />

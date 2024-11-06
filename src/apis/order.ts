@@ -6,13 +6,13 @@ export const getOrderLists = async (page: number, month: number) => {
 };
 
 export const deleteOrderItem = async (
-  paymentKey: string,
+  orderDetailId: string,
   orderDetailCnt: number,
   orderId: number,
   cancelReason: string,
 ) => {
   const cancelData = {
-    paymentKey,
+    orderDetailId,
     orderDetailCnt,
     orderId,
     cancelReason,
