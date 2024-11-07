@@ -1,68 +1,45 @@
-import { IOrderInfo } from '@types';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import Header from './components/Header';
 import OrderHistoryItem from './components/OrderHistoryItem';
-import styled from 'styled-components';
-import { useState } from 'react';
 import { orderPeriods } from '@constants';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
-import { ProductInfo } from '@assets/mock';
+import useOrderList from '@hooks/useOrderList';
+import { IOrderInfo } from '@types';
+import { useActivePeriodStore } from '../stores/useActivePeriodStore';
 
 const OrderHistory = () => {
-  const [activePeriod, setAcrivePeriod] = useState<number>(0);
+  const { activePeriod, setActivePeriod } = useActivePeriodStore();
+  const { orderInfo, loading, updateOrderListData } = useOrderList(activePeriod);
+  const [updatedOrderInfo, setUpdatedOrderInfo] = useState<IOrderInfo[]>([]);
+  useEffect(() => {
+    if (orderInfo) {
+      setUpdatedOrderInfo(orderInfo.content);
+      console.log(orderInfo.content);
+    }
+  }, [orderInfo]);
 
-  const OrderInfo: IOrderInfo[] = [
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-    {
-      orderDate: '2024.07.12',
-      orderNum: '12341234',
-      productInfos: ProductInfo,
-    },
-  ];
   const handlePeriodChange = (index: number) => {
-    setAcrivePeriod(index);
+    setActivePeriod(index);
   };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Header onPeriodChange={handlePeriodChange} activePeriod={activePeriod} />
+      <Header onPeriodChange={handlePeriodChange} />
       <Container>
-        {OrderInfo.length > 0 ? (
-          OrderInfo.map((orderItem) => <OrderHistoryItem orderInfo={orderItem} />)
+        {loading ? (
+          <Message>로딩 중입니다...</Message>
+        ) : updatedOrderInfo.length > 0 ? (
+          updatedOrderInfo.map((orderItem: IOrderInfo) => (
+            <OrderHistoryItem
+              key={orderItem.ordersId}
+              orderInfo={orderItem}
+              onUpdateHandler={updateOrderListData}
+            />
+          ))
         ) : (
-          <Message>
-            {activePeriod !== null
-              ? `${orderPeriods[activePeriod]} 간의 주문내역이 없습니다.`
-              : '주문내역이 없습니다.'}
-          </Message>
+          <Message>{`${orderPeriods[activePeriod]} 간의 주문내역이 없습니다.`}</Message>
         )}
       </Container>
     </div>
@@ -76,6 +53,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 60px;
 `;
+
 const Message = styled.div`
   ${TextStyles.subTitle.largeR}
   max-width: 745px;
@@ -89,4 +67,5 @@ const Message = styled.div`
   border: 1px solid ${PETPICK_COLORS.GRAY[400]};
   border-radius: 8px;
 `;
+
 export default OrderHistory;

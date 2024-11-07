@@ -23,6 +23,8 @@ export const PRODUCT_CATEGORY_INDEX = [
 ] as const;
 
 export const orderPeriods = ['3개월', '6개월', '1년', '3년'];
+export const orderPeriodNumbers = [3, 6, 12, 36];
+export const ANIMAL_TYPE: { [key in ProductType]: ProductType } = {
 export const ANIMAL_TYPE: { [key in TProductType]: TProductType } = {
   DOG: 'DOG',
   CAT: 'CAT',
