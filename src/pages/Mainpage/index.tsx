@@ -16,13 +16,16 @@ const MainPage = () => {
   const [productInfo, setProductInfo] = useState<IAllProductInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { productListParams } = useProductSearchStore();
+  const [currentPage, setCurrentPage] = useState(0);
   const { loading } = useGetLikeAll();
   const { likedProductIds } = useLikeIdsStore();
 
   const loadProducts = async () => {
+    if (!hasMore) return;
     try {
-      const data = await getProducts(productListParams);
-      setProductInfo(data);
+      const data = await getProducts({ ...productListParams, page: currentPage });
+      setProductInfo((prev) => ({ ...prev, ...data }));
+      setHasMore(data.content.length > 0);
       setError(null);
     } catch (error) {
       setError((error as Error).message);
@@ -31,12 +34,26 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    console.log('main', likedProductIds);
-    console.log('-----------');
-  }, [likedProductIds, loading]);
-  useEffect(() => {
     loadProducts();
   }, [productListParams]);
+
+  const [hasMore, setHasMore] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log(window.innerHeight + document.documentElement.scrollTop);
+      console.log(document.documentElement.offsetHeight);
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 300 // 여유를 두고 데이터 호출
+      ) {
+        setCurrentPage((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll); // 스크롤 이벤트 추가
+    return () => window.removeEventListener('scroll', handleScroll); // 이벤트 정리
+  }, []);
 
   if (!productInfo) return null;
   return (

@@ -7,6 +7,7 @@ export interface IProductSearchParam {
   type: TProductType | null;
   category: number | null;
   sort: TProductFilterType | null;
+  page: number;
 }
 
 interface ProductSearchStore {
@@ -22,6 +23,7 @@ export const useProductSearchStore = create<ProductSearchStore>()(
         type: null,
         category: null,
         sort: null,
+        page: 0,
       },
       setProductListParams: (newParams) =>
         set((state) => ({
