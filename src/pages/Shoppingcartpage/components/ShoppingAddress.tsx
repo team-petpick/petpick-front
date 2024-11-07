@@ -31,7 +31,6 @@ const ShoppingAddress = () => {
       detailAddress: ` ${newDetailAddress}`,
       zipCode: `${newZipCode}`,
     });
-    // setUserAddress(`${newBaseAddress} ${newDetailAddress} ${newZipCode}`);
   }, [location.state, setUserAddress]);
 
   return (
