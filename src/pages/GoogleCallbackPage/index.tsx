@@ -32,7 +32,7 @@ const GoogleCallbackPage = () => {
       const accessToken = res.data.access_token[0];
 
       if (accessToken) {
-        const userInfo = { userName, userImage, userId };
+        const userInfo = { userName, userImage, userId: Number(userId) };
         localStorage.setItem('accessToken', accessToken);
         setUserInfo(userInfo);
         navigate('/');
