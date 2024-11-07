@@ -16,12 +16,14 @@ export const ProductBasicInfo = ({ productInfo }: IProductBasicInfoProps) => (
       <S.PriceContainer>
         <S.DiscountText>{productInfo.productSale}%</S.DiscountText>
         {productInfo.productSale !== 0 && (
-          <S.DiscountPrice>{productInfo.productPrice / productInfo.productSale}</S.DiscountPrice>
+          <S.DiscountPrice>
+            {(productInfo.productPrice * (1 - productInfo.productSale / 100)).toLocaleString()}
+          </S.DiscountPrice>
         )}
         <S.PriceText>원</S.PriceText>
       </S.PriceContainer>
       <S.PriceBox>
-        <S.RegularPrice>{productInfo.productPrice}</S.RegularPrice>
+        <S.RegularPrice>{productInfo.productPrice.toLocaleString()}원</S.RegularPrice>
       </S.PriceBox>
     </div>
   </div>

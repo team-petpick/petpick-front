@@ -35,11 +35,11 @@ export const PurchaseOptions = ({
                 <S.SelectPriceContainer>
                   {productInfo.productSale !== 0 && (
                     <S.PriceSpan isThrough={true} isDiscounted={true}>
-                      {discountedPrice}
+                      {productInfo.productPrice.toLocaleString()}원
                     </S.PriceSpan>
                   )}
                   <S.PriceSpan isThrough={false} isDiscounted={false}>
-                    {productInfo.productPrice}원
+                    {discountedPrice.toLocaleString()}원
                   </S.PriceSpan>
                 </S.SelectPriceContainer>
               </S.SelectContainer>

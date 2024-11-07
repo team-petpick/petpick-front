@@ -13,15 +13,15 @@ import useGetProductDetails from './hooks/useGetProductDetails';
 import Loading from '@components/Loading';
 import { useParams } from 'react-router-dom';
 import { fetchToggleLike, fetchWishList } from '@apis';
+import { useUserStore } from '@store/userStore';
 
 const DetailPage = () => {
   const { productId } = useParams();
   const { productInfo, error, isLoading } = useGetProductDetails(Number(productId));
   const [productCount, setProductCount] = useState(1);
-  // const { userId } = useUserStore();
-  const userId = 1; // 임시데이터 1
-
   const [liked, setLiked] = useState(false);
+  const { userInfo } = useUserStore();
+  const userId = userInfo.userId;
 
   // 좋아요 관리
   useEffect(() => {
@@ -70,7 +70,7 @@ const DetailPage = () => {
       {productInfo ? (
         <S.DetailLayout>
           <S.ProductContainer>
-            <ProductImage imageUrl={productInfo.productThumbnail} />
+            <ProductImage />
             <S.ProductInfoContainer>
               <ProductBasicInfo productInfo={productInfo} />
               <ProductAdditionalInfo sellerStoreName={productInfo.seller.sellerStoreName} />
@@ -95,7 +95,7 @@ const DetailPage = () => {
               </S.ActionButtonContainer>
             </S.ProductInfoContainer>
           </S.ProductContainer>
-          <ProductDescription productInfo={productInfo} />
+          <ProductDescription />
         </S.DetailLayout>
       ) : (
         <Loading />
