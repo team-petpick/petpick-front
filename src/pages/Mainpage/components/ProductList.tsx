@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Product from './Product';
 import { IProductInfo } from '@types';
 import useGetLikeAll from '../hooks/useGetLikeAll';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@constants/ROUTE';
 
 interface IProductListProps {
   productInfo: any;
@@ -10,6 +12,11 @@ interface IProductListProps {
 
 const ProductList = ({ productInfo }: IProductListProps) => {
   const { likedProductIds } = useGetLikeAll();
+  const navigate = useNavigate();
+
+  const handleProductDetailClick = (productInfo: any) => {
+    navigate(ROUTE.DETAILPAGE.replace(':productId', String(productInfo.productId)));
+  };
   return (
     <ProductListWrapper>
       {productInfo.content.map((product: IProductInfo) => (
@@ -17,6 +24,7 @@ const ProductList = ({ productInfo }: IProductListProps) => {
           key={product.productId}
           productInfo={product}
           isLiked={likedProductIds.includes(product.productId)}
+          onClick={() => handleProductDetailClick(product)}
         />
       ))}
     </ProductListWrapper>
