@@ -8,42 +8,42 @@ import { addCommaToPrice } from '@utils/addCommaToPrice';
 import CheckoutButton from '@pages/TossPaymentPage/CheckoutButton';
 import { nanoid } from 'nanoid';
 
+interface CartItem {
+  cartCnt: number;
+  productId: number;
+  productName: string;
+  productPrice: number;
+  productSale: number;
+  productThumbnail: string;
+  sellerName: string;
+}
+
 const PaymentConfirmationPage = () => {
   const { cartItems, userAddress, totalPrice } = useCartStore();
   const orderId = nanoid();
 
   // 랜덤 전화번호 생성기
-  function generateRandomCompanyPhoneNumber() {
-    // 대표적인 회사 전화번호의 지역번호
-    const areaCodes = [
-      '02',
-      '031',
-      '032',
-      '033',
-      '041',
-      '042',
-      '043',
-      '044',
-      '051',
-      '052',
-      '053',
-      '054',
-      '055',
-      '061',
-      '062',
-      '063',
-      '064',
-    ];
-
-    // 랜덤으로 지역번호 선택
-    const areaCode = areaCodes[Math.floor(Math.random() * areaCodes.length)];
+  function generateRandomPhoneNumber() {
+    const prefix = '010';
 
     // 4자리와 4자리 숫자 부분을 랜덤으로 생성
     const middlePart = Math.floor(1000 + Math.random() * 9000); // 1000 ~ 9999
     const lastPart = Math.floor(1000 + Math.random() * 9000); // 1000 ~ 9999
 
-    return `${areaCode}-${middlePart}-${lastPart}`;
+    return `${prefix}-${middlePart}-${lastPart}`;
   }
+
+  // 상품 이름을 줄여 표시하고, 나머지 개수를 표시하는 함수
+  function getShortenedProductName(cartItem: CartItem): string {
+    const otherText =
+      cartItems.length > 1 ? ` 외 ${cartItems.length - 1}건` : ` 외 ${cartItems.length}건`;
+    return cartItem.productName.length > 5
+      ? cartItem.productName.slice(0, 5) + '...' + otherText
+      : cartItem.productName + otherText;
+  }
+
+  // 첫 상품 이름과 나머지 요약 정보를 결합하여 orderName 생성
+  const orderName = cartItems.length > 0 ? getShortenedProductName(cartItems[0]) : '';
 
   return (
     <Layout footerVisible={false}>
@@ -60,8 +60,8 @@ const PaymentConfirmationPage = () => {
                   <S.SubTitle>주소</S.SubTitle>
                 </S.InfoContainer>
                 <S.InfoContainer>
-                  <S.SubContent>userName</S.SubContent>
-                  <S.SubContent>{generateRandomCompanyPhoneNumber()}</S.SubContent>
+                  <S.SubContent>{}</S.SubContent>
+                  <S.SubContent>{generateRandomPhoneNumber()}</S.SubContent>
                   <S.SubContent>{`${userAddress.baseAddress} ${userAddress.detailAddress} (${userAddress.zipCode})`}</S.SubContent>
                 </S.InfoContainer>
               </S.ShippingAddress>
@@ -100,7 +100,7 @@ const PaymentConfirmationPage = () => {
                 <S.SubTitle>일반 결제</S.SubTitle>
                 <CheckoutButton
                   orderId={orderId}
-                  orderName="토스 티셔츠 외 2건"
+                  orderName={orderName}
                   amount={totalPrice}
                   successUrl={window.location.origin + '/success'}
                   failUrl={window.location.origin + '/fail'}
