@@ -19,7 +19,7 @@ const ShoppingAddress = () => {
     // location.state에서 각각의 값을 가져옵니다.
     const newBaseAddress = location.state?.baseAddress || '배송지를 입력해주세요';
     const newDetailAddress = location.state?.detailAddress || '';
-    const newZipCode = location.state?.zipCode || '?';
+    const newZipCode = location.state?.zipCode || '';
 
     setBaseAddress(newBaseAddress);
     setDetailAddress(newDetailAddress);
