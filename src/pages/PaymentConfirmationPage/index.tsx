@@ -1,8 +1,6 @@
 import Layout from '@components/layouts/Layout';
 import * as S from './styles/index.style';
 import ByingProductItem from './components/ByingProductItem';
-// import TossLogo from '/png/Toss_Logo_Primary.png';
-import ByingFooter from './components/ByingFooter';
 import Title from '@components/layouts/Title';
 import DropdownSelector from './components/DropdownSelector';
 import { useCartStore } from '@store/cart';
@@ -11,10 +9,41 @@ import CheckoutButton from '@pages/TossPaymentPage/CheckoutButton';
 import { nanoid } from 'nanoid';
 
 const PaymentConfirmationPage = () => {
-  // const [isClicked] = useState(false);
   const { cartItems, userAddress, totalPrice } = useCartStore();
-  // const cartItems = useCartStore((state) => state.getCartItems());
   const orderId = nanoid();
+
+  // 랜덤 전화번호 생성기
+  function generateRandomCompanyPhoneNumber() {
+    // 대표적인 회사 전화번호의 지역번호
+    const areaCodes = [
+      '02',
+      '031',
+      '032',
+      '033',
+      '041',
+      '042',
+      '043',
+      '044',
+      '051',
+      '052',
+      '053',
+      '054',
+      '055',
+      '061',
+      '062',
+      '063',
+      '064',
+    ];
+
+    // 랜덤으로 지역번호 선택
+    const areaCode = areaCodes[Math.floor(Math.random() * areaCodes.length)];
+
+    // 4자리와 4자리 숫자 부분을 랜덤으로 생성
+    const middlePart = Math.floor(1000 + Math.random() * 9000); // 1000 ~ 9999
+    const lastPart = Math.floor(1000 + Math.random() * 9000); // 1000 ~ 9999
+
+    return `${areaCode}-${middlePart}-${lastPart}`;
+  }
 
   return (
     <Layout footerVisible={false}>
@@ -32,7 +61,7 @@ const PaymentConfirmationPage = () => {
                 </S.InfoContainer>
                 <S.InfoContainer>
                   <S.SubContent>userName</S.SubContent>
-                  <S.SubContent>address.addressTel</S.SubContent>
+                  <S.SubContent>{generateRandomCompanyPhoneNumber()}</S.SubContent>
                   <S.SubContent>{`${userAddress.baseAddress} ${userAddress.detailAddress} (${userAddress.zipCode})`}</S.SubContent>
                 </S.InfoContainer>
               </S.ShippingAddress>
@@ -77,9 +106,6 @@ const PaymentConfirmationPage = () => {
                   failUrl={window.location.origin + '/fail'}
                   buttonText="지금 결제하기"
                 />
-                {/* <S.PaymentButtonContainer isClicked={isClicked}>
-                  <S.LogoImageBox src={TossLogo} />
-                </S.PaymentButtonContainer> */}
               </S.PaymentInfo>
             </S.Container>
             <S.Container>
@@ -100,7 +126,7 @@ const PaymentConfirmationPage = () => {
           </S.ContentWrapper>
         </S.ContentContainer>
       </S.Content>
-      <ByingFooter />
+      {/* <ByingFooter /> */}
     </Layout>
   );
 };
