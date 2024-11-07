@@ -22,7 +22,7 @@ const GoogleCallbackPage = () => {
       console.log('로그인 재시도 필요');
       navigate('/login');
     }
-  }, [code, navigate]);
+  }, []);
 
   const handleLoginPost = async (code: string) => {
     const data = {
@@ -37,6 +37,7 @@ const GoogleCallbackPage = () => {
 
       if (accessToken) {
         const userInfo = { userName, userImage, userId };
+        console.log('userInfo', userInfo);
         localStorage.setItem('accessToken', accessToken);
         setUserInfo(userInfo);
         navigate('/');
