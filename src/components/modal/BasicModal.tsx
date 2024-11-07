@@ -22,6 +22,8 @@ export default function BasicModal({
   children,
   showCloseIcon = false,
 }: BasicModalProps) {
+  console.log('basicModal isOpen', isOpen);
+
   useEffect(() => {
     const handleClose = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {

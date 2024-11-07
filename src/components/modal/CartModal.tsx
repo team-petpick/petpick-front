@@ -21,7 +21,13 @@ const CartModal = ({ isOpen, onRequestClose, productInfo }: ICartModalProps) => 
   const [productCount, setProductCount] = useState(1);
 
   const handleCartButtonClick = async () => {
-    if (!userId) return;
+    console.log('clicekd');
+    console.log(userId);
+    if (!userId) {
+      alert('로그인 해주세요');
+      navigate('/login');
+      return;
+    }
     await fetchPostCartItem();
     // setCartItems(await getCartItem());
     const url = ROUTE.SHOPPINGCART.replace(':userId', userId.toString());

@@ -10,11 +10,7 @@ export const fetchToggleLike = (productId: number) => {
 
 export const fetchGetLikeAll = async () => {
   try {
-    const response = await instance.get(`/user/likes`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    });
+    const response = await instance.get(`/user/likes`);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch liked products:', error);

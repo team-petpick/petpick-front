@@ -16,8 +16,8 @@ export const useUserStore = create(
   persist<IUserStore>(
     (set) => ({
       userInfo: {
-        userId: 1,
-        userName: '이횰',
+        userId: 10,
+        userName: '김윤일',
         userImage: null,
       },
       setUserInfo: (newInfo) => set({ userInfo: newInfo }),

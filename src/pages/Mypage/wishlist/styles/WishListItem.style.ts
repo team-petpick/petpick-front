@@ -18,10 +18,17 @@ export const ProductImage = styled.img`
 `;
 export const DescriptionWrapper = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 export const SellerName = styled.div`
   ${TextStyles.subText.smallR}
   color: ${PETPICK_COLORS.GRAY[500]};
+`;
+export const BlankSpace = styled.div`
+  width: auto;
+  height: 14px;
 `;
 export const ProductName = styled.div`
   ${TextStyles.body.mediumM};

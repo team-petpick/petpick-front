@@ -26,7 +26,7 @@ const ProductList = ({ productInfo }: IProductListProps) => {
 export default ProductList;
 
 const ProductListWrapper = styled.div`
-  height: 100%;
+  height: 100vh;
   background-color: #fff;
   overflow-y: scroll;
   display: grid;
@@ -35,4 +35,5 @@ const ProductListWrapper = styled.div`
   block-size: 100%;
   align-items: center;
   justify-content: center;
+  overflow-y: 'scroll';
 `;

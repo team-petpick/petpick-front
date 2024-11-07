@@ -19,7 +19,10 @@ interface CartItem {
 }
 
 const PaymentConfirmationPage = () => {
-  const { cartItems, userAddress, totalPrice } = useCartStore();
+  const { cartItems, userAddress } = useCartStore();
+  const cartItemsChecked = cartItems.filter((item) => item.isChecked);
+  const totalPrice = 100;
+  console.log('cartItemsChekce', cartItemsChecked);
   const orderId = nanoid();
 
   // 랜덤 전화번호 생성기
@@ -75,7 +78,7 @@ const PaymentConfirmationPage = () => {
                 </S.HeaderWrapper>
                 <S.OrderItemContainer>
                   {/* 상품 내역 리스트 */}
-                  {cartItems.map((productInfo) => (
+                  {cartItemsChecked.map((productInfo) => (
                     <ByingProductItem key={productInfo.productId} productInfo={productInfo} />
                   ))}
                 </S.OrderItemContainer>

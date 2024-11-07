@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface CartItem {
+export interface ICartItem {
   productId: number;
   productName: string;
   productPrice: number;
@@ -25,19 +25,19 @@ interface CartStore {
   totalPrice: number;
   originalTotalPrice: number; // 할인 적용 전 총 가격
   checkedTotalPrice: number;
+  deleteModalProductId: number | null;
+  setDeleteModalProductId: (productId: number | null) => void;
   setCheckedTotalPrice: (price: number) => void;
-  cartItems: CartItem[];
-  addCartItem: (item: CartItem) => void;
-  setCartItems: (items: CartItem[]) => void;
+  cartItems: ICartItem[];
+  addCartItem: (item: ICartItem) => void;
+  setCartItems: (items: ICartItem[]) => void;
   removeCartItem: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   userAddress: IUserAddress;
   setUserAddress: (address: IUserAddress) => void;
-  getCartItems: () => CartItem[];
+  getCartItems: () => ICartItem[];
   calculateCheckedTotalPrice: () => void;
-  checkedList: number[];
-  setCheckedList: (list: number[]) => void;
-  toggleChecked: (productId: number) => void; // 상품 체크/해제
+  checkAll: (checked: boolean) => void;
   addressRequest: IAddressRequest;
   setAddressRequest: (request: string) => void;
 }
@@ -49,15 +49,15 @@ export const useCartStore = create(
       totalPrice: 0,
       originalTotalPrice: 0,
       checkedTotalPrice: 0,
-      checkedList: [],
+      deleteModalProductId: null,
       userAddress: {
         baseAddress: '배송지를 입력해주세요',
         detailAddress: '',
         zipCode: '',
       },
       addressRequest: { addressRequest: '' },
-      setCheckedList: (list: any) => set(() => ({ checkedList: list })),
-
+      setDeleteModalProductId: (productId: number | null) =>
+        set({ deleteModalProductId: productId }),
       setCheckedTotalPrice: (price: any) => set({ checkedTotalPrice: price }),
 
       getCartItems: () => get().cartItems,
@@ -68,10 +68,10 @@ export const useCartStore = create(
         })),
 
       // 장바구니 새로 넣어주기
-      setCartItems: (items: CartItem[]) =>
-        set(() => ({
+      setCartItems: (items: ICartItem[]) =>
+        set({
           cartItems: items,
-        })),
+        }),
 
       // 장바구니에서 항목 제거
       removeCartItem: (productId) =>
@@ -88,6 +88,7 @@ export const useCartStore = create(
         }));
         get().calculateTotalPrice();
       },
+
       // 총 가격 계산
       calculateTotalPrice: () =>
         set((state) => {
@@ -105,15 +106,15 @@ export const useCartStore = create(
           return { ...state, totalPrice, originalTotalPrice };
         }),
 
-      // 체크된 상품 리스트 업데이트
-      toggleChecked: (productId) => {
-        const { checkedList } = get();
-        const newCheckedList = checkedList.includes(productId)
-          ? checkedList.filter((id) => id !== productId)
-          : [...checkedList, productId];
-        set({ checkedList: newCheckedList });
-        get().calculateTotalPrice();
+      checkAll: (checked: boolean) => {
+        const { cartItems } = get();
+        const newCheckedList = checked
+          ? cartItems.map((item) => ({ ...item, isChecked: true }))
+          : cartItems.map((item) => ({ ...item, isChecked: false }));
+        console.log(newCheckedList);
+        set({ cartItems: newCheckedList });
       },
+
       // 체크된 항목의 총 금액을 계산하여 저장
       calculateCheckedTotalPrice: () => {
         const { cartItems } = get();

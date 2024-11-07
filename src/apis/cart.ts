@@ -8,8 +8,7 @@ export const postCartItem = async (productId: number, cartCnt: number) => {
     },
     {
       headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNzMwNzg2NDYwLCJleHAiOjE3MzQzODY0NjB9.ayqNjgzvP3KBJplxac-sywbuOL_MTSs86nTxFt_pUq8',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     },
   );
@@ -19,21 +18,23 @@ export const postCartItem = async (productId: number, cartCnt: number) => {
 export const getCartItem = async () => {
   const response = await instance.get('/cart', {
     headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNzMwNzg2NDYwLCJleHAiOjE3MzQzODY0NjB9.ayqNjgzvP3KBJplxac-sywbuOL_MTSs86nTxFt_pUq8',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
   });
   return response.data;
 };
 
 export const deleteCartItem = async (productId: number) => {
-  const response = await instance.delete(`/cart/${productId}`, {
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNzMwNzg2NDYwLCJleHAiOjE3MzQzODY0NjB9.ayqNjgzvP3KBJplxac-sywbuOL_MTSs86nTxFt_pUq8',
-    },
-  });
-  return response.data;
+  try {
+    const response = await instance.delete(`/cart/${productId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const patchCartInfo = async (modifiedCartInfo: any) => {
@@ -45,8 +46,7 @@ export const patchCartInfo = async (modifiedCartInfo: any) => {
       },
       {
         headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNzMwNzg2NDYwLCJleHAiOjE3MzQzODY0NjB9.ayqNjgzvP3KBJplxac-sywbuOL_MTSs86nTxFt_pUq8',
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       },
     );
