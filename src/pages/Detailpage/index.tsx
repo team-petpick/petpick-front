@@ -92,7 +92,6 @@ const DetailPage = () => {
   const handleCartButtonClick = async () => {
     if (!userId) return;
     await fetchPostCartItem();
-    // setCartItems(await getCartItem());
     const url = ROUTE.SHOPPINGCART.replace(':userId', userId.toString());
     navigate(url);
   };

@@ -17,8 +17,8 @@ const PetIsNull = ({ handleClickNavigateToRegisterMyPet }: IPetIsNullProps) => {
           height: '100%',
         }}
       >
-        <S.MyPetMenuText style={{ fontSize: '24px' }}>우리 집 아이</S.MyPetMenuText>
-        <S.MyPetMenuText style={{ fontSize: '24px' }}>등록하기</S.MyPetMenuText>
+        <div style={{ fontSize: '20px' }}>우리 집 아이</div>
+        <div style={{ fontSize: '20px' }}>등록하기</div>
       </div>
     </S.MyPetMenuWrapper>
   );
