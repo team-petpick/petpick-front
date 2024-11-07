@@ -9,8 +9,10 @@ import { TextStyles } from '@styles/textStyles';
 import { PETPICK_COLORS } from '@styles/colors';
 import styled from 'styled-components';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
+import { useParams } from 'react-router-dom';
+
 const PaymentSuccessPage = () => {
-  const orderId = 1;
+  const { orderId } = useParams();
   const { orders, isLoading } = useGetOrder(Number(orderId));
 
   const totalOrderPrice = addCommaToPrice(
@@ -32,7 +34,7 @@ const PaymentSuccessPage = () => {
     <Layout footerVisible={true}>
       <S.PaymentSuccessPageContainer>
         <Header />
-        <Announcement orderId={orderId} />
+        <Announcement orderId={Number(orderId)} />
         {isLoading && <Loading />}
         <S.OrderContainer>
           <S.Title>주문 상품</S.Title>

@@ -28,7 +28,7 @@ const CheckoutButton = ({
       try {
         const tossPayments = await loadTossPayments(clientKey);
         const payment = tossPayments.payment({
-          customerKey: 'apFoQd6epLlSu-1VMDPcd', // 고유 회원 식별 키
+          customerKey: 'apFoㅌQd6epLlSu-1VMDPcd', // 고유 회원 식별 키
         });
         setPayment(payment);
       } catch (error) {

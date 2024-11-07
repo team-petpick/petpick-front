@@ -2,7 +2,7 @@ import { getOrderById } from '@apis/order';
 import { IOrderDetail } from '@types';
 import { useEffect, useState } from 'react';
 
-const useGetOrder = (userId: number) => {
+const useGetOrder = (orderId: number) => {
   const [orders, setOrders] = useState<IOrderDetail[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -10,7 +10,7 @@ const useGetOrder = (userId: number) => {
   const getOrder = async () => {
     try {
       setIsLoading(true);
-      const response = await getOrderById(userId);
+      const response = await getOrderById(orderId);
       setOrders(response);
       setIsLoading(false);
     } catch (error) {
