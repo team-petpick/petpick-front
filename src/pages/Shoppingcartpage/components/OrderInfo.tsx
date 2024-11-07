@@ -7,10 +7,11 @@ import { ROUTE } from '@constants/ROUTE';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { patchCartInfo } from '@apis/cart';
 import { useCartStore } from '@store/cart';
+import { useUserStore } from '@store/userStore';
 
 const OrderInfo = () => {
   const navigate = useNavigate();
-  const userId = 1;
+  const { userInfo } = useUserStore();
   const { cartItems } = useCartStore();
 
   const totalPrice = cartItems.reduce((sum, item) => {
@@ -42,7 +43,7 @@ const OrderInfo = () => {
     for (const item of patchCartItems) {
       await patchCartInfo(item);
     }
-    navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userId.toString()));
+    navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userInfo.userId?.toString() || ''));
   };
 
   return (

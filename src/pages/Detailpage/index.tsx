@@ -13,13 +13,14 @@ import useGetProductDetails from './hooks/useGetProductDetails';
 import Loading from '@components/Loading';
 import { useParams } from 'react-router-dom';
 import { fetchToggleLike, fetchWishList } from '@apis';
+import { useUserStore } from '@store/userStore';
 
 const DetailPage = () => {
   const { productId } = useParams();
   const { productInfo, error, isLoading } = useGetProductDetails(Number(productId));
   const [productCount, setProductCount] = useState(1);
-  // const { userId } = useUserStore();
-  const userId = 1; // 임시데이터 1
+  const { userInfo } = useUserStore();
+  const userId = userInfo.userId;
 
   const [liked, setLiked] = useState(false);
 

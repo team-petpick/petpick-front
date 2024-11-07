@@ -17,10 +17,10 @@ interface ICartModalProps {
 const CartModal = ({ isOpen, onRequestClose, productInfo }: ICartModalProps) => {
   const navigate = useNavigate();
   const { userInfo } = useUserStore();
-  let userId = userInfo.userId;
-  console.log(userInfo);
+  const userId = userInfo.userId;
+
   const [productCount, setProductCount] = useState(1);
-  userId = 10;
+
   const handleCartButtonClick = async () => {
     if (!userId) {
       alert('로그인 해주세요');

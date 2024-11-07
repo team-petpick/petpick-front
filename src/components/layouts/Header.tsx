@@ -44,13 +44,13 @@ const Header = () => {
     if (!isLoggedIn) {
       alert('로그인 사용자만 이용할 수 있는 기능입니다.');
     } else {
-      navigate(ROUTE.MYPAGE.replace(':userId', '1'));
+      navigate(ROUTE.MYPAGE.replace(':userId', userInfo.userId?.toString() || ''));
     }
   };
 
   const handleCartButtonClick = () => {
     if (isLoggedIn) {
-      navigate(ROUTE.SHOPPINGCART.replace(':userId', '1'));
+      navigate(ROUTE.SHOPPINGCART.replace(':userId', userInfo.userId?.toString() || ''));
     } else {
       alert('로그인 사용자만 이용할 수 있는 기능입니다.');
     }

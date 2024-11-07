@@ -18,6 +18,5 @@ export const fetchGetLikeAll = async () => {
   }
 };
 export const fetchWishList = (userId: number) => {
-  console.log('API 호출하기 ! userId ->', userId); // 로그 추가
   return instance.get(`/user/${userId}/likes`);
 };
