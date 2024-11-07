@@ -21,7 +21,10 @@ interface CartItem {
 const PaymentConfirmationPage = () => {
   const { cartItems, userAddress } = useCartStore();
   const cartItemsChecked = cartItems.filter((item) => item.isChecked);
-  const totalPrice = 100;
+  const totalPrice = cartItemsChecked.reduce(
+    (acc, item) => acc + item.productPrice * (1 - item.productSale * 0.01) * item.cartCnt,
+    0,
+  );
   console.log('cartItemsChekce', cartItemsChecked);
   const orderId = nanoid();
 
