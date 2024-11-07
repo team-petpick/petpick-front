@@ -10,10 +10,6 @@ const GoogleCallbackPage = () => {
   const code = params.get('code');
   const { setUserInfo } = useUserStore();
 
-  console.log('search', window.location.search);
-  console.log('params', params);
-  console.log('code', code);
-
   useEffect(() => {
     if (code) {
       handleLoginPost(code);
@@ -30,14 +26,13 @@ const GoogleCallbackPage = () => {
     };
     try {
       const res = await instance.post('/auth/google', data);
-      const userName = res.data.user_name;
-      const userImage = res.data.user_profile;
-      const userId = res.data.user_id;
-      const accessToken = res.data.access_token;
+      const userName = res.data.user_name[0];
+      const userImage = res.data.user_profile[0];
+      const userId = res.data.user_id[0];
+      const accessToken = res.data.access_token[0];
 
       if (accessToken) {
         const userInfo = { userName, userImage, userId };
-        console.log('userInfo', userInfo);
         localStorage.setItem('accessToken', accessToken);
         setUserInfo(userInfo);
         navigate('/');
