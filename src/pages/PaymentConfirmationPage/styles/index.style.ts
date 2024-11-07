@@ -28,7 +28,7 @@ export const TotalPrice = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export const PaymentButton = styled.button<{ isClicked: boolean }>`
+export const PaymentButtonContainer = styled.div<{ isClicked: boolean }>`
   border: 2px solid
     ${({ isClicked }) =>
       isClicked ? `${PETPICK_COLORS.BLUE[300]}` : `${PETPICK_COLORS.GRAY[400]}`};

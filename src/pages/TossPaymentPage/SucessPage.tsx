@@ -1,42 +1,33 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { sendPaymentSuccess } from '@apis/payment';
+import { IAddressProps, IOrderDetailsProps } from '@types';
+import { useCartStore } from '@store/cart';
 
 export default function SuccessPage() {
   const [searchParams] = useSearchParams();
+  const { cartItems, userAddress } = useCartStore();
 
   // URL에서 쿼리 파라미터로 받은 값 추출
   const orderSerialCode = searchParams.get('orderId');
   const paymentKey = searchParams.get('paymentKey');
-  const amount = searchParams.get('amount');
-
-  // 임시데이터
+  const amount = Number(searchParams.get('amount'));
 
   const userId = 1;
-  const orderRequest = '빨리 주이소 !!';
-  //더미데이터 추가됨
-  const orderDetails = [
-    {
-      productId: 1,
-      orderDetailPrice: 20000,
-      orderDetailCnt: 1,
-    },
-    {
-      productId: 2,
-      orderDetailPrice: 30000,
-      orderDetailCnt: 1,
-    },
-  ];
-  const address = {
-    addressId: null,
-    userId: 1,
-    addressName: '집',
-    addressZipcode: 10233,
-    addressAddr: '강남구 신림동',
-    addressAddrDetail: '오송빌딩',
-    addressTel: '010-1234-5678',
-    addressRequest: '문앞ㅇ[ 두고 가세[요',
-    addressDefault: 'DEFAULT',
+  const orderRequest = userAddress.addressRequest;
+  const orderDetails: IOrderDetailsProps[] = cartItems.map((item: any) => ({
+    productId: item.productId,
+    orderDetailPrice: item.productPrice,
+    orderDetailCnt: item.cartCnt,
+  }));
+  const address: IAddressProps = {
+    addressName: 'none',
+    addressZipcode: Number(userAddress.zipCode),
+    addressAddr: userAddress.baseAddress,
+    addressAddrDetail: userAddress.detailAddress,
+    addressTel: 'none',
+    addressRequest: '빠른 배송 부탁드립니다.',
+    addressDefault: 'YES',
   };
   useEffect(() => {
     async function handlePaymentSuccess() {
@@ -44,7 +35,7 @@ export default function SuccessPage() {
         try {
           const response = await sendPaymentSuccess(
             paymentKey,
-            Number(amount),
+            amount,
             userId,
             orderSerialCode,
             orderRequest,

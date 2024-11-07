@@ -12,7 +12,12 @@ interface CartItem {
   selectedItems: number[];
   isChecked: boolean;
 }
-
+interface IUserAddress {
+  baseAddress: string;
+  detailAddress: string;
+  zipCode: string;
+  addressRequest: string;
+}
 interface CartStore {
   calculateTotalPrice: any;
   totalPrice: number;
@@ -24,13 +29,14 @@ interface CartStore {
   setCartItems: (items: CartItem[]) => void;
   removeCartItem: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
-  userAddress: string;
-  setUserAddress: (userAddress: string) => void;
+  userAddress: IUserAddress;
+  setUserAddress: (address: IUserAddress) => void;
   getCartItems: () => CartItem[];
   calculateCheckedTotalPrice: () => void;
   checkedList: number[];
   setCheckedList: (list: number[]) => void;
   toggleChecked: (productId: number) => void; // 상품 체크/해제
+  setAddressRequest: (request: string) => void;
 }
 
 export const useCartStore = create(
@@ -39,9 +45,14 @@ export const useCartStore = create(
       cartItems: [],
       totalPrice: 0,
       originalTotalPrice: 0,
-      userAddress: '배송지를 입력해주세요',
       checkedTotalPrice: 0,
       checkedList: [],
+      userAddress: {
+        baseAddress: '배송지를 입력해주세요',
+        detailAddress: '',
+        zipCode: '',
+        addressRequest: '',
+      },
       setCheckedList: (list: any) => set(() => ({ checkedList: list })),
 
       setCheckedTotalPrice: (price: any) => set({ checkedTotalPrice: price }),
@@ -113,9 +124,13 @@ export const useCartStore = create(
         set({ checkedTotalPrice: checkedTotal });
       },
 
-      setUserAddress: (userAddress: string) =>
+      setUserAddress: (address: IUserAddress) =>
         set(() => ({
-          userAddress: userAddress,
+          userAddress: address,
+        })),
+      setAddressRequest: (request: string) =>
+        set((state) => ({
+          userAddress: { ...state.userAddress, addressRequest: request },
         })),
     }),
     {

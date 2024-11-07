@@ -9,8 +9,6 @@ export const sendPaymentSuccess = async (
   orderRequest: string,
   orderDetails: Array<{ productId: number; orderDetailPrice: number; orderDetailCnt: number }>,
   address: {
-    addressId: number | null;
-    userId: number;
     addressName: string;
     addressZipcode: number;
     addressAddr: string;

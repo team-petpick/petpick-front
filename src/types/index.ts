@@ -99,3 +99,19 @@ export interface IPetInfo {
   petAge: number;
   petGender: TPetGender | null;
 }
+
+export interface IAddressProps {
+  addressName: string;
+  addressZipcode: number;
+  addressAddr: string;
+  addressAddrDetail: string;
+  addressTel: string;
+  addressRequest: string;
+  addressDefault: 'YES' | 'NO';
+}
+
+export interface IOrderDetailsProps {
+  productId: number;
+  orderDetailPrice: number;
+  orderDetailCnt: number;
+}

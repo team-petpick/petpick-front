@@ -1,38 +1,20 @@
 import Layout from '@components/layouts/Layout';
 import * as S from './styles/index.style';
 import ByingProductItem from './components/ByingProductItem';
-import TossLogo from '/png/Toss_Logo_Primary.png';
+// import TossLogo from '/png/Toss_Logo_Primary.png';
 import ByingFooter from './components/ByingFooter';
 import Title from '@components/layouts/Title';
-import { useEffect, useState } from 'react';
 import DropdownSelector from './components/DropdownSelector';
 import { useCartStore } from '@store/cart';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import { usePayment } from '../TossPaymentPage/usePayment';
-import { TossPaymentsPayment } from '@tosspayments/tosspayments-sdk';
+import CheckoutButton from '@pages/TossPaymentPage/CheckoutButton';
+import { nanoid } from 'nanoid';
 
 const PaymentConfirmationPage = () => {
-  const [isClicked] = useState(false);
-  const { userAddress, totalPrice } = useCartStore();
-  const cartItems = useCartStore((state) => state.getCartItems());
-  const [payment, setPayment] = useState<TossPaymentsPayment | null>(null);
-  const { initializePayment, requestPayment } = usePayment();
-
-  useEffect(() => {
-    async function initialize() {
-      const paymentInstance = await initializePayment();
-      setPayment(paymentInstance);
-    }
-    initialize();
-  }, [initializePayment]);
-
-  const handlePaymentClick = () => {
-    if (payment) {
-      requestPayment(payment, 50000); // amount를 설정하여 전달
-    }
-  };
-
-  console.log('cartItems=> ', cartItems);
+  // const [isClicked] = useState(false);
+  const { cartItems, userAddress, totalPrice } = useCartStore();
+  // const cartItems = useCartStore((state) => state.getCartItems());
+  const orderId = nanoid();
 
   return (
     <Layout footerVisible={false}>
@@ -47,13 +29,11 @@ const PaymentConfirmationPage = () => {
                   <S.SubTitle>받는 분</S.SubTitle>
                   <S.SubTitle>연락처</S.SubTitle>
                   <S.SubTitle>주소</S.SubTitle>
-                  {/* <S.SubTitle>상세 주소</S.SubTitle> */}
                 </S.InfoContainer>
                 <S.InfoContainer>
                   <S.SubContent>userName</S.SubContent>
-                  <S.SubContent>010-3386-9999</S.SubContent>
-                  <S.SubContent>{userAddress}</S.SubContent>
-                  {/* <S.SubContent>107-1210호</S.SubContent> */}
+                  <S.SubContent>address.addressTel</S.SubContent>
+                  <S.SubContent>{`${userAddress.baseAddress} ${userAddress.detailAddress} (${userAddress.zipCode})`}</S.SubContent>
                 </S.InfoContainer>
               </S.ShippingAddress>
               <DropdownSelector />
@@ -89,9 +69,17 @@ const PaymentConfirmationPage = () => {
               <S.SectionTitle>결제 방법</S.SectionTitle>
               <S.PaymentInfo>
                 <S.SubTitle>일반 결제</S.SubTitle>
-                <S.PaymentButton isClicked={isClicked} onClick={handlePaymentClick}>
+                <CheckoutButton
+                  orderId={orderId}
+                  orderName="토스 티셔츠 외 2건"
+                  amount={totalPrice}
+                  successUrl={window.location.origin + '/success'}
+                  failUrl={window.location.origin + '/fail'}
+                  buttonText="지금 결제하기"
+                />
+                {/* <S.PaymentButtonContainer isClicked={isClicked}>
                   <S.LogoImageBox src={TossLogo} />
-                </S.PaymentButton>
+                </S.PaymentButtonContainer> */}
               </S.PaymentInfo>
             </S.Container>
             <S.Container>

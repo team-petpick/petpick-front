@@ -26,7 +26,12 @@ const ShoppingAddress = () => {
     setZipCode(newZipCode);
 
     // 전체 주소로 병합해서 setUserAddress에 저장
-    setUserAddress(`${newBaseAddress} ${newDetailAddress} ${newZipCode}`);
+    setUserAddress({
+      baseAddress: `${newBaseAddress}`,
+      detailAddress: ` ${newDetailAddress}`,
+      zipCode: `${newZipCode}`,
+    });
+    // setUserAddress(`${newBaseAddress} ${newDetailAddress} ${newZipCode}`);
   }, [location.state, setUserAddress]);
 
   return (
