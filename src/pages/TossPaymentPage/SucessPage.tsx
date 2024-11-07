@@ -6,7 +6,7 @@ import { useCartStore } from '@store/cart';
 
 export default function SuccessPage() {
   const [searchParams] = useSearchParams();
-  const { cartItems, userAddress } = useCartStore();
+  const { cartItems, userAddress, addressRequest } = useCartStore();
 
   // URL에서 쿼리 파라미터로 받은 값 추출
   const orderSerialCode = searchParams.get('orderId');
@@ -14,7 +14,7 @@ export default function SuccessPage() {
   const amount = Number(searchParams.get('amount'));
 
   const userId = 1;
-  const orderRequest = userAddress.addressRequest;
+  const orderRequest = addressRequest.addressRequest;
   const orderDetails: IOrderDetailsProps[] = cartItems.map((item: any) => ({
     productId: item.productId,
     orderDetailPrice: item.productPrice,

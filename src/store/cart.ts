@@ -16,6 +16,8 @@ interface IUserAddress {
   baseAddress: string;
   detailAddress: string;
   zipCode: string;
+}
+interface IAddressRequest {
   addressRequest: string;
 }
 interface CartStore {
@@ -36,6 +38,7 @@ interface CartStore {
   checkedList: number[];
   setCheckedList: (list: number[]) => void;
   toggleChecked: (productId: number) => void; // 상품 체크/해제
+  addressRequest: IAddressRequest;
   setAddressRequest: (request: string) => void;
 }
 
@@ -51,8 +54,8 @@ export const useCartStore = create(
         baseAddress: '배송지를 입력해주세요',
         detailAddress: '',
         zipCode: '',
-        addressRequest: '',
       },
+      addressRequest: { addressRequest: '' },
       setCheckedList: (list: any) => set(() => ({ checkedList: list })),
 
       setCheckedTotalPrice: (price: any) => set({ checkedTotalPrice: price }),
@@ -129,8 +132,8 @@ export const useCartStore = create(
           userAddress: address,
         })),
       setAddressRequest: (request: string) =>
-        set((state) => ({
-          userAddress: { ...state.userAddress, addressRequest: request },
+        set(() => ({
+          addressRequest: { addressRequest: request },
         })),
     }),
     {
