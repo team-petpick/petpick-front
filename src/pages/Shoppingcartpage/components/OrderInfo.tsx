@@ -2,24 +2,64 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 import ShoppingAddress from './ShoppingAddress';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '@constants/ROUTE';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
+import { patchCartInfo } from '@apis/cart';
+import { useCartStore } from '@store/cart';
 
 const OrderInfo = () => {
+  const navigate = useNavigate();
+  const userId = 1;
+  const { cartItems } = useCartStore();
+
+  const totalPrice = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * (1 - item.productSale / 100) * item.cartCnt;
+    }
+    return sum;
+  }, 0);
+
+  const originalTotalPrice = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * item.cartCnt;
+    }
+    return sum;
+  }, 0);
+
+  const discountAmount = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * (item.productSale / 100) * item.cartCnt;
+    }
+    return sum;
+  }, 0);
+
+  const handlePaymentPageClick = async () => {
+    const patchCartItems = cartItems.map((item) => ({
+      productId: item.productId,
+      cartCnt: item.cartCnt,
+    }));
+    for (const item of patchCartItems) {
+      await patchCartInfo(item);
+    }
+    navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userId.toString()));
+  };
+
   return (
     <Container>
       <Wrapper>
         <ShoppingAddress />
         <TotalPriceContainer>
           <Title>결제금액</Title>
-          <body>
+          <div>
             <ProductPriceContainer>
               <ProductPriceText>상품금액</ProductPriceText>
-              <ProductPriceBox>49,890원</ProductPriceBox>
+              <ProductPriceBox>{addCommaToPrice(originalTotalPrice)}원</ProductPriceBox>
             </ProductPriceContainer>
             <DiscountPriceContainer>
               <ProductPriceText>상품할인금액</ProductPriceText>
               <DiscountContainer>
-                <DiscountPriceBox>-6,030원</DiscountPriceBox>
-                <Text>로그인 후 할인 금액 적용</Text>
+                <DiscountPriceBox>{addCommaToPrice(discountAmount)}</DiscountPriceBox>
               </DiscountContainer>
             </DiscountPriceContainer>
             <DeliveryPriceContainer>
@@ -28,11 +68,11 @@ const OrderInfo = () => {
             </DeliveryPriceContainer>
             <PaymentPriceContainer>
               <ProductPriceText>결제예정금액</ProductPriceText>
-              <PaymentPrice>43,840원</PaymentPrice>
+              <PaymentPrice>{addCommaToPrice(totalPrice)}원</PaymentPrice>
             </PaymentPriceContainer>
-          </body>
+          </div>
         </TotalPriceContainer>
-        <PaymentButton>결제하기</PaymentButton>
+        <PaymentButton onClick={handlePaymentPageClick}>결제하기</PaymentButton>
       </Wrapper>
     </Container>
   );
@@ -56,11 +96,7 @@ const DeliveryPriceContainer = styled.div`
   justify-content: space-between;
   margin-top: 12px;
 `;
-const Text = styled.span`
-  color: ${PETPICK_COLORS.GRAY[600]};
-  margin-top: 4px;
-  ${TextStyles.caption.xsmallM}
-`;
+
 const DiscountPriceBox = styled.span`
   ${TextStyles.body.mediumSB};
   color: ${PETPICK_COLORS.RED[200]};

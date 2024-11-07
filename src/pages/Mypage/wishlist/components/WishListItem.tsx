@@ -1,24 +1,52 @@
 import { IProductInfo } from '@types';
 import * as S from '../styles/WishListItem.style';
 import Button from './Button';
+import { AxiosError } from 'axios';
+import { postCartItem } from '@apis/cart';
 
 interface IProductProps {
   productInfo: IProductInfo;
+  deleteItem: (productId: number) => void;
 }
-const WishListItem = ({ productInfo }: IProductProps) => {
+const WishListItem = ({ productInfo, deleteItem }: IProductProps) => {
+  // const handleDelete = async (productId: number) => {
+  //   try {
+  //     console.log(Number(productId));
+  //     await deleteWishListItem(Number(productId));
+  //     // removeProduct(productId);
+  //   } catch (error) {
+  //     const axiosError = error as AxiosError;
+  //     console.error(axiosError.message);
+  //     if (axiosError.response) {
+  //       console.error(axiosError.response);
+  //     }
+  //   }
+  // };
+
+  const handleCart = async (productId: number, count: number) => {
+    try {
+      await postCartItem(productId, count);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.error(axiosError.message);
+      if (axiosError.response) {
+        console.error(axiosError.response);
+      }
+    }
+  };
   return (
     <S.Wrapper>
-      <S.ProductImage src={productInfo.productImg.productImgUrl} />
+      <S.ProductImage src={productInfo.productThumbnail} />
       <S.DescriptionWrapper>
-        <S.SellerName>{productInfo.seller.sellerStoreName}</S.SellerName>
+        {/* <S.SellerName>{productInfo.seller.sellerStoreName}</S.SellerName> */}
         <S.ProductName>{productInfo.productName}</S.ProductName>
         <S.PriceWrapper>
           <S.ProductSalePercent>{productInfo.productSale}%</S.ProductSalePercent>
           <S.ProductSalePrice>{productInfo.productPrice}원</S.ProductSalePrice>
         </S.PriceWrapper>
         <S.ButtonsWrapper>
-          <Button text="삭제하기" onClick={() => console.log('삭제하기')} />
-          <Button text="담기" onClick={() => console.log('담기')} />
+          <Button text="삭제하기" onClick={() => deleteItem(productInfo.productId)} />
+          <Button text="담기" onClick={() => handleCart(productInfo.productId, 1)} />
         </S.ButtonsWrapper>
       </S.DescriptionWrapper>
     </S.Wrapper>

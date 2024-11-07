@@ -12,11 +12,9 @@ instance.interceptors.request.use(
 );
 instance.interceptors.response.use(
   (response) => {
-    console.log('response>>>', response);
     return response;
   },
   async (error) => {
-    console.log('error', error.config);
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -31,7 +29,6 @@ instance.interceptors.response.use(
             withCredentials: true,
           },
         );
-        console.log('REFRESH>>>>>>>', refreshResponse);
         const newAccessToken = refreshResponse.data.access_token;
         localStorage.setItem('accessToken', newAccessToken);
         instance.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
@@ -39,7 +36,6 @@ instance.interceptors.response.use(
 
         return instance(originalRequest);
       } catch (err) {
-        console.error('Token refresh failed:', err);
         localStorage.removeItem('accessToken');
         return Promise.reject(err);
       }

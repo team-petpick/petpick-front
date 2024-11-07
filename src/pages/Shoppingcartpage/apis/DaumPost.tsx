@@ -12,7 +12,8 @@ interface IDaumPostProps extends Partial<Address> {
 
 export const DaumPost = ({ setAddress }: IDaumPostProps) => {
   const navigate = useNavigate();
-  const { userId, setUserId } = useUserStore();
+  const { userInfo, setUserInfo } = useUserStore();
+  const { userId } = userInfo;
   const { userId: paramUserId } = useParams(); //URL에서 userId 가져오기
 
   const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
@@ -48,9 +49,9 @@ export const DaumPost = ({ setAddress }: IDaumPostProps) => {
 
   useEffect(() => {
     if (paramUserId) {
-      setUserId(Number(paramUserId));
+      setUserInfo({ ...userInfo, userId: Number(paramUserId) });
     }
-  }, [paramUserId, setUserId]);
+  }, [paramUserId, setUserInfo]);
 
   return (
     <EditButton type="button" onClick={handleClick}>

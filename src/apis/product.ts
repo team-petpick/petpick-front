@@ -1,17 +1,14 @@
 import { AxiosError } from 'axios';
 import instance from './instance';
 import { IAllProductInfo } from '@types';
+import { IProductSearchParam } from '@store/productSearchStore';
 
-export const getProducts = async (
-  type: string | null,
-  category: number | null,
-): Promise<IAllProductInfo> => {
-  const params: { type?: string; category?: number } = {
-    ...(type ? { type } : {}),
-    ...(category !== null && category !== 0 ? { category } : {}),
-  };
+export const getProducts = async (params: IProductSearchParam): Promise<IAllProductInfo> => {
   try {
-    const response = await instance.get('/products', { params });
+    const response = await instance.get('/products', {
+      params: { ...params, category: params.category || null },
+    });
+
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;

@@ -9,7 +9,7 @@ const GoogleCallbackPage = () => {
 
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
-
+  const { setUserInfo } = useUserStore();
   const handleLoginPost = async (code: string) => {
     const data = {
       code: code,
@@ -17,10 +17,14 @@ const GoogleCallbackPage = () => {
     try {
       const res = await instance.post('/auth/google', data);
       const userName = res.data.user_name[0];
-      useUserStore.getState().setUserName(userName);
-      const accessToken = res.data.access_token;
+      const userImage = res.data.user_profile[0];
+      const userId = res.data.user_id[0];
+      const accessToken = res.data.access_token[0];
+
       if (accessToken) {
+        const userInfo = { userName, userImage, userId };
         localStorage.setItem('accessToken', accessToken);
+        setUserInfo(userInfo);
         navigate('/');
       } else {
         console.log('accesstoken not found');

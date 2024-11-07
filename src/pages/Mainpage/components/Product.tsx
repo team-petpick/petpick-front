@@ -2,32 +2,45 @@ import { Like, LikeFill, ShoppingCart } from '@assets/svg';
 import * as S from '../styles/Product.style';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { useState } from 'react';
-import DeleteModal from '../../../components/modal/DeleteModal';
+import CartModal from '@components/modal/CartModal';
 import { IProductInfo } from '@types';
+import { fetchToggleLike } from '@apis/like';
+import useGetLikeAll from '../hooks/useGetLikeAll';
 
 interface IProductProps {
   productInfo: IProductInfo;
+  isLiked: boolean;
 }
 
-const Product = ({ productInfo }: IProductProps) => {
+const Product = ({ productInfo, isLiked }: IProductProps) => {
   const formattedOriginalPrice = addCommaToPrice(productInfo.productPrice);
   const formattedSalePrice = addCommaToPrice(
-    productInfo.productPrice * (1 - productInfo.productSale / 100),
+    Math.floor(productInfo.productPrice * (1 - productInfo.productSale / 100)),
   );
-
-  const [isLiked, setIsLiked] = useState(false);
+  const { reloadLikedProducts } = useGetLikeAll();
   const [isOpen, setIsOpen] = useState(false);
+
   const handleDeleteModalClick = () => {
     setIsOpen(true);
   };
+
+  const handleLikeClick = async () => {
+    try {
+      await fetchToggleLike(Number(productInfo.productId));
+      reloadLikedProducts();
+    } catch {
+      throw new Error('찜한 상품 정보를 가져오는데 실패했습니다::');
+    }
+  };
+
   return (
     <S.ProductContainer>
-      <S.ProductImage src={productInfo.productImg?.productImgUrl} />
+      <S.ProductImage src={productInfo.productThumbnail} />
       <S.LikeCartButtonWrapper>
         {isLiked ? (
-          <LikeFill onClick={() => setIsLiked(false)} width={30} height={30} />
+          <LikeFill onClick={handleLikeClick} width={30} height={30} />
         ) : (
-          <Like onClick={() => setIsLiked(true)} width={30} height={30} />
+          <Like onClick={handleLikeClick} width={30} height={30} />
         )}
         <S.AddShoppingCartButton onClick={handleDeleteModalClick}>
           <ShoppingCart width={22} height={22} /> 담기
@@ -49,7 +62,7 @@ const Product = ({ productInfo }: IProductProps) => {
         </S.ProductSalePrice>
       </S.ProductInfo>
       {isOpen && (
-        <DeleteModal
+        <CartModal
           productInfo={productInfo}
           isOpen={isOpen}
           onRequestClose={() => setIsOpen(false)}

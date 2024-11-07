@@ -2,11 +2,13 @@ import Layout from '@components/layouts/Layout';
 import * as S from './styles/index.style';
 import { IAddressInfo } from '@types';
 import ByingProductItem from './components/ByingProductItem';
-import TossLogo from '@assets/png/Toss_Logo_Primary.png';
+import TossLogo from '/png/Toss_Logo_Primary.png';
 import ByingFooter from './components/ByingFooter';
 import Title from '@components/layouts/Title';
 import { useState } from 'react';
 import DropdownSelector from './components/DropdownSelector';
+import { useCartStore } from '@store/cart';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
 
 const AddressInfo: IAddressInfo = {
   addressId: 1,
@@ -16,6 +18,10 @@ const AddressInfo: IAddressInfo = {
 };
 const PaymentConfirmationPage = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const { userAddress, totalPrice } = useCartStore();
+  const cartItems = useCartStore((state) => state.getCartItems());
+
+  console.log('cartItems=> ', cartItems);
   const handleButtonClick = () => {
     setIsClicked(!isClicked);
   };
@@ -32,13 +38,13 @@ const PaymentConfirmationPage = () => {
                   <S.SubTitle>받는 분</S.SubTitle>
                   <S.SubTitle>연락처</S.SubTitle>
                   <S.SubTitle>주소</S.SubTitle>
-                  <S.SubTitle>상세 주소</S.SubTitle>
+                  {/* <S.SubTitle>상세 주소</S.SubTitle> */}
                 </S.InfoContainer>
                 <S.InfoContainer>
                   <S.SubContent>{AddressInfo.addressName}</S.SubContent>
                   <S.SubContent>010-3386-9999</S.SubContent>
-                  <S.SubContent>주소</S.SubContent>
-                  <S.SubContent>107-1210호</S.SubContent>
+                  <S.SubContent>{userAddress}</S.SubContent>
+                  {/* <S.SubContent>107-1210호</S.SubContent> */}
                 </S.InfoContainer>
               </S.ShippingAddress>
               <DropdownSelector />
@@ -47,10 +53,13 @@ const PaymentConfirmationPage = () => {
               <S.OrderWrapper>
                 <S.HeaderWrapper>
                   <S.SectionTitle>주문 상품 및 쿠폰</S.SectionTitle>
-                  <S.SectionTitle>총 2건</S.SectionTitle>
+                  <S.SectionTitle>총 {cartItems.length}건</S.SectionTitle>
                 </S.HeaderWrapper>
                 <S.OrderItemContainer>
-                  <ByingProductItem />
+                  {/* 상품 내역 리스트 */}
+                  {cartItems.map((productInfo) => (
+                    <ByingProductItem key={productInfo.productId} productInfo={productInfo} />
+                  ))}
                 </S.OrderItemContainer>
                 <S.CouponContainer>
                   <S.CouponTitle>할인쿠폰</S.CouponTitle>
@@ -64,7 +73,7 @@ const PaymentConfirmationPage = () => {
               </S.OrderWrapper>
               <S.TotalPriceContainer>
                 <S.TotalPriceTitle>결제금액</S.TotalPriceTitle>
-                <S.Price>21,900원</S.Price>
+                <S.Price>{addCommaToPrice(totalPrice)}</S.Price>
               </S.TotalPriceContainer>
             </S.OrderContainer>
             <S.Container>
@@ -80,7 +89,7 @@ const PaymentConfirmationPage = () => {
               <S.SectionTitle>최종 주문 정보</S.SectionTitle>
               <S.FinalOrderInfo>
                 <S.SubTitle>총 구매가</S.SubTitle>
-                <S.SectionTitle>21,800원</S.SectionTitle>
+                <S.SectionTitle>{addCommaToPrice(totalPrice)}</S.SectionTitle>
               </S.FinalOrderInfo>
               <S.FinalOrderInfo>
                 <S.SubTitle>총 배송비</S.SubTitle>
@@ -89,7 +98,7 @@ const PaymentConfirmationPage = () => {
             </S.Container>
             <S.Container>
               <S.SectionTitle>총 결제금액</S.SectionTitle>
-              <S.TotalPrice>21,800원</S.TotalPrice>
+              <S.TotalPrice>{addCommaToPrice(totalPrice)}</S.TotalPrice>
             </S.Container>
           </S.ContentWrapper>
         </S.ContentContainer>

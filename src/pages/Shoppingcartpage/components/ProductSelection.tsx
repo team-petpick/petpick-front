@@ -1,84 +1,93 @@
-import styled from 'styled-components';
-import { PETPICK_COLORS } from '@styles/colors';
-import { TextStyles } from '@styles/textStyles';
-import ProductSelectItem from './ProductSelectItem';
-import CheckboxLabal from './CheckboxLabal';
+import * as S from '../styles/ProductSelection.style';
+import useModal from '@components/modal/useModal';
+import DeleteModal from '@components/modal/DeleteModal';
+import EmptyCart from './EmptyCart';
+import { useEffect } from 'react';
+import { deleteCartItem, getCartItem } from '@apis/cart';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
+import { useCartStore } from '@store/cart';
+import SelectedCountHeader from './SelectedCountHeader';
+import CartProductList from './CartProductList';
+
 const ProductSelection = () => {
+  const { setCartItems, cartItems } = useCartStore();
+  const deleteModal = useModal();
+  const totalPrice = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * (1 - item.productSale / 100) * item.cartCnt;
+    }
+    return sum;
+  }, 0);
+
+  // 장바구니 항목을 가져오는 함수
+  const fetchGetCartItem = async () => {
+    const response = await getCartItem();
+    setCartItems(response);
+  };
+
+  useEffect(() => {
+    fetchGetCartItem();
+  }, []);
+
+  // 장바구니 삭제 함수
+  const handleDeleteButtonClick = async () => {
+    try {
+      const isAllChecked = cartItems.every((item) => item.isChecked);
+      if (isAllChecked) {
+        await Promise.all(
+          cartItems.map(async (item) => {
+            await deleteCartItem(item.productId);
+          }),
+        );
+      } else {
+        const filteredCartItems = cartItems.filter((item) => !item.isChecked);
+        const notFilteredCartItems = cartItems.filter((item) => item.isChecked);
+        setCartItems(filteredCartItems);
+        await Promise.all(
+          notFilteredCartItems.map(async (item) => {
+            await deleteCartItem(item.productId);
+          }),
+        );
+      }
+      deleteModal.setIsOpen(false);
+      alert('삭제되었습니다.');
+      fetchGetCartItem();
+    } catch (error) {
+      console.log('장바구니 DELETE api 호출 실패', error);
+    }
+  };
+
   return (
-    <Wrapper>
-      <SelectContainer>
-        <SelectBox>
-          <CheckboxLabal text="text" />
-          <SelectText> 전체 선택 </SelectText>
-        </SelectBox>
-        <DeleteButton>
-          <DeleteButtonText>선택삭제</DeleteButtonText>
-        </DeleteButton>
-      </SelectContainer>
-      <ProductList>
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductSelectItem />
-        <ProductFooter>
-          <SubText>가격</SubText>
-        </ProductFooter>
-      </ProductList>
-    </Wrapper>
+    <S.Wrapper>
+      <DeleteModal
+        isOpen={deleteModal.isOpen}
+        setIsOpen={deleteModal.setIsOpen}
+        imageSrc={false}
+        message={'선택한 상품을 삭제하시겠습니까 ?'}
+        cancelText={'취소'}
+        confirmText={'확인'}
+        onConfirm={handleDeleteButtonClick}
+      />
+      {cartItems.length !== 0 && (
+        <SelectedCountHeader
+          checkedListLength={cartItems.filter((item) => item.isChecked).length}
+          cartListLength={cartItems.length}
+          deleteModal={deleteModal}
+        />
+      )}
+
+      {cartItems.length > 0 ? (
+        <S.ProductList>
+          <CartProductList deleteModal={deleteModal} />
+          <S.ProductFooter>
+            <S.SubText>{addCommaToPrice(totalPrice)} 원</S.SubText>
+          </S.ProductFooter>
+        </S.ProductList>
+      ) : (
+        <EmptyCart />
+      )}
+    </S.Wrapper>
   );
 };
 
 export default ProductSelection;
-const SubText = styled.span`
-  color: ${PETPICK_COLORS.GRAY[800]};
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 20px;
-`;
-const ProductFooter = styled.button`
-  width: 100%;
-  height: 50px;
-  background: ${PETPICK_COLORS.GRAY[200]};
-  border-radius: 8px;
-  margin-top: 10px;
-`;
-const DeleteButtonText = styled.span`
-  ${TextStyles.subText.smallSB}
-`;
-const DeleteButton = styled.button`
-  border: 1px solid ${PETPICK_COLORS.GRAY[300]};
-  border-radius: 6px;
-  padding: 0 12px;
-  height: 32px;
-`;
-const SelectText = styled.div`
-  margin-left: 6px;
-  align-self: center;
-`;
-const SelectBox = styled.div`
-  display: flex;
-`;
-const SelectContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
-  background: ${PETPICK_COLORS.GRAY[0]};
-  margin-bottom: 16px;
-  border-radius: 16px;
-`;
-
-const ProductList = styled.ul`
-  background: ${PETPICK_COLORS.GRAY[0]};
-  border-radius: 16px;
-  padding: 20px 16px;
-  overflow: scroll;
-`;
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 565px;
-  margin-right: 20px;
-`;
