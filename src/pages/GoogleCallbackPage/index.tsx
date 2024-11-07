@@ -6,10 +6,20 @@ import { useNavigate } from 'react-router-dom';
 
 const GoogleCallbackPage = () => {
   const navigate = useNavigate();
-
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
   const { setUserInfo } = useUserStore();
+
+  useEffect(() => {
+    if (code) {
+      handleLoginPost(code);
+    } else {
+      console.log('code not found');
+      console.log('로그인 재시도 필요');
+      navigate('/login');
+    }
+  }, []);
+
   const handleLoginPost = async (code: string) => {
     const data = {
       code: code,
@@ -33,15 +43,6 @@ const GoogleCallbackPage = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (code) {
-      handleLoginPost(code);
-    } else {
-      console.log('로그인 재시도 필요');
-      navigate('/login');
-    }
-  }, [code, navigate]);
 
   return <Loading />;
 };

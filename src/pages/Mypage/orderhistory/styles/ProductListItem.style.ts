@@ -3,12 +3,12 @@ import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  max-width: 718px;
   width: 100%;
   height: 100px;
   display: flex;
   gap: 11px;
-  padding: 0 13px;
+  padding: 0 36px;
+  box-sizing: border-box;
 `;
 export const ProductImage = styled.img`
   width: 82px;
@@ -18,8 +18,13 @@ export const ProductImage = styled.img`
     cursor: pointer;
   }
 `;
-export const DescriptionWrapper = styled.div`
+export const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+`;
+export const DescriptionWrapper = styled.div`
+  width: 80%;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -28,6 +33,10 @@ export const DescriptionWrapper = styled.div`
     cursor: pointer;
   }
 `;
+export const InformationWrapper = styled.div`
+  display: flex;
+  gap: 15px;
+`;
 export const SellerName = styled.div`
   ${TextStyles.subText.smallM}
   color: ${PETPICK_COLORS.GRAY[500]};
@@ -35,6 +44,10 @@ export const SellerName = styled.div`
 export const ProductName = styled.div`
   ${TextStyles.body.mediumM};
   color: ${PETPICK_COLORS.GRAY[800]};
+`;
+export const ProductCnt = styled.div`
+  ${TextStyles.body.mediumM};
+  color: ${PETPICK_COLORS.GRAY[500]};
 `;
 export const PriceWrapper = styled.div`
   display: flex;
@@ -49,4 +62,20 @@ export const ProductOriginalPrice = styled.div`
 export const ProductSalePrice = styled.div`
   ${TextStyles.body.mediumM};
   color: ${PETPICK_COLORS.GRAY[800]};
+`;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+export const CancelButton = styled.div`
+  ${TextStyles.subText.smallM};
+  background: ${PETPICK_COLORS.BLUE[200]};
+  color: #fff;
+  &:hover {
+    background: ${PETPICK_COLORS.BLUE[400]};
+    cursor: pointer;
+  }
+  border-radius: 12px;
+  text-align: center;
+  padding: 4px 8px;
 `;
