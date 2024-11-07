@@ -6,20 +6,33 @@ import { useEffect, useState } from 'react';
 import { useCartStore } from '@store/cart';
 
 const ShoppingAddress = () => {
-  // const [, setAddress] = useState<string>('');
-  // const location = useLocation();
-  // const fullAddress = location.state?.fullAddress || '배송지를 입력해주세요';
-
-  const [fullAddress, setFullAddress] = useState<string>('배송지를 입력해주세요');
   const location = useLocation();
+
+  // 기본주소, 상세주소, 우편번호 상태 관리
+  const [baseAddress, setBaseAddress] = useState<string>('배송지를 입력해주세요');
+  const [detailAddress, setDetailAddress] = useState<string>('');
+  const [zipCode, setZipCode] = useState<string>('');
 
   const { setUserAddress } = useCartStore();
 
   useEffect(() => {
-    const newAddress = location.state?.fullAddress || '배송지를 입력해주세요';
-    setFullAddress(newAddress);
-    setUserAddress(newAddress);
-  }, [location.state]);
+    // location.state에서 각각의 값을 가져옵니다.
+    const newBaseAddress = location.state?.baseAddress || '배송지를 입력해주세요';
+    const newDetailAddress = location.state?.detailAddress || '';
+    const newZipCode = location.state?.zipCode || '?';
+
+    setBaseAddress(newBaseAddress);
+    setDetailAddress(newDetailAddress);
+    setZipCode(newZipCode);
+
+    // 전체 주소로 병합해서 setUserAddress에 저장
+    setUserAddress({
+      baseAddress: `${newBaseAddress}`,
+      detailAddress: ` ${newDetailAddress}`,
+      zipCode: `${newZipCode}`,
+    });
+    // setUserAddress(`${newBaseAddress} ${newDetailAddress} ${newZipCode}`);
+  }, [location.state, setUserAddress]);
 
   return (
     <S.ShippingAddressContainer>
@@ -30,8 +43,14 @@ const ShoppingAddress = () => {
         </S.ImageBox>
       </S.HeaderContainer>
       <S.BodyContainer>
-        <S.Text isActive={!!fullAddress}>{fullAddress}</S.Text>
-        <DaumPost setAddress={(address) => setFullAddress(address)} />
+        <S.Text isActive={!!baseAddress}>
+          {baseAddress} {detailAddress}
+        </S.Text>
+        <S.Text isActive={!!zipCode}>{zipCode && `${zipCode}`}</S.Text>
+        <DaumPost
+          setAddress={(address) => setBaseAddress(address)}
+          setCode={(zipCode) => setZipCode(zipCode)}
+        />
       </S.BodyContainer>
     </S.ShippingAddressContainer>
   );

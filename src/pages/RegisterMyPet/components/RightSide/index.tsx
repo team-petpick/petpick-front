@@ -8,11 +8,13 @@ import { useState, useEffect } from 'react';
 import { useMyPetInfoStore } from '@pages/RegisterMyPet/store/useMyPetInfo';
 import PetButton from '../PetButton';
 import { postPetInfo, putPetInfo } from '@apis/pet';
+import { useUserStore } from '@store/userStore';
 
 const RightSide = () => {
   const navigate = useNavigate();
   const { step } = useParams();
-  const userId = localStorage.getItem('userId');
+  const { userInfo } = useUserStore();
+  const userId = userInfo.userId;
   const { myPetInfo } = useMyPetInfoStore();
   const [isNextButtonActive, setIsNextButtonActive] = useState<boolean>(false);
   const petId = localStorage.getItem('petId');
@@ -25,7 +27,7 @@ const RightSide = () => {
         } else {
           await postPetInfo(myPetInfo);
         }
-        navigate(ROUTE.MYPAGE.replace(':userId', userId));
+        navigate(ROUTE.MYPAGE.replace(':userId', userId.toString()));
       } else {
         navigate(ROUTE.LOGINPAGE);
       }
@@ -35,7 +37,7 @@ const RightSide = () => {
   };
   const handlePrevButtonClick = () => {
     if (Number(step) === 1 && userId) {
-      navigate(ROUTE.MYPAGE.replace(':userId', userId));
+      navigate(ROUTE.MYPAGE.replace(':userId', userId.toString()));
     } else {
       navigate(ROUTE.REGISTERMYPET.replace(':step', (Number(step) - 1).toString()));
     }

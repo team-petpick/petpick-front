@@ -12,7 +12,14 @@ export interface ICartItem {
   selectedItems: number[];
   isChecked: boolean;
 }
-
+interface IUserAddress {
+  baseAddress: string;
+  detailAddress: string;
+  zipCode: string;
+}
+interface IAddressRequest {
+  addressRequest: string;
+}
 interface CartStore {
   calculateTotalPrice: any;
   totalPrice: number;
@@ -26,11 +33,13 @@ interface CartStore {
   setCartItems: (items: ICartItem[]) => void;
   removeCartItem: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
-  userAddress: string;
-  setUserAddress: (userAddress: string) => void;
+  userAddress: IUserAddress;
+  setUserAddress: (address: IUserAddress) => void;
   getCartItems: () => ICartItem[];
   calculateCheckedTotalPrice: () => void;
   checkAll: (checked: boolean) => void;
+  addressRequest: IAddressRequest;
+  setAddressRequest: (request: string) => void;
 }
 
 export const useCartStore = create(
@@ -39,9 +48,14 @@ export const useCartStore = create(
       cartItems: [],
       totalPrice: 0,
       originalTotalPrice: 0,
-      userAddress: '배송지를 입력해주세요',
       checkedTotalPrice: 0,
       deleteModalProductId: null,
+      userAddress: {
+        baseAddress: '배송지를 입력해주세요',
+        detailAddress: '',
+        zipCode: '',
+      },
+      addressRequest: { addressRequest: '' },
       setDeleteModalProductId: (productId: number | null) =>
         set({ deleteModalProductId: productId }),
       setCheckedTotalPrice: (price: any) => set({ checkedTotalPrice: price }),
@@ -114,9 +128,13 @@ export const useCartStore = create(
         set({ checkedTotalPrice: checkedTotal });
       },
 
-      setUserAddress: (userAddress: string) =>
+      setUserAddress: (address: IUserAddress) =>
         set(() => ({
-          userAddress: userAddress,
+          userAddress: address,
+        })),
+      setAddressRequest: (request: string) =>
+        set(() => ({
+          addressRequest: { addressRequest: request },
         })),
     }),
     {

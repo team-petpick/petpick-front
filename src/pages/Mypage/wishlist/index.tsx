@@ -16,6 +16,7 @@ const WishList = () => {
       try {
         const response = await getWishLists();
         const wishLists = response.data;
+        console.log(wishLists);
         setWishList(wishLists);
       } catch (error) {
         const axiosError = error as AxiosError;

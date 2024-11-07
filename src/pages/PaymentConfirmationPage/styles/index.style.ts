@@ -28,22 +28,11 @@ export const TotalPrice = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export const PaymentButton = styled.button<{ isClicked: boolean }>`
-  border: 2px solid
-    ${({ isClicked }) =>
-      isClicked ? `${PETPICK_COLORS.BLUE[300]}` : `${PETPICK_COLORS.GRAY[400]}`};
-  border-radius: 8px;
-  height: 60px;
-  width: 100%;
-  margin-top: 10px;
-`;
+
 export const CouponContainer = styled.div`
   margin-top: 20px;
 `;
-export const LogoImageBox = styled.img`
-  width: 114px;
-  height: 60px;
-`;
+
 export const DeleteButton = styled.button`
   width: 80px;
   height: 30px;

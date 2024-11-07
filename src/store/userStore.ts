@@ -17,7 +17,7 @@ export const useUserStore = create(
     (set) => ({
       userInfo: {
         userId: null,
-        userName: '이횰',
+        userName: '',
         userImage: null,
       },
       setUserInfo: (newInfo) => set({ userInfo: newInfo }),

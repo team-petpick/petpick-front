@@ -22,7 +22,11 @@ const ProductSelection = () => {
   // 장바구니 항목을 가져오는 함수
   const fetchGetCartItem = async () => {
     const response = await getCartItem();
-    setCartItems(response);
+    const cartItems = response.map((item: any) => ({
+      ...item,
+      isChecked: true,
+    }));
+    setCartItems(cartItems);
   };
 
   useEffect(() => {

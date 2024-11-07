@@ -1,4 +1,14 @@
 import instance from './instance';
+import { IOrderDetail } from '@types';
+
+export const getOrderById = async (orderId: number): Promise<IOrderDetail[]> => {
+  const response = await instance.get(`/orders/${orderId}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+  return response.data;
+};
 
 export const getOrderLists = async (page: number, month: number) => {
   const response = await instance.get(`/orders?page=${page}&month=${month}`);

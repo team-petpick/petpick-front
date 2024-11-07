@@ -1,3 +1,4 @@
+import { useCartStore } from '@store/cart';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import { useEffect, useState, useRef } from 'react';
@@ -9,6 +10,7 @@ const DropdownSelector = () => {
   const [isCustomInput, setIsCustomInput] = useState(false);
   const [customText, setCustomText] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const setAddressRequest = useCartStore((state) => state.setAddressRequest);
 
   const options = [
     '요청사항 없음',
@@ -38,6 +40,7 @@ const DropdownSelector = () => {
       setSelectedText(text);
       setIsCustomInput(false);
       setIsOpen(false);
+      setAddressRequest(text);
     }
   };
 
@@ -50,6 +53,7 @@ const DropdownSelector = () => {
       setSelectedText(customText || '직접 입력 중...');
       setIsCustomInput(false);
       setIsOpen(false);
+      setAddressRequest(customText);
     }
   };
 

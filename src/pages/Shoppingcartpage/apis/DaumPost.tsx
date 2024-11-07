@@ -8,9 +8,10 @@ import styled from 'styled-components';
 
 interface IDaumPostProps extends Partial<Address> {
   setAddress: (address: string) => void;
+  setCode: (zipCode: string) => void;
 }
 
-export const DaumPost = ({ setAddress }: IDaumPostProps) => {
+export const DaumPost = ({ setAddress, setCode }: IDaumPostProps) => {
   const navigate = useNavigate();
   const { userInfo, setUserInfo } = useUserStore();
   const { userId } = userInfo;
@@ -21,6 +22,7 @@ export const DaumPost = ({ setAddress }: IDaumPostProps) => {
 
   const handleComplete = (data: Address) => {
     let fullAddress = data.address;
+    const zonecode = data.zonecode;
     let extraAddress = '';
 
     if (data.addressType === 'R') {
@@ -33,13 +35,14 @@ export const DaumPost = ({ setAddress }: IDaumPostProps) => {
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
     setAddress(fullAddress);
+    setCode(zonecode);
     navigate(
       ROUTE.ADDRESSINPUTPAGE.replace(
         ':userId',
         userId !== null && userId !== undefined ? userId.toString() : '', // userId가 null인지 확인하는 로직
       ),
       {
-        state: { fullAddress },
+        state: { fullAddress, zonecode },
       },
     );
   }; // 검색 완료 후 주소와 함께 라우팅
