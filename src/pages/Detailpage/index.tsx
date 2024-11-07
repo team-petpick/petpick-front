@@ -43,7 +43,7 @@ const DetailPage = () => {
     console.log('Like button clicked!'); // 클릭이 감지되는지 확인
     try {
       if (userId != null) {
-        await fetchToggleLike(Number(productId), userId);
+        await fetchToggleLike(Number(productId));
         setLiked(!liked); // 로컬 상태를 토글하여 즉시 UI 반영
         console.log('좋아요 상태 API 호출 성공.'); // API 호출 여부 확인
       }

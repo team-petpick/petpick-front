@@ -102,7 +102,7 @@ export const useCartStore = create(
       },
       // 체크된 항목의 총 금액을 계산하여 저장
       calculateCheckedTotalPrice: () => {
-        const { cartItems, checkedList } = get();
+        const { cartItems } = get();
         const checkedTotal = cartItems
           .filter((item) => item.isChecked)
           .reduce(

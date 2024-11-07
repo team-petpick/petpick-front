@@ -13,15 +13,14 @@ interface IProductSelectItemProps {
   productInfo: ICartProps;
   isChecked: boolean;
   onCheck: (e: ChangeEvent<HTMLInputElement>) => void;
-  onQuantityChange: (productId: number, newQuantity: number) => void;
+  // onQuantityChange: (productId: number, newQuantity: number) => void;
 }
 const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
   productInfo,
   isChecked,
   onCheck,
-  onQuantityChange,
 }) => {
-  const cartItems = useCartStore((state) => state.cartItems);
+  // const cartItems = useCartStore((state) => state.cartItems);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
 
   const [quantity, setQuantity] = useState(productInfo.cartCnt);

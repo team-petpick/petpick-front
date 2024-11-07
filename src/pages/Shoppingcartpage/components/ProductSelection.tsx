@@ -54,13 +54,13 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
   }, [cartList, checkedList, setCheckedTotalPrice, setTotalPrice]);
 
   // 수량 업데이트 핸들러
-  const handleQuantityChange = (productId: number, newQuantity: number) => {
-    setCartList((prevList) =>
-      prevList.map((item) =>
-        item.productId === productId ? { ...item, cartCnt: newQuantity } : item,
-      ),
-    );
-  };
+  // const handleQuantityChange = (productId: number, newQuantity: number) => {
+  //   setCartList((prevList) =>
+  //     prevList.map((item) =>
+  //       item.productId === productId ? { ...item, cartCnt: newQuantity } : item,
+  //     ),
+  //   );
+  // };
 
   // 장바구니 삭제 함수
   const handleDeleteButtonClick = async () => {
@@ -92,6 +92,7 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
   );
   const onCheckedElement = (checked: boolean, id: number) => {
     toggleChecked(id); // 체크된 상태를 store에 반영
+    console.log(checked);
   };
 
   // 전체 선택 체크박스 onChange 핸들러
@@ -162,7 +163,7 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ setTotalPrice, tota
               onCheck={(e: React.ChangeEvent<HTMLInputElement>) =>
                 onCheckedElement((e.target as HTMLInputElement).checked, productInfo.productId)
               }
-              onQuantityChange={handleQuantityChange}
+              // onQuantityChange={handleQuantityChange}
             />
           ))}
           <S.ProductFooter>
