@@ -101,6 +101,7 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
           <ProductImage src={productInfo.productThumbnail}></ProductImage>
           <ProductContainer>
             <ProductPriceContainer>
+
               <ProductPrice>
                 {addCommaToPrice(
                   productInfo.productPrice * (1 - productInfo.productSale / 100) * quantity,
@@ -115,6 +116,7 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
               <ProductCountButton onClick={handleDecreaseClick}>
                 <Minus width="20px" height="20px" />
               </ProductCountButton>
+
               <ProductCount>{quantity}</ProductCount>
               <ProductCountButton onClick={handleIncreaseClick}>
                 <Plus width="20px" height="20px" />
