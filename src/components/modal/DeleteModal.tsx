@@ -100,7 +100,7 @@ const Block = {
   `,
 };
 const Text = styled.div<IStyleProps>`
-  white-space: pre-line;
+  white-space: nowrap;
   overflow-y: auto;
   padding: ${(props) => (props.padding ? props.padding : 'none')};
 `;
