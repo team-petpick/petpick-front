@@ -8,15 +8,6 @@ export const ProductTitle = styled.h1`
   margin: 0px 20px 0px 0px;
 `;
 
-export const ProductTitleInfo = styled.h2`
-  width: 500px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #b5b5b5;
-  line-height: 19px;
-  margin-top: 4px;
-`;
-
 export const PriceContainer = styled.div`
   display: flex;
   align-items: flex-end;

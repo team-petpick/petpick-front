@@ -10,9 +10,10 @@ import useGetLikeAll from '../hooks/useGetLikeAll';
 interface IProductProps {
   productInfo: IProductInfo;
   isLiked: boolean;
+  onClick: () => void;
 }
 
-const Product = ({ productInfo, isLiked }: IProductProps) => {
+const Product = ({ productInfo, isLiked, onClick }: IProductProps) => {
   const formattedOriginalPrice = addCommaToPrice(productInfo.productPrice);
   const formattedSalePrice = addCommaToPrice(
     Math.floor(productInfo.productPrice * (1 - productInfo.productSale / 100)),
@@ -34,7 +35,7 @@ const Product = ({ productInfo, isLiked }: IProductProps) => {
   };
 
   return (
-    <S.ProductContainer>
+    <S.ProductContainer onClick={onClick}>
       <S.ProductImage src={productInfo.productThumbnail} />
       <S.LikeCartButtonWrapper>
         {isLiked ? (

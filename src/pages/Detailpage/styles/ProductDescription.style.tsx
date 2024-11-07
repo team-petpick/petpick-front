@@ -11,9 +11,10 @@ export const ProductDescriptionLayout = styled.div`
 
 export const DescriptionImageBox = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
 `;
-
-export const DescriptionText = styled.p``;
 
 export const InfoNav = styled.nav`
   width: 100%;

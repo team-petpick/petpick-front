@@ -11,18 +11,20 @@ import Bell from '@assets/svg/Bell';
 import { ProductDescription } from './components/ProductDescription';
 import useGetProductDetails from './hooks/useGetProductDetails';
 import Loading from '@components/Loading';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchToggleLike, fetchWishList } from '@apis';
 import { useUserStore } from '@store/userStore';
+import { ROUTE } from '@constants/ROUTE';
+import { postCartItem } from '@apis/cart';
 
 const DetailPage = () => {
   const { productId } = useParams();
   const { productInfo, error, isLoading } = useGetProductDetails(Number(productId));
   const [productCount, setProductCount] = useState(1);
+  const [liked, setLiked] = useState(false);
   const { userInfo } = useUserStore();
   const userId = userInfo.userId;
-
-  const [liked, setLiked] = useState(false);
+  const navigate = useNavigate();
 
   // 좋아요 관리
   useEffect(() => {
@@ -66,12 +68,41 @@ const DetailPage = () => {
   if (error) return <p>Error: {error.message}</p>;
   if (isLoading) return <Loading />;
 
+  const fetchPostCartItem = async () => {
+    if (!productInfo) {
+      console.error('productInfo가 정의되지 않았습니다.');
+      return;
+    }
+    try {
+      console.log('장바구니 요청 데이터:', {
+        productId: productInfo.productId,
+        quantity: productInfo.productCnt,
+      });
+      const response = await postCartItem(productInfo.productId, productCount);
+      console.log('장바구니 추가 응답:', response);
+      if (response === 'Successfully added cart item') {
+        alert('장바구니에 담겼습니다.');
+      }
+    } catch (error) {
+      alert('장바구니에 담는데 실패했습니다.');
+      console.error(error);
+    }
+  };
+
+  const handleCartButtonClick = async () => {
+    if (!userId) return;
+    await fetchPostCartItem();
+    // setCartItems(await getCartItem());
+    const url = ROUTE.SHOPPINGCART.replace(':userId', userId.toString());
+    navigate(url);
+  };
+
   return (
     <Layout footerVisible={true}>
       {productInfo ? (
         <S.DetailLayout>
           <S.ProductContainer>
-            <ProductImage imageUrl={productInfo.productThumbnail} />
+            <ProductImage />
             <S.ProductInfoContainer>
               <ProductBasicInfo productInfo={productInfo} />
               <ProductAdditionalInfo sellerStoreName={productInfo.seller.sellerStoreName} />
@@ -92,11 +123,13 @@ const DetailPage = () => {
                 <S.ActionButtons>
                   <Bell width="32px" height="32px" />
                 </S.ActionButtons>
-                <S.ActionGoToCartButton>장바구니 담기</S.ActionGoToCartButton>
+                <S.ActionGoToCartButton onClick={handleCartButtonClick}>
+                  장바구니 담기
+                </S.ActionGoToCartButton>
               </S.ActionButtonContainer>
             </S.ProductInfoContainer>
           </S.ProductContainer>
-          <ProductDescription productInfo={productInfo} />
+          <ProductDescription />
         </S.DetailLayout>
       ) : (
         <Loading />

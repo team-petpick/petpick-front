@@ -9,7 +9,7 @@ const ShoppingCartPage = () => {
     <Layout footerVisible={false}>
       <CartLayout>
         <CartContainer>
-          <CartTitle>Shopping Cart Page</CartTitle>
+          <CartTitle>장바구니</CartTitle>
           <Wrapper>
             <ProductSelection />
             <OrderInfo />
