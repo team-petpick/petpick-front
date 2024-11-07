@@ -7,9 +7,13 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 const AddressInputPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const baseAddress = location.state?.fullAddress || ''; // 기본주소
-  const [address, setAddress] = useState(baseAddress); // 기본주소 + 상세주소 포함된 전체 주소
-  const [detailAddress, setDetailAddress] = useState(''); // 상세주소 상태관리
+
+  // 기본주소와 우편번호 초기화
+  const baseAddress = location.state?.fullAddress || '';
+  const baseZipCode = location.state?.zonecode || '';
+  const [address, setAddress] = useState(baseAddress); // 기본주소
+  const [zipCode, setZipCode] = useState(baseZipCode); // 우편번호
+  const [detailAddress, setDetailAddress] = useState(''); // 상세주소
 
   const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
   const open = useDaumPostcodePopup(postcodeScriptUrl);
@@ -25,6 +29,7 @@ const AddressInputPage = () => {
       onComplete: (data) => {
         let fullAddress = data.address;
         let extraAddress = '';
+        const addressZipCode = data.zonecode;
 
         if (data.addressType === 'R') {
           if (data.bname !== '') {
@@ -36,19 +41,30 @@ const AddressInputPage = () => {
           fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
         }
 
-        setAddress(fullAddress); // 새로운 주소로 업데이트
+        setAddress(fullAddress); // 기본주소 업데이트
+        setZipCode(addressZipCode); // 우편번호 업데이트
       },
     });
   };
+
+  // 저장 버튼 클릭 핸들러
   const handleSaveClick = () => {
-    const fullAddress = `${address} ${detailAddress}`;
-    navigate('/shoppingcart/:userId', { state: { fullAddress } });
+    navigate('/shoppingcart/:userId', {
+      state: {
+        baseAddress: address,
+        detailAddress,
+        zipCode,
+      },
+    });
   };
+
+  console.log('우편번호 !!', zipCode);
   return (
     <S.Container>
       <S.Title>샛별배송</S.Title>
       <S.AddressContainer>
         <S.AddressInfo>{address}</S.AddressInfo>
+        <S.AddressInfo>{zipCode && `${zipCode}`}</S.AddressInfo>
         <S.SearchButton onClick={handleSearchClick}>
           <SearchColor width="32px" height="32px" />
           <S.Text>재검색</S.Text>

@@ -1,30 +1,39 @@
 import Layout from '@components/layouts/Layout';
 import * as S from './styles/index.style';
-import { IAddressInfo } from '@types';
 import ByingProductItem from './components/ByingProductItem';
 import TossLogo from '/png/Toss_Logo_Primary.png';
 import ByingFooter from './components/ByingFooter';
 import Title from '@components/layouts/Title';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DropdownSelector from './components/DropdownSelector';
 import { useCartStore } from '@store/cart';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
+import { usePayment } from '../TossPaymentPage/usePayment';
+import { TossPaymentsPayment } from '@tosspayments/tosspayments-sdk';
 
-const AddressInfo: IAddressInfo = {
-  addressId: 1,
-  userId: 1,
-  addressName: '김윤일',
-  addressZipCode: '46335',
-};
 const PaymentConfirmationPage = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked] = useState(false);
   const { userAddress, totalPrice } = useCartStore();
   const cartItems = useCartStore((state) => state.getCartItems());
+  const [payment, setPayment] = useState<TossPaymentsPayment | null>(null);
+  const { initializePayment, requestPayment } = usePayment();
+
+  useEffect(() => {
+    async function initialize() {
+      const paymentInstance = await initializePayment();
+      setPayment(paymentInstance);
+    }
+    initialize();
+  }, [initializePayment]);
+
+  const handlePaymentClick = () => {
+    if (payment) {
+      requestPayment(payment, 50000); // amount를 설정하여 전달
+    }
+  };
 
   console.log('cartItems=> ', cartItems);
-  const handleButtonClick = () => {
-    setIsClicked(!isClicked);
-  };
+
   return (
     <Layout footerVisible={false}>
       <Title titleText="배송/결제" />
@@ -41,7 +50,7 @@ const PaymentConfirmationPage = () => {
                   {/* <S.SubTitle>상세 주소</S.SubTitle> */}
                 </S.InfoContainer>
                 <S.InfoContainer>
-                  <S.SubContent>{AddressInfo.addressName}</S.SubContent>
+                  <S.SubContent>userName</S.SubContent>
                   <S.SubContent>010-3386-9999</S.SubContent>
                   <S.SubContent>{userAddress}</S.SubContent>
                   {/* <S.SubContent>107-1210호</S.SubContent> */}
@@ -80,7 +89,7 @@ const PaymentConfirmationPage = () => {
               <S.SectionTitle>결제 방법</S.SectionTitle>
               <S.PaymentInfo>
                 <S.SubTitle>일반 결제</S.SubTitle>
-                <S.PaymentButton isClicked={isClicked} onClick={handleButtonClick}>
+                <S.PaymentButton isClicked={isClicked} onClick={handlePaymentClick}>
                   <S.LogoImageBox src={TossLogo} />
                 </S.PaymentButton>
               </S.PaymentInfo>
