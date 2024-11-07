@@ -85,7 +85,7 @@ const PaymentConfirmationPage = () => {
                     <ByingProductItem key={productInfo.productId} productInfo={productInfo} />
                   ))}
                 </S.OrderItemContainer>
-                <S.CouponContainer>
+                {/* <S.CouponContainer>
                   <S.CouponTitle>할인쿠폰</S.CouponTitle>
                   <S.ButtonContainer>
                     <S.CouponButton>
@@ -93,7 +93,7 @@ const PaymentConfirmationPage = () => {
                     </S.CouponButton>
                     <S.DeleteButton>사용취소</S.DeleteButton>
                   </S.ButtonContainer>
-                </S.CouponContainer>
+                </S.CouponContainer> */}
               </S.OrderWrapper>
               <S.TotalPriceContainer>
                 <S.TotalPriceTitle>결제금액</S.TotalPriceTitle>
