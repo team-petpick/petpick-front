@@ -6,20 +6,34 @@ import { useNavigate } from 'react-router-dom';
 
 const GoogleCallbackPage = () => {
   const navigate = useNavigate();
-
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
   const { setUserInfo } = useUserStore();
+
+  console.log('search', window.location.search);
+  console.log('params', params);
+  console.log('code', code);
+
+  useEffect(() => {
+    if (code) {
+      handleLoginPost(code);
+    } else {
+      console.log('code not found');
+      console.log('로그인 재시도 필요');
+      navigate('/login');
+    }
+  }, [code, navigate]);
+
   const handleLoginPost = async (code: string) => {
     const data = {
       code: code,
     };
     try {
       const res = await instance.post('/auth/google', data);
-      const userName = res.data.user_name[0];
-      const userImage = res.data.user_profile[0];
-      const userId = res.data.user_id[0];
-      const accessToken = res.data.access_token[0];
+      const userName = res.data.user_name;
+      const userImage = res.data.user_profile;
+      const userId = res.data.user_id;
+      const accessToken = res.data.access_token;
 
       if (accessToken) {
         const userInfo = { userName, userImage, userId };
@@ -33,15 +47,6 @@ const GoogleCallbackPage = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (code) {
-      handleLoginPost(code);
-    } else {
-      console.log('로그인 재시도 필요');
-      navigate('/login');
-    }
-  }, [code, navigate]);
 
   return <Loading />;
 };
