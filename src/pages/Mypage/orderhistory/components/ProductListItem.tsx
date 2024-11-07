@@ -5,9 +5,9 @@ import { addCommaToPrice } from '@utils/addCommaToPrice';
 interface IOrderProps {
   productInfo: IOrderDetail;
   onOpenModal: () => void;
-  // activePeriod: number | null;
+  isCancelable: boolean;
 }
-const ProductListItem = ({ productInfo, onOpenModal }: IOrderProps) => {
+const ProductListItem = ({ productInfo, onOpenModal, isCancelable }: IOrderProps) => {
   const formattedOriginalPrice = addCommaToPrice(productInfo.orderDetailPrice);
   const formattedSalePrice = addCommaToPrice(
     productInfo.orderDetailPrice * (1 - productInfo.productSale / 100),
@@ -25,7 +25,7 @@ const ProductListItem = ({ productInfo, onOpenModal }: IOrderProps) => {
           </S.PriceWrapper>
         </S.DescriptionWrapper>
         <S.ButtonWrapper>
-          <S.CancelButton onClick={onOpenModal}>주문 취소</S.CancelButton>
+          {isCancelable ? <S.CancelButton onClick={onOpenModal}>주문 취소</S.CancelButton> : null}
         </S.ButtonWrapper>
       </S.Container>
     </S.Wrapper>

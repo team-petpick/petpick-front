@@ -4,11 +4,11 @@ import * as S from '../styles/OrderHistoryItem.style';
 import ProductListItem from './ProductListItem';
 import MoreInfo from './MoreInfo';
 import OrderCancelModal from './OrderCancelModal';
+import dayjs from 'dayjs';
 
 interface IOrderProps {
   orderInfo: IOrderInfo;
   onUpdateHandler: (orderId: number, orderDetailId: number) => void;
-  // activePeriod: number | null;
 }
 
 const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
@@ -21,8 +21,9 @@ const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
   } | null>(null);
 
   const visibleProducts = isExpanded ? orderInfo.orderDetails : orderInfo.orderDetails.slice(0, 3);
+  console.log(orderInfo.orderCreateAt);
   const formattedDate = orderInfo.orderCreateAt.split('T')[0];
-
+  const isCancelable = dayjs().diff(dayjs(orderInfo.orderCreateAt), 'day') <= 3;
   if (orderInfo.orderDetails.length === 0) return null;
 
   const handleMoreInfoClick = () => {
@@ -67,6 +68,7 @@ const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
               key={product.orderDetailId}
               productInfo={product}
               onOpenModal={() => openModal(product)}
+              isCancelable={isCancelable}
             />
           ))}
 
