@@ -15,31 +15,7 @@ interface IProductSelectItemProps {
 }
 const ProductSelectItem: React.FC<IProductSelectItemProps> = ({ productInfo, isChecked }) => {
   const { cartItems, setCartItems, updateQuantity, calculateTotalPrice } = useCartStore();
-
   const [quantity, setQuantity] = useState(productInfo.cartCnt);
-  const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
-
-  const parsedCartData = JSON.parse(cartInfoDatoFromLocalStorage || '');
-  const currentCartData = parsedCartData.filter(
-    (info: any) => info.productId === productInfo.productId,
-  )[0];
-
-  useEffect(() => {
-    console.log('cartItems', cartItems);
-  }, [cartItems]);
-
-  useEffect(() => {
-    const newCartData = {
-      ...currentCartData,
-      cartCnt: quantity,
-    };
-
-    const final = parsedCartData.map((d: any) =>
-      d.productId === productInfo.productId ? newCartData : d,
-    );
-
-    localStorage.setItem('cartInfo', JSON.stringify(final));
-  }, [quantity]);
 
   useEffect(() => {
     const handleBeforeUnload = (event: any) => {
