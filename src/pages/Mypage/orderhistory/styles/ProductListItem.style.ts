@@ -41,6 +41,10 @@ export const ProductName = styled.div`
   ${TextStyles.body.mediumM};
   color: ${PETPICK_COLORS.GRAY[800]};
 `;
+export const ProductCnt = styled.div`
+  ${TextStyles.body.mediumM};
+  color: ${PETPICK_COLORS.GRAY[500]};
+`;
 export const PriceWrapper = styled.div`
   display: flex;
   gap: 4px;

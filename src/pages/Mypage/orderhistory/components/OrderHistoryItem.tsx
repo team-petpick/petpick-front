@@ -80,6 +80,10 @@ const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
             />
           )}
         </S.ProductList>
+        <S.Bottom>
+          <S.TotalPriceContainer>{orderInfo.ordersPrice}</S.TotalPriceContainer>
+          <S.OrderRequestWrapper>{orderInfo.orderRequest}</S.OrderRequestWrapper>
+        </S.Bottom>
       </S.Wrapper>
 
       {isModalOpen && <S.Overlay />}

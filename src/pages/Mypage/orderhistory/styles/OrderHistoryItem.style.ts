@@ -43,3 +43,8 @@ export const ProductList = styled.div`
   gap: 15px;
   padding: 21px 0;
 `;
+export const Bottom = styled.div`
+  display: flex;
+`;
+export const TotalPriceContainer = styled.div``;
+export const OrderRequestWrapper = styled.div``;

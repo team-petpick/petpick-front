@@ -19,6 +19,7 @@ const ProductListItem = ({ productInfo, onOpenModal, isCancelable }: IOrderProps
         <S.DescriptionWrapper>
           <S.SellerName>{productInfo.sellerStoreName}</S.SellerName>
           <S.ProductName>{productInfo.productName}</S.ProductName>
+          <S.ProductCnt>{productInfo.orderDetailCnt}개</S.ProductCnt>
           <S.PriceWrapper>
             <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
             <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
