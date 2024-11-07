@@ -9,7 +9,7 @@ export const ProductAdditionalInfo = ({ sellerStoreName }: IProductAdditionalInf
     <S.InfoListItem>
       <S.InfoTitle>배송</S.InfoTitle>
       <S.InfoText>
-        <S.Title>용주배송</S.Title>
+        <S.Title>준수배송</S.Title>
         <S.Text>
           23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착 (그 외 지역 아침 8시 전 도착)
         </S.Text>
