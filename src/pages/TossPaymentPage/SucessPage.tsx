@@ -1,58 +1,60 @@
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { sendPaymentSuccess } from '@apis/payment';
+import { IAddressProps, IOrderDetailsProps } from '@types';
+import { useCartStore } from '@store/cart';
+import Loading from '@components/Loading';
+import { useUserStore } from '@store/userStore';
 
 export default function SuccessPage() {
   const [searchParams] = useSearchParams();
+  const { cartItems, userAddress, addressRequest } = useCartStore();
 
+  const navigate = useNavigate();
   // URL에서 쿼리 파라미터로 받은 값 추출
   const orderSerialCode = searchParams.get('orderId');
   const paymentKey = searchParams.get('paymentKey');
-  const amount = searchParams.get('amount');
+  const amount = Number(searchParams.get('amount'));
 
-  // 임시데이터
+  const orderRequest = addressRequest.addressRequest;
+  const orderDetails: IOrderDetailsProps[] = cartItems
+    .filter((item) => item.isChecked)
+    .map((item: any) => ({
+      productId: item.productId,
+      orderDetailPrice: item.productPrice,
+      orderDetailCnt: item.cartCnt,
+    }));
 
-  const userId = 1;
-  const orderRequest = '빨리 주이소 !!';
-  //더미데이터 추가됨
-  const orderDetails = [
-    {
-      productId: 1,
-      orderDetailPrice: 20000,
-      orderDetailCnt: 1,
-    },
-    {
-      productId: 2,
-      orderDetailPrice: 30000,
-      orderDetailCnt: 1,
-    },
-  ];
-  const address = {
-    addressId: null,
-    userId: 1,
-    addressName: '집',
-    addressZipcode: 10233,
-    addressAddr: '강남구 신림동',
-    addressAddrDetail: '오송빌딩',
-    addressTel: '010-1234-5678',
-    addressRequest: '문앞ㅇ[ 두고 가세[요',
-    addressDefault: 'DEFAULT',
+  const address: IAddressProps = {
+    addressName: 'none',
+    addressZipcode: Number(userAddress.zipCode),
+    addressAddr: userAddress.baseAddress,
+    addressAddrDetail: userAddress.detailAddress,
+    addressTel: 'none',
+    addressRequest: '빠른 배송 부탁드립니다.',
+    addressDefault: 'YES',
   };
+
+  const { userInfo } = useUserStore();
+
   useEffect(() => {
     async function handlePaymentSuccess() {
-      if (orderSerialCode && paymentKey && amount) {
+      const userId = userInfo.userId;
+      if (orderSerialCode && paymentKey && amount && userId) {
         try {
           const response = await sendPaymentSuccess(
             paymentKey,
-            Number(amount),
+            amount,
             userId,
             orderSerialCode,
             orderRequest,
             orderDetails,
             address,
           );
+          console.log(response);
           if (response.status === 200) {
-            console.log('결제 정보가 백엔드에 성공적으로 전송되었습니다.');
+            const orderId = response.data;
+            navigate(`/paymentsuccess/${orderId}`);
           }
         } catch (error) {
           console.error('결제 성공 정보를 전송하는 중 오류 발생:', error);
@@ -64,5 +66,5 @@ export default function SuccessPage() {
     handlePaymentSuccess();
   }, [orderSerialCode, paymentKey, amount]);
 
-  return <h2>결제가 성공적으로 완료되었습니다!</h2>;
+  return <Loading />;
 }

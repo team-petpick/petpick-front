@@ -116,3 +116,44 @@ export interface IPetInfo {
   petAge: number;
   petGender: TPetGender | null;
 }
+
+export interface IAddressProps {
+  addressName: string;
+  addressZipcode: number;
+  addressAddr: string;
+  addressAddrDetail: string;
+  addressTel: string;
+  addressRequest: string;
+  addressDefault: 'YES' | 'NO';
+}
+
+export interface IOrderDetailsProps {
+  productId: number;
+  orderDetailPrice: number;
+  orderDetailCnt: number;
+}
+export interface IOrderDetail {
+  orderDetailId: number;
+  productId: number;
+  productName: string;
+  sellerStoreName: string;
+  orderDetailPrice: number;
+  orderDetailCnt: number;
+  productThumbnail: string;
+  productSale: number;
+}
+
+export interface IOrder {
+  ordersId: number;
+  ordersPrice: number;
+  orderCreateAt: string;
+  ordersStatus: OrderStatus;
+  orderDetails: IOrderDetail[];
+}
+
+export enum OrderStatus {
+  ORDER_CONFIRM = 'ORDER_CONFIRM',
+  ORDER_CANCEL = 'ORDER_CANCEL',
+  SHIPPING = 'SHIPPING',
+  SHIPPED = 'SHIPPED',
+}
