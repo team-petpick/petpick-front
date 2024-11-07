@@ -3,19 +3,12 @@ import styled from 'styled-components';
 interface ICheckboxLabelProps {
   text: string;
   checked: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-const CheckboxLabel = ({ text, checked, onChange }: ICheckboxLabelProps) => {
+const CheckboxLabel = ({ text, checked }: ICheckboxLabelProps) => {
   return (
     <CheckboxContainer>
       <Label htmlFor={text}>
-        <CustomCheckbox
-          type="checkbox"
-          id={text}
-          name={text}
-          checked={checked}
-          onChange={onChange}
-        />
+        <CustomCheckbox type="checkbox" id={text} name={text} checked={checked} />
       </Label>
     </CheckboxContainer>
   );

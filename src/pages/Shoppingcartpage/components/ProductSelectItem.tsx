@@ -4,24 +4,17 @@ import { Delete } from '@assets/svg';
 import { Minus, Plus } from '@assets/svg/index';
 import styled from 'styled-components';
 import CheckboxLabal from './CheckboxLabal';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ICartProps } from '@types';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { patchCartInfo } from '@apis/cart';
-import { useCartStore } from '@store/cart';
+import { ICartItem, useCartStore } from '@store/cart';
 interface IProductSelectItemProps {
   productInfo: ICartProps;
   isChecked: boolean;
-  onCheck: (e: ChangeEvent<HTMLInputElement>) => void;
-  // onQuantityChange: (productId: number, newQuantity: number) => void;
 }
-const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
-  productInfo,
-  isChecked,
-  onCheck,
-}) => {
-  // const cartItems = useCartStore((state) => state.cartItems);
-  const updateQuantity = useCartStore((state) => state.updateQuantity);
+const ProductSelectItem: React.FC<IProductSelectItemProps> = ({ productInfo, isChecked }) => {
+  const { cartItems, setCartItems, updateQuantity, calculateTotalPrice } = useCartStore();
 
   const [quantity, setQuantity] = useState(productInfo.cartCnt);
   const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
@@ -30,6 +23,10 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
   const currentCartData = parsedCartData.filter(
     (info: any) => info.productId === productInfo.productId,
   )[0];
+
+  useEffect(() => {
+    console.log('cartItems', cartItems);
+  }, [cartItems]);
 
   useEffect(() => {
     const newCartData = {
@@ -41,7 +38,6 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
       d.productId === productInfo.productId ? newCartData : d,
     );
 
-    console.log('final', final);
     localStorage.setItem('cartInfo', JSON.stringify(final));
   }, [quantity]);
 
@@ -72,8 +68,7 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
     updateQuantity(productInfo.productId, newQuantity);
-
-    useCartStore.getState().calculateTotalPrice();
+    calculateTotalPrice();
   };
 
   // 상품 수량 -
@@ -82,16 +77,24 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
       updateQuantity(productInfo.productId, newQuantity);
-
-      useCartStore.getState().calculateTotalPrice();
+      calculateTotalPrice();
     }
   };
 
+  const handleCheckboxClick = () => {
+    const newCartItems = cartItems.map((item: ICartItem) =>
+      item.productId === productInfo.productId ? { ...item, isChecked: !isChecked } : item,
+    );
+    console.log('newCartItems', newCartItems);
+    setCartItems(newCartItems);
+  };
   return (
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
-          <CheckboxLabal text="text" checked={isChecked} onChange={onCheck} />
+          <div onClick={handleCheckboxClick}>
+            <CheckboxLabal text="text" checked={isChecked} />
+          </div>
           <SelectText>
             [{productInfo.sellerName}] {productInfo.productName}{' '}
           </SelectText>

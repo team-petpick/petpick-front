@@ -3,18 +3,16 @@ import { TextStyles } from '@styles/textStyles';
 import styled from 'styled-components';
 import ProductSelection from './components/ProductSelection';
 import OrderInfo from './components/OrderInfo.tsx';
-import { useState } from 'react';
 
 const ShoppingCartPage = () => {
-  const [totalPrice, setTotalPrice] = useState(0);
   return (
     <Layout footerVisible={false}>
       <CartLayout>
         <CartContainer>
           <CartTitle>Shopping Cart Page</CartTitle>
           <Wrapper>
-            <ProductSelection setTotalPrice={setTotalPrice} totalPrice={totalPrice} />
-            <OrderInfo totalPrice={totalPrice} />
+            <ProductSelection />
+            <OrderInfo />
           </Wrapper>
         </CartContainer>
       </CartLayout>

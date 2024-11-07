@@ -5,31 +5,34 @@ import ShoppingAddress from './ShoppingAddress';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import { ICartProps } from '@types';
 import { patchCartInfo } from '@apis/cart';
 import { useCartStore } from '@store/cart';
-import { useEffect } from 'react';
-interface OrderInfoProps {
-  totalPrice: number;
-  productInfo?: ICartProps;
-}
 
-const OrderInfo = ({ productInfo }: OrderInfoProps) => {
+const OrderInfo = () => {
   const navigate = useNavigate();
-  // const { userId } = useUserStore();
-  const userId = 1; //임시 데이터
-  const calculateTotalPrice = useCartStore((state) => state.calculateTotalPrice);
-  const totalPrice = useCartStore((state) => state.totalPrice);
-  const originalTotalPrice = useCartStore((state) => state.originalTotalPrice);
-  // const { checkedTotalPrice } = useCartStore();
+  const userId = 1;
+  const { cartItems } = useCartStore();
 
-  useEffect(() => {
-    calculateTotalPrice(); // 총 가격을 계산하여 상태에 저장
-  }, [calculateTotalPrice]);
+  const totalPrice = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * (1 - item.productSale / 100) * item.cartCnt;
+    }
+    return sum;
+  }, 0);
+  
+  const originalTotalPrice = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * item.cartCnt;
+    }
+    return sum;
+  }, 0);
 
-  const discountedAmount = productInfo
-    ? productInfo.productPrice * (productInfo.productSale / 100)
-    : 0;
+  const discountAmount = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * (item.productSale / 100) * item.cartCnt;
+    }
+    return sum;
+  }, 0);
 
   const handlePaymentPageClick = async () => {
     const cartInfoFromLocalStorage = localStorage.getItem('cartInfo');
@@ -56,7 +59,7 @@ const OrderInfo = ({ productInfo }: OrderInfoProps) => {
             <DiscountPriceContainer>
               <ProductPriceText>상품할인금액</ProductPriceText>
               <DiscountContainer>
-                <DiscountPriceBox>{addCommaToPrice(discountedAmount)}</DiscountPriceBox>
+                <DiscountPriceBox>{addCommaToPrice(discountAmount)}</DiscountPriceBox>
               </DiscountContainer>
             </DiscountPriceContainer>
             <DeliveryPriceContainer>
