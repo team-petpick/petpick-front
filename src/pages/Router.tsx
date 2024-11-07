@@ -14,6 +14,7 @@ import FailPage from './TossPaymentPage/FailPage';
 import SuccessPage from './TossPaymentPage/SucessPage';
 
 import RegisterMyPet from './RegisterMyPet';
+import PaymentSuccessPage from './PaymentSuccessPage';
 export const Router = () => {
   return (
     <Suspense fallback={<Loading />}>
@@ -30,6 +31,7 @@ export const Router = () => {
         <Route path={ROUTE.SUCCESSPAGE} element={<SuccessPage />} />
         <Route path={ROUTE.FAILPAGE} element={<FailPage />} />
         <Route path={ROUTE.REGISTERMYPET} element={<RegisterMyPet />} />
+        <Route path={ROUTE.PAYMENTSUCCESSPAGE} element={<PaymentSuccessPage />} />
         <Route path={ROUTE.NOTFOUND} element={<div>404</div>} />
       </Routes>
     </Suspense>

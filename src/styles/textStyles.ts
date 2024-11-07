@@ -18,6 +18,14 @@ export const TextStyles = {
       line-height: 36px; /* 112.5% */
       letter-spacing: -0.64px;
     `,
+    xxlargeM: css`
+      font-family: Pretendard;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 36px; /* 112.5% */
+      letter-spacing: -0.64px;
+    `,
     xxlargeR: css`
       color: var(--Gray-900, #101010);
       font-family: Pretendard;
@@ -45,6 +53,14 @@ export const TextStyles = {
       line-height: 36px; /* 138.462% */
       letter-spacing: -0.52px;
     `,
+    xLargeM: css`
+      font-family: Pretendard;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 36px; /* 138.462% */
+      letter-spacing: -0.52px;
+    `,
     xLargeR: css`
       font-family: Pretendard;
       font-size: 26px;
@@ -68,6 +84,14 @@ export const TextStyles = {
       font-size: 20px;
       font-style: normal;
       font-weight: 600;
+      line-height: 22px; /* 137.5% */
+      letter-spacing: -0.32px;
+    `,
+    largeM: css`
+      font-family: Pretendard;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
       line-height: 22px; /* 137.5% */
       letter-spacing: -0.32px;
     `,

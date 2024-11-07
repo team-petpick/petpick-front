@@ -115,3 +115,28 @@ export interface IOrderDetailsProps {
   orderDetailPrice: number;
   orderDetailCnt: number;
 }
+export interface IOrderDetail {
+  orderDetailId: number;
+  productId: number;
+  productName: string;
+  sellerStoreName: string;
+  orderDetailPrice: number;
+  orderDetailCnt: number;
+  productThumbnail: string;
+  productSale: number;
+}
+
+export interface IOrder {
+  ordersId: number;
+  ordersPrice: number;
+  orderCreateAt: string;
+  ordersStatus: OrderStatus;
+  orderDetails: IOrderDetail[];
+}
+
+export enum OrderStatus {
+  ORDER_CONFIRM = 'ORDER_CONFIRM',
+  ORDER_CANCEL = 'ORDER_CANCEL',
+  SHIPPING = 'SHIPPING',
+  SHIPPED = 'SHIPPED',
+}
