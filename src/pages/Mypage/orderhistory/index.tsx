@@ -16,6 +16,7 @@ const OrderHistory = () => {
   useEffect(() => {
     if (orderInfo) {
       setUpdatedOrderInfo(orderInfo.content);
+      console.log(orderInfo.content);
     }
   }, [orderInfo]);
 

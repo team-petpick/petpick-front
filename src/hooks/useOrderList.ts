@@ -30,11 +30,21 @@ const useOrderList = (activePeriod: number) => {
       content:
         orderInfo?.content.map((order) => {
           if (order?.ordersId === orderId) {
+            // orderDetails에서 해당하는 아이템 삭제
+            const updatedOrderDetails = order?.orderDetails.filter(
+              (product) => product?.orderDetailId !== orderDetailId,
+            );
+
+            // 새로운 ordersPrice 계산
+            const newOrdersPrice = updatedOrderDetails.reduce(
+              (acc, product) => acc + product.orderDetailPrice,
+              0,
+            );
+
             return {
               ...order,
-              orderDetails: order?.orderDetails.filter((product) => {
-                return product?.orderDetailId !== orderDetailId;
-              }),
+              orderDetails: updatedOrderDetails,
+              ordersPrice: newOrdersPrice, // 업데이트된 가격 설정
             };
           }
           return order;
