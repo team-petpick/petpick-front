@@ -19,7 +19,7 @@ const OrderInfo = () => {
     }
     return sum;
   }, 0);
-  
+
   const originalTotalPrice = cartItems.reduce((sum, item) => {
     if (item.isChecked) {
       return sum + item.productPrice * item.cartCnt;
@@ -35,13 +35,13 @@ const OrderInfo = () => {
   }, 0);
 
   const handlePaymentPageClick = async () => {
-    const cartInfoFromLocalStorage = localStorage.getItem('cartInfo');
-    const parsedCartData = JSON.parse(cartInfoFromLocalStorage || '[]');
-
-    for (const item of parsedCartData) {
+    const patchCartItems = cartItems.map((item) => ({
+      productId: item.productId,
+      cartCnt: item.cartCnt,
+    }));
+    for (const item of patchCartItems) {
       await patchCartInfo(item);
     }
-
     navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userId.toString()));
   };
 

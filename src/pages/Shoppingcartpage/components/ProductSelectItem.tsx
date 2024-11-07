@@ -9,21 +9,31 @@ import { ICartProps } from '@types';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { patchCartInfo } from '@apis/cart';
 import { ICartItem, useCartStore } from '@store/cart';
+import useModal from '@components/modal/useModal';
 interface IProductSelectItemProps {
   productInfo: ICartProps;
   isChecked: boolean;
+  deleteModal: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void };
 }
-const ProductSelectItem: React.FC<IProductSelectItemProps> = ({ productInfo, isChecked }) => {
-  const { cartItems, setCartItems, updateQuantity, calculateTotalPrice } = useCartStore();
+const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
+  productInfo,
+  isChecked,
+  deleteModal,
+}) => {
+  const { cartItems, setCartItems, updateQuantity, calculateTotalPrice, setDeleteModalProductId } =
+    useCartStore();
   const [quantity, setQuantity] = useState(productInfo.cartCnt);
+  const { setIsOpen, openModal } = useModal();
 
   useEffect(() => {
     const handleBeforeUnload = (event: any) => {
-      const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
-      const parsedInfo = JSON.parse(cartInfoDatoFromLocalStorage || '');
+      const patchCartItems = cartItems.map((item) => ({
+        productId: item.productId,
+        cartCnt: item.cartCnt,
+      }));
 
       event.preventDefault();
-      parsedInfo?.forEach(async (element: any) => {
+      patchCartItems?.forEach(async (element: any) => {
         await patchCartInfo(element);
       });
       console.log('새로고침 또는 페이지 이동이 감지되었습니다.');
@@ -61,8 +71,15 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({ productInfo, isC
     const newCartItems = cartItems.map((item: ICartItem) =>
       item.productId === productInfo.productId ? { ...item, isChecked: !isChecked } : item,
     );
-    console.log('newCartItems', newCartItems);
     setCartItems(newCartItems);
+  };
+
+  const handleDeleteButtonClick = () => {
+    console.log(productInfo.productId);
+    setDeleteModalProductId(productInfo.productId);
+    setIsOpen(true);
+    openModal();
+    deleteModal.setIsOpen(true);
   };
   return (
     <ProductItem>
@@ -75,7 +92,7 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({ productInfo, isC
             [{productInfo.sellerName}] {productInfo.productName}{' '}
           </SelectText>
         </SelectBox>
-        <SelectButton>
+        <SelectButton onClick={handleDeleteButtonClick}>
           <Delete width="20px" height="20px" />
         </SelectButton>
       </SelectWrapper>

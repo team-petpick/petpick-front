@@ -18,6 +18,8 @@ interface CartStore {
   totalPrice: number;
   originalTotalPrice: number; // 할인 적용 전 총 가격
   checkedTotalPrice: number;
+  deleteModalProductId: number | null;
+  setDeleteModalProductId: (productId: number | null) => void;
   setCheckedTotalPrice: (price: number) => void;
   cartItems: ICartItem[];
   addCartItem: (item: ICartItem) => void;
@@ -39,7 +41,9 @@ export const useCartStore = create(
       originalTotalPrice: 0,
       userAddress: '배송지를 입력해주세요',
       checkedTotalPrice: 0,
-
+      deleteModalProductId: null,
+      setDeleteModalProductId: (productId: number | null) =>
+        set({ deleteModalProductId: productId }),
       setCheckedTotalPrice: (price: any) => set({ checkedTotalPrice: price }),
 
       getCartItems: () => get().cartItems,

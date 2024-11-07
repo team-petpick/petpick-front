@@ -23,6 +23,7 @@ const SelectedCountHeader = ({
     const newCartItems = cartItems.map((item) => ({ ...item, isChecked: !isAllChecked }));
     setCartItems(newCartItems);
   };
+
   return (
     <S.SelectContainer>
       <S.SelectBox>
