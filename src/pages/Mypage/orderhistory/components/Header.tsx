@@ -1,14 +1,15 @@
+import { useActivePeriodStore } from '@pages/Mypage/stores/useActivePeriodStore';
 import * as S from '../styles/Header.style';
 import { orderPeriods } from '@constants';
 
 interface HeaderProps {
   onPeriodChange: (index: number) => void;
-  activePeriod: number | null;
 }
-const Header = ({ onPeriodChange, activePeriod }: HeaderProps) => {
+const Header = ({ onPeriodChange }: HeaderProps) => {
   const handleClickPeriod = (index: number) => {
     onPeriodChange(index);
   };
+  const { activePeriod } = useActivePeriodStore();
   return (
     <S.Wrapper>
       <S.ContentWrapper>

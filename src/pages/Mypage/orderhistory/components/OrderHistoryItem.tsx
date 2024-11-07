@@ -8,12 +8,12 @@ import OrderCancelModal from './OrderCancelModal';
 interface IOrderProps {
   orderInfo: IOrderInfo;
   onUpdateHandler: (orderId: number, orderDetailId: number) => void;
+  // activePeriod: number | null;
 }
 
 const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
   const [orderDetails, setOrderDetails] = useState<{
     orderDetailId: string;
     orderDetailCnt: number;

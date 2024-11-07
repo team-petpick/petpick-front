@@ -5,13 +5,13 @@ import { addCommaToPrice } from '@utils/addCommaToPrice';
 interface IOrderProps {
   productInfo: IOrderDetail;
   onOpenModal: () => void;
+  // activePeriod: number | null;
 }
 const ProductListItem = ({ productInfo, onOpenModal }: IOrderProps) => {
   const formattedOriginalPrice = addCommaToPrice(productInfo.orderDetailPrice);
   const formattedSalePrice = addCommaToPrice(
     productInfo.orderDetailPrice * (1 - productInfo.productSale / 100),
   );
-
   return (
     <S.Wrapper>
       <S.ProductImage src={productInfo.productThumbnail} />

@@ -7,12 +7,12 @@ import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
 import useOrderList from '@hooks/useOrderList';
 import { IOrderInfo } from '@types';
+import { useActivePeriodStore } from '../stores/useActivePeriodStore';
 
 const OrderHistory = () => {
-  const [activePeriod, setActivePeriod] = useState<number>(0);
+  const { activePeriod, setActivePeriod } = useActivePeriodStore();
   const { orderInfo, loading, updateOrderListData } = useOrderList(activePeriod);
   const [updatedOrderInfo, setUpdatedOrderInfo] = useState<IOrderInfo[]>([]);
-
   useEffect(() => {
     if (orderInfo) {
       setUpdatedOrderInfo(orderInfo.content);
@@ -25,7 +25,7 @@ const OrderHistory = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Header onPeriodChange={handlePeriodChange} activePeriod={activePeriod} />
+      <Header onPeriodChange={handlePeriodChange} />
       <Container>
         {loading ? (
           <Message>로딩 중입니다...</Message>
