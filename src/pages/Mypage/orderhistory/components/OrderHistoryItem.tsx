@@ -20,7 +20,7 @@ const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
     orderDetailCnt: number;
     orderId: number;
   } | null>(null);
-  console.log(orderInfo);
+
   const visibleProducts = isExpanded ? orderInfo.orderDetails : orderInfo.orderDetails.slice(0, 3);
   const formattedDate = orderInfo.orderCreateAt.split('T')[0];
   const isCancelable = dayjs().diff(dayjs(orderInfo.orderCreateAt), 'day') <= 3;
