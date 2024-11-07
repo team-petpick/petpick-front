@@ -18,11 +18,15 @@ const ProductListItem = ({ productInfo, onOpenModal, isCancelable }: IOrderProps
       <S.Container>
         <S.DescriptionWrapper>
           <S.SellerName>{productInfo.sellerStoreName}</S.SellerName>
-          <S.ProductName>{productInfo.productName}</S.ProductName>
-          <S.ProductCnt>{productInfo.orderDetailCnt}개</S.ProductCnt>
+          <S.InformationWrapper>
+            <S.ProductName>{productInfo.productName}</S.ProductName>
+            <S.ProductCnt>{productInfo.orderDetailCnt}개</S.ProductCnt>
+          </S.InformationWrapper>
           <S.PriceWrapper>
             <S.ProductSalePrice>{formattedSalePrice}원</S.ProductSalePrice>
-            <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
+            {formattedSalePrice !== formattedOriginalPrice ? (
+              <S.ProductOriginalPrice>{formattedOriginalPrice}원</S.ProductOriginalPrice>
+            ) : null}
           </S.PriceWrapper>
         </S.DescriptionWrapper>
         <S.ButtonWrapper>

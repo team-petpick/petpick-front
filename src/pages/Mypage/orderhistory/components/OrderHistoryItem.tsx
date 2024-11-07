@@ -5,6 +5,7 @@ import ProductListItem from './ProductListItem';
 import MoreInfo from './MoreInfo';
 import OrderCancelModal from './OrderCancelModal';
 import dayjs from 'dayjs';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
 
 interface IOrderProps {
   orderInfo: IOrderInfo;
@@ -19,9 +20,8 @@ const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
     orderDetailCnt: number;
     orderId: number;
   } | null>(null);
-
+  console.log(orderInfo);
   const visibleProducts = isExpanded ? orderInfo.orderDetails : orderInfo.orderDetails.slice(0, 3);
-  console.log(orderInfo.orderCreateAt);
   const formattedDate = orderInfo.orderCreateAt.split('T')[0];
   const isCancelable = dayjs().diff(dayjs(orderInfo.orderCreateAt), 'day') <= 3;
   if (orderInfo.orderDetails.length === 0) return null;
@@ -55,6 +55,7 @@ const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
     closeModal();
   };
 
+  const formattedOriginalPrice = addCommaToPrice(orderInfo.ordersPrice);
   return (
     <>
       <S.Wrapper>
@@ -81,8 +82,14 @@ const OrderHistoryItem = ({ orderInfo, onUpdateHandler }: IOrderProps) => {
           )}
         </S.ProductList>
         <S.Bottom>
-          <S.TotalPriceContainer>{orderInfo.ordersPrice}</S.TotalPriceContainer>
-          <S.OrderRequestWrapper>{orderInfo.orderRequest}</S.OrderRequestWrapper>
+          <S.TotalPriceContainer>
+            <S.TotalPriceTitle>총 가격</S.TotalPriceTitle>
+            <S.Price>{formattedOriginalPrice}원</S.Price>
+          </S.TotalPriceContainer>
+          <S.OrderRequestWrapper>
+            <S.OrderRequestTitle>배송 요청사항</S.OrderRequestTitle>
+            <S.OrderRequest>{orderInfo.ordersRequest}</S.OrderRequest>
+          </S.OrderRequestWrapper>
         </S.Bottom>
       </S.Wrapper>
 

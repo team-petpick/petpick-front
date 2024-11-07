@@ -24,7 +24,7 @@ export const Container = styled.div`
   width: 100%;
 `;
 export const DescriptionWrapper = styled.div`
-  width: 50%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -32,6 +32,10 @@ export const DescriptionWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+export const InformationWrapper = styled.div`
+  display: flex;
+  gap: 15px;
 `;
 export const SellerName = styled.div`
   ${TextStyles.subText.smallM}

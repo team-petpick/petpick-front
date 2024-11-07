@@ -51,7 +51,7 @@ export interface IOrderInfo {
   ordersId: number;
   ordersPrice: number;
   orderStatus: string;
-  orderRequest: string;
+  ordersRequest: string;
   orderDetails: IOrderDetail[];
 }
 export interface IOrderDetail {
