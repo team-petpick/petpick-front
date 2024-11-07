@@ -85,13 +85,14 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
+
           <CheckboxLabal text="text" checked={isChecked} onChange={onCheck} />
           <SelectText>
             [{productInfo.sellerName}] {productInfo.productName}{' '}
           </SelectText>
         </SelectBox>
         <SelectButton>
-          <Delete width="20px" height="20px" />
+          <Delete width="20px" height="20px" onClick={() => deleteItem(productId)} />
         </SelectButton>
       </SelectWrapper>
       <ProductItemContainer>
@@ -99,6 +100,7 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
           <ProductImage src={productInfo.productThumbnail}></ProductImage>
           <ProductContainer>
             <ProductPriceContainer>
+
               <ProductPrice>
                 {addCommaToPrice(
                   productInfo.productPrice * (1 - productInfo.productSale / 100) * quantity,
@@ -113,6 +115,7 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
               <ProductCountButton onClick={handleDecreaseClick}>
                 <Minus width="20px" height="20px" />
               </ProductCountButton>
+
               <ProductCount>{quantity}</ProductCount>
               <ProductCountButton onClick={handleIncreaseClick}>
                 <Plus width="20px" height="20px" />
