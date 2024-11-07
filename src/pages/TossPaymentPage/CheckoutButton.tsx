@@ -1,5 +1,7 @@
-import { loadTossPayments, TossPaymentsPayment } from '@tosspayments/tosspayments-sdk';
+import * as S from './CheckoutButton.style';
 import { useEffect, useState } from 'react';
+import { loadTossPayments, TossPaymentsPayment } from '@tosspayments/tosspayments-sdk';
+import TossLogo from '/png/Toss_Logo_Primary.png';
 
 const clientKey = import.meta.env.VITE_TOSS_CLIENT_KEY;
 
@@ -18,7 +20,6 @@ const CheckoutButton = ({
   amount,
   successUrl,
   failUrl,
-  buttonText = '결제하기',
 }: CheckoutButtonProps) => {
   const [payment, setPayment] = useState<TossPaymentsPayment | null>(null);
 
@@ -60,9 +61,9 @@ const CheckoutButton = ({
     });
   };
   return (
-    <button className="button" onClick={requestPayment}>
-      {buttonText}
-    </button>
+    <S.PaymentButtonContainer className="button" onClick={requestPayment}>
+      <S.LogoImageBox src={TossLogo} />
+    </S.PaymentButtonContainer>
   );
 };
 
