@@ -20,7 +20,7 @@ export const ProductDescription = ({ productInfo }: IProductDescription) => (
 
     <S.ProductDescriptionLayout>
       <S.DescriptionImageBox>
-        <img src={productInfo.productImg.productImgUrl} />
+        <img src={productInfo.productThumbnail} />
       </S.DescriptionImageBox>
       <S.DescriptionText>
         <h1>{productInfo.productName}</h1>

@@ -1,5 +1,4 @@
 import instance from '@apis/instance';
-
 export const postCartItem = async (productId: number, cartCnt: number) => {
   const response = await instance.post(
     '/cart',
@@ -19,10 +18,25 @@ export const postCartItem = async (productId: number, cartCnt: number) => {
 
 export const getCartItem = async () => {
   const response = await instance.get('/cart');
+
   return response.data;
 };
 
 export const deleteCartItem = async (productId: number) => {
   const response = await instance.delete(`/cart/${productId}`);
   return response.data;
+};
+
+export const patchCartInfo = async (modifiedCartInfo: any) => {
+  try {
+    const res = await instance.patch(
+      '/cart',
+      {
+        ...modifiedCartInfo,
+      },
+    );
+    console.log('수정 API 결과', res);
+  } catch (e) {
+    console.log(e);
+  }
 };

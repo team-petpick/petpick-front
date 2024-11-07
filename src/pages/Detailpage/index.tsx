@@ -70,7 +70,7 @@ const DetailPage = () => {
       {productInfo ? (
         <S.DetailLayout>
           <S.ProductContainer>
-            <ProductImage imageUrl={productInfo.productImg.productImgUrl} />
+            <ProductImage imageUrl={productInfo.productThumbnail} />
             <S.ProductInfoContainer>
               <ProductBasicInfo productInfo={productInfo} />
               <ProductAdditionalInfo sellerStoreName={productInfo.seller.sellerStoreName} />
