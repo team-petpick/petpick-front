@@ -16,13 +16,8 @@ import { fetchToggleLike, fetchWishList } from '@apis';
 import { useUserStore } from '@store/userStore';
 import { ROUTE } from '@constants/ROUTE';
 import { postCartItem } from '@apis/cart';
-import { IProductInfo } from '@types';
 
-interface ICartModalProps {
-  product: IProductInfo;
-}
-
-const DetailPage = ({ product }: ICartModalProps) => {
+const DetailPage = () => {
   const { productId } = useParams();
   const { productInfo, error, isLoading } = useGetProductDetails(Number(productId));
   const [productCount, setProductCount] = useState(1);
@@ -74,12 +69,16 @@ const DetailPage = ({ product }: ICartModalProps) => {
   if (isLoading) return <Loading />;
 
   const fetchPostCartItem = async () => {
+    if (!productInfo) {
+      console.error('productInfo가 정의되지 않았습니다.');
+      return;
+    }
     try {
       console.log('장바구니 요청 데이터:', {
-        productId: product.productId,
-        quantity: product.productCnt,
+        productId: productInfo.productId,
+        quantity: productInfo.productCnt,
       });
-      const response = await postCartItem(product.productId, product.productCnt);
+      const response = await postCartItem(productInfo.productId, productCount);
       console.log('장바구니 추가 응답:', response);
       if (response === 'Successfully added cart item') {
         alert('장바구니에 담겼습니다.');
