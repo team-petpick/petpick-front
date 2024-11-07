@@ -17,12 +17,13 @@ interface ICartModalProps {
 const CartModal = ({ isOpen, onRequestClose, productInfo }: ICartModalProps) => {
   const navigate = useNavigate();
   const { userInfo } = useUserStore();
-  const [productCount, setProductCount] = useState(1);
   const userId = userInfo.userId;
+  const [productCount, setProductCount] = useState(1);
 
   const handleCartButtonClick = async () => {
     if (!userId) return;
     await fetchPostCartItem();
+    // setCartItems(await getCartItem());
     const url = ROUTE.SHOPPINGCART.replace(':userId', userId.toString());
     navigate(url);
   };

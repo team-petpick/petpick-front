@@ -4,52 +4,36 @@ import { Delete } from '@assets/svg';
 import { Minus, Plus } from '@assets/svg/index';
 import styled from 'styled-components';
 import CheckboxLabal from './CheckboxLabal';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ICartProps } from '@types';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
 import { patchCartInfo } from '@apis/cart';
+import { ICartItem, useCartStore } from '@store/cart';
+import useModal from '@components/modal/useModal';
 interface IProductSelectItemProps {
   productInfo: ICartProps;
   isChecked: boolean;
-  onCheck: (e: ChangeEvent<HTMLInputElement>) => void;
-  onQuantityChange: (productId: number, newQuantity: number) => void;
+  deleteModal: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void };
 }
 const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
   productInfo,
   isChecked,
-  onCheck,
-  onQuantityChange,
+  deleteModal,
 }) => {
+  const { cartItems, setCartItems, updateQuantity, calculateTotalPrice, setDeleteModalProductId } =
+    useCartStore();
   const [quantity, setQuantity] = useState(productInfo.cartCnt);
-
-  const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
-
-  const parsedCartData = JSON.parse(cartInfoDatoFromLocalStorage || '');
-  const currentCartData = parsedCartData.filter(
-    (info: any) => info.productId === productInfo.productId,
-  )[0];
-
-  useEffect(() => {
-    const newCartData = {
-      ...currentCartData,
-      cartCnt: quantity,
-    };
-
-    const final = parsedCartData.map((d: any) =>
-      d.productId === productInfo.productId ? newCartData : d,
-    );
-
-    console.log('final', final);
-    localStorage.setItem('cartInfo', JSON.stringify(final));
-  }, [quantity]);
+  const { setIsOpen, openModal } = useModal();
 
   useEffect(() => {
     const handleBeforeUnload = (event: any) => {
-      const cartInfoDatoFromLocalStorage = localStorage.getItem('cartInfo');
-      const parsedInfo = JSON.parse(cartInfoDatoFromLocalStorage || '');
+      const patchCartItems = cartItems.map((item) => ({
+        productId: item.productId,
+        cartCnt: item.cartCnt,
+      }));
 
       event.preventDefault();
-      parsedInfo?.forEach(async (element: any) => {
+      patchCartItems?.forEach(async (element: any) => {
         await patchCartInfo(element);
       });
       console.log('새로고침 또는 페이지 이동이 감지되었습니다.');
@@ -69,7 +53,8 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
   const handleIncreaseClick = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
-    onQuantityChange(productInfo.productId, newQuantity);
+    updateQuantity(productInfo.productId, newQuantity);
+    calculateTotalPrice();
   };
 
   // 상품 수량 -
@@ -77,22 +62,38 @@ const ProductSelectItem: React.FC<IProductSelectItemProps> = ({
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
-      onQuantityChange(productInfo.productId, newQuantity);
+      updateQuantity(productInfo.productId, newQuantity);
+      calculateTotalPrice();
     }
   };
 
+  const handleCheckboxClick = () => {
+    const newCartItems = cartItems.map((item: ICartItem) =>
+      item.productId === productInfo.productId ? { ...item, isChecked: !isChecked } : item,
+    );
+    setCartItems(newCartItems);
+  };
+
+  const handleDeleteButtonClick = () => {
+    console.log(productInfo.productId);
+    setDeleteModalProductId(productInfo.productId);
+    setIsOpen(true);
+    openModal();
+    deleteModal.setIsOpen(true);
+  };
   return (
     <ProductItem>
       <SelectWrapper>
         <SelectBox>
-
-          <CheckboxLabal text="text" checked={isChecked} onChange={onCheck} />
+          <div onClick={handleCheckboxClick}>
+            <CheckboxLabal text="text" checked={isChecked} />
+          </div>
           <SelectText>
             [{productInfo.sellerName}] {productInfo.productName}{' '}
           </SelectText>
         </SelectBox>
-        <SelectButton>
-          <Delete width="20px" height="20px" onClick={() => deleteItem(productId)} />
+        <SelectButton onClick={handleDeleteButtonClick}>
+          <Delete width="20px" height="20px" />
         </SelectButton>
       </SelectWrapper>
       <ProductItemContainer>

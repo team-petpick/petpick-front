@@ -5,29 +5,43 @@ import ShoppingAddress from './ShoppingAddress';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@constants/ROUTE';
 import { addCommaToPrice } from '@utils/addCommaToPrice';
-import { ICartProps } from '@types';
 import { patchCartInfo } from '@apis/cart';
-interface OrderInfoProps {
-  totalPrice: number;
-  productInfo?: ICartProps;
-}
+import { useCartStore } from '@store/cart';
 
-const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
+const OrderInfo = () => {
   const navigate = useNavigate();
-  // const { userId } = useUserStore();
-  const userId = 1; //임시 데이터
-  const discountedAmount = productInfo
-    ? productInfo.productPrice * (productInfo.productSale / 100)
-    : 0;
+  const userId = 1;
+  const { cartItems } = useCartStore();
+
+  const totalPrice = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * (1 - item.productSale / 100) * item.cartCnt;
+    }
+    return sum;
+  }, 0);
+
+  const originalTotalPrice = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * item.cartCnt;
+    }
+    return sum;
+  }, 0);
+
+  const discountAmount = cartItems.reduce((sum, item) => {
+    if (item.isChecked) {
+      return sum + item.productPrice * (item.productSale / 100) * item.cartCnt;
+    }
+    return sum;
+  }, 0);
 
   const handlePaymentPageClick = async () => {
-    const cartInfoFromLocalStorage = localStorage.getItem('cartInfo');
-    const parsedCartData = JSON.parse(cartInfoFromLocalStorage || '[]');
-
-    for (const item of parsedCartData) {
+    const patchCartItems = cartItems.map((item) => ({
+      productId: item.productId,
+      cartCnt: item.cartCnt,
+    }));
+    for (const item of patchCartItems) {
       await patchCartInfo(item);
     }
-
     navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userId.toString()));
   };
 
@@ -37,16 +51,15 @@ const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
         <ShoppingAddress />
         <TotalPriceContainer>
           <Title>결제금액</Title>
-          <body>
+          <div>
             <ProductPriceContainer>
               <ProductPriceText>상품금액</ProductPriceText>
-              <ProductPriceBox>{addCommaToPrice(totalPrice)}원</ProductPriceBox>
+              <ProductPriceBox>{addCommaToPrice(originalTotalPrice)}원</ProductPriceBox>
             </ProductPriceContainer>
             <DiscountPriceContainer>
               <ProductPriceText>상품할인금액</ProductPriceText>
               <DiscountContainer>
-                <DiscountPriceBox>{addCommaToPrice(discountedAmount)}</DiscountPriceBox>
-                <Text>로그인 후 할인 금액 적용</Text>
+                <DiscountPriceBox>{addCommaToPrice(discountAmount)}</DiscountPriceBox>
               </DiscountContainer>
             </DiscountPriceContainer>
             <DeliveryPriceContainer>
@@ -55,9 +68,9 @@ const OrderInfo = ({ totalPrice, productInfo }: OrderInfoProps) => {
             </DeliveryPriceContainer>
             <PaymentPriceContainer>
               <ProductPriceText>결제예정금액</ProductPriceText>
-              <PaymentPrice>{addCommaToPrice(totalPrice - discountedAmount)}원</PaymentPrice>
+              <PaymentPrice>{addCommaToPrice(totalPrice)}원</PaymentPrice>
             </PaymentPriceContainer>
-          </body>
+          </div>
         </TotalPriceContainer>
         <PaymentButton onClick={handlePaymentPageClick}>결제하기</PaymentButton>
       </Wrapper>
@@ -83,11 +96,7 @@ const DeliveryPriceContainer = styled.div`
   justify-content: space-between;
   margin-top: 12px;
 `;
-const Text = styled.span`
-  color: ${PETPICK_COLORS.GRAY[600]};
-  margin-top: 4px;
-  ${TextStyles.caption.xsmallM}
-`;
+
 const DiscountPriceBox = styled.span`
   ${TextStyles.body.mediumSB};
   color: ${PETPICK_COLORS.RED[200]};

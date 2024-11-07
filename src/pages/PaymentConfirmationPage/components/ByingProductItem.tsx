@@ -1,20 +1,25 @@
-import test3 from '@assets/svg/test-3.jpg';
 import { PETPICK_COLORS } from '@styles/colors';
 import { TextStyles } from '@styles/textStyles';
+import { addCommaToPrice } from '@utils/addCommaToPrice';
 import styled from 'styled-components';
 
-const ByingProductItem = () => {
+const ByingProductItem = ({ productInfo }: any) => {
   return (
     <ProductItemLayout>
-      <ProductImage src={test3} />
+      <ProductImage src={productInfo.productThumbnail} />
       <Container>
         <ProductInfoTitle>
-          <ProductTitle>윤일이네 농장</ProductTitle>
-          <FixedPrice>정가</FixedPrice>
+          <ProductTitle>{productInfo.sellerName}</ProductTitle>
+          <FixedPrice>{addCommaToPrice(productInfo.productPrice)}원</FixedPrice>
         </ProductInfoTitle>
         <ProductInfoTitle>
-          <ProductSubTitle>강아지가 먹을 수 있는 닭고기</ProductSubTitle>
-          <Price>판매가</Price>
+          <ProductSubTitle>{productInfo.productName}</ProductSubTitle>
+          <Price>
+            {addCommaToPrice(
+              productInfo.productPrice - productInfo.productPrice * (productInfo.productSale / 100),
+            )}
+            원
+          </Price>
         </ProductInfoTitle>
       </Container>
     </ProductItemLayout>
@@ -57,4 +62,5 @@ const ProductItemLayout = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  margin-top: 15px;
 `;
