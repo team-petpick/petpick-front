@@ -28,5 +28,8 @@ export const deleteOrderItem = async (
     cancelReason,
   };
   const response = await instance.post('/payment/cancel', cancelData);
-  return response.data;
+  if (response.status === 200) {
+    alert('주문 취소가 완료되었습니다.');
+    return response.data;
+  }
 };
