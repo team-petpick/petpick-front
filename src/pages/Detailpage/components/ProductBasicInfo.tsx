@@ -31,7 +31,9 @@ export const ProductBasicInfo = ({ productInfo }: IProductBasicInfoProps) => (
           <>
             <S.DiscountText>{productInfo.productSale}%</S.DiscountText>
             <S.DiscountPrice>
-              {(productInfo.productPrice * (1 - productInfo.productSale / 100)).toLocaleString()}
+              {Math.floor(
+                productInfo.productPrice * (1 - productInfo.productSale / 100),
+              ).toLocaleString()}
             </S.DiscountPrice>
           </>
         ) : (
