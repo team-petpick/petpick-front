@@ -21,7 +21,8 @@ const CartModal = ({ isOpen, onRequestClose, productInfo }: ICartModalProps) => 
 
   const [productCount, setProductCount] = useState(1);
 
-  const handleCartButtonClick = async () => {
+  const handleCartButtonClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     if (!userId) {
       alert('로그인 해주세요');
       navigate('/login');
@@ -101,7 +102,7 @@ const CartModal = ({ isOpen, onRequestClose, productInfo }: ICartModalProps) => 
         </S.TotalPriceContainer>
         <S.ButtonContainer>
           <S.CloseButton onClick={onRequestClose}>취소</S.CloseButton>
-          <S.CartButton onClick={handleCartButtonClick}>장바구니 담기</S.CartButton>
+          <S.CartButton onClick={(e) => handleCartButtonClick(e)}>장바구니 담기</S.CartButton>
         </S.ButtonContainer>
       </S.ModalContainer>
     </ReactModal>

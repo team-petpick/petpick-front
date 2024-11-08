@@ -23,7 +23,9 @@ const Product = ({ productInfo, isLiked, onClick }: IProductProps) => {
   const { reloadLikedProducts } = useGetLikeAll();
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const handleDeleteModalClick = () => {
+
+  const handleDeleteModalClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     setIsOpen(true);
   };
 
@@ -56,7 +58,7 @@ const Product = ({ productInfo, isLiked, onClick }: IProductProps) => {
             <Like width={30} height={30} />
           </div>
         )}
-        <S.AddShoppingCartButton onClick={handleDeleteModalClick}>
+        <S.AddShoppingCartButton onClick={(e) => handleDeleteModalClick(e)}>
           <ShoppingCart width={22} height={22} /> 담기
         </S.AddShoppingCartButton>
       </S.LikeCartButtonWrapper>
