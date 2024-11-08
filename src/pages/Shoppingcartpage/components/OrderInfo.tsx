@@ -43,6 +43,7 @@ const OrderInfo = () => {
     for (const item of patchCartItems) {
       await patchCartInfo(item);
     }
+    console.log(userInfo.userId, typeof userInfo.userId);
     navigate(ROUTE.PAYMENTCONFIRMATIONPAGE.replace(':userId', userInfo.userId?.toString() || ''));
   };
 

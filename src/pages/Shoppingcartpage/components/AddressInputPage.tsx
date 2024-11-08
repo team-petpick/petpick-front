@@ -3,6 +3,7 @@ import * as S from '../styles/AddressInputPage.style';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import { useUserStore } from '@store/userStore';
 
 const AddressInputPage = () => {
   const location = useLocation();
@@ -47,9 +48,11 @@ const AddressInputPage = () => {
     });
   };
 
+  const { userInfo } = useUserStore();
+  const userId = userInfo.userId;
   // 저장 버튼 클릭 핸들러
   const handleSaveClick = () => {
-    navigate('/shoppingcart/:userId', {
+    navigate(`/shoppingcart/${userId}`, {
       state: {
         baseAddress: address,
         detailAddress,

@@ -1,9 +1,10 @@
 import { ROUTE } from '@constants/ROUTE';
 import { useUserStore } from '@store/userStore';
+// import { useUserStore } from '@store/userStore';
 import { PETPICK_COLORS } from '@styles/colors';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { Address, useDaumPostcodePopup } from 'react-daum-postcode';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface IDaumPostProps extends Partial<Address> {
@@ -13,9 +14,9 @@ interface IDaumPostProps extends Partial<Address> {
 
 export const DaumPost = ({ setAddress, setCode }: IDaumPostProps) => {
   const navigate = useNavigate();
-  const { userInfo, setUserInfo } = useUserStore();
+  const { userInfo } = useUserStore();
   const { userId } = userInfo;
-  const { userId: paramUserId } = useParams(); //URL에서 userId 가져오기
+  // const { userId: paramUserId } = useParams(); //URL에서 userId 가져오기
 
   const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
   const open = useDaumPostcodePopup(postcodeScriptUrl);
@@ -36,25 +37,28 @@ export const DaumPost = ({ setAddress, setCode }: IDaumPostProps) => {
     }
     setAddress(fullAddress);
     setCode(zonecode);
-    navigate(
-      ROUTE.ADDRESSINPUTPAGE.replace(
-        ':userId',
-        userId !== null && userId !== undefined ? userId.toString() : '', // userId가 null인지 확인하는 로직
-      ),
-      {
-        state: { fullAddress, zonecode },
-      },
-    );
+    console.log('userId', userId);
+    if (userId) {
+      navigate(
+        ROUTE.ADDRESSINPUTPAGE.replace(
+          ':userId',
+          userId.toString(), // userId가 null인지 확인하는 로직
+        ),
+        {
+          state: { fullAddress, zonecode },
+        },
+      );
+    }
   }; // 검색 완료 후 주소와 함께 라우팅
   const handleClick = () => {
     open({ onComplete: handleComplete });
   };
 
-  useEffect(() => {
-    if (paramUserId) {
-      setUserInfo({ ...userInfo, userId: Number(paramUserId) });
-    }
-  }, [paramUserId, setUserInfo]);
+  // useEffect(() => {
+  //   if (paramUserId) {
+  //     setUserInfo({ ...userInfo, userId: Number(userIDd });
+  //   }
+  // }, [paramUserId, setUserInfo]);
 
   return (
     <EditButton type="button" onClick={handleClick}>
