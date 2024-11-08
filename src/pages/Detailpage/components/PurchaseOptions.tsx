@@ -10,7 +10,7 @@ export const PurchaseOptions = ({
   handleMinusClick,
 }: IPurchaseOptionsProps) => {
   const discountedPrice = addCommaToPrice(
-    productInfo.productPrice * (1 - productInfo.productSale / 100),
+    Math.floor(productInfo.productPrice * (1 - productInfo.productSale / 100)),
   );
   return (
     <S.PurchaseContainer>
