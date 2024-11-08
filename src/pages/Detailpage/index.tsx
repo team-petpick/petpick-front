@@ -29,6 +29,10 @@ const DetailPage = () => {
   // 좋아요 관리
   useEffect(() => {
     const loadProductLikes = async () => {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        return;
+      }
       try {
         if (userId !== null) {
           const response = await fetchWishList(userId);
@@ -43,7 +47,11 @@ const DetailPage = () => {
   }, [productId, userId]);
 
   const handleLikeClick = async () => {
-    console.log('Like button clicked!'); // 클릭이 감지되는지 확인
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
     try {
       if (userId != null) {
         await fetchToggleLike(Number(productId));

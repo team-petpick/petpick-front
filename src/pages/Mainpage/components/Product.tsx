@@ -27,7 +27,8 @@ const Product = ({ productInfo, isLiked, onClick }: IProductProps) => {
     setIsOpen(true);
   };
 
-  const handleLikeClick = async () => {
+  const handleLikeClick = async (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
       alert('로그인 후 이용해주세요.');
@@ -47,9 +48,13 @@ const Product = ({ productInfo, isLiked, onClick }: IProductProps) => {
       <S.ProductImage src={productInfo.productThumbnail} />
       <S.LikeCartButtonWrapper>
         {isLiked ? (
-          <LikeFill onClick={handleLikeClick} width={30} height={30} />
+          <div onClick={(e) => handleLikeClick(e)}>
+            <LikeFill width={30} height={30} />
+          </div>
         ) : (
-          <Like onClick={handleLikeClick} width={30} height={30} />
+          <div onClick={(e) => handleLikeClick(e)}>
+            <Like width={30} height={30} />
+          </div>
         )}
         <S.AddShoppingCartButton onClick={handleDeleteModalClick}>
           <ShoppingCart width={22} height={22} /> 담기
