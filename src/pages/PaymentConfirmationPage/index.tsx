@@ -66,7 +66,7 @@ const PaymentConfirmationPage = () => {
                   <S.SubTitle>주소</S.SubTitle>
                 </S.InfoContainer>
                 <S.InfoContainer>
-                  <S.SubContent>{}</S.SubContent>
+                  <S.SubContent>김윤일</S.SubContent>
                   <S.SubContent>{generateRandomPhoneNumber()}</S.SubContent>
                   <S.SubContent>{`${userAddress.baseAddress} ${userAddress.detailAddress} (${userAddress.zipCode})`}</S.SubContent>
                 </S.InfoContainer>
