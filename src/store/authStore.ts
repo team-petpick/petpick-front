@@ -11,9 +11,9 @@ interface IAuthStore {
 export const useAuthStore = create(
   persist<IAuthStore>(
     (set) => ({
-      isLoggedIn: true,
-      accessToken: '1232123',
-      refreshToken: '123123',
+      isLoggedIn: false,
+      accessToken: null,
+      refreshToken: null,
       login: (accessToken, refreshToken) => {
         if (accessToken && refreshToken) {
           set({ isLoggedIn: true, accessToken, refreshToken });

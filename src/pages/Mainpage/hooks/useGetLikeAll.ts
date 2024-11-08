@@ -9,6 +9,8 @@ const useGetLikeAll = () => {
   const [reloadTrigger, setReloadTrigger] = useState(false);
 
   const loadLikedProducts = useCallback(async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) return;
     try {
       setLoading(true);
       const res = await fetchGetLikeAll();

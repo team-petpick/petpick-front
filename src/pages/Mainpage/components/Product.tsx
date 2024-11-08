@@ -6,6 +6,8 @@ import CartModal from '@components/modal/CartModal';
 import { IProductInfo } from '@types';
 import { fetchToggleLike } from '@apis/like';
 import useGetLikeAll from '../hooks/useGetLikeAll';
+import { ROUTE } from '@constants/ROUTE';
+import { useNavigate } from 'react-router-dom';
 
 interface IProductProps {
   productInfo: IProductInfo;
@@ -20,12 +22,18 @@ const Product = ({ productInfo, isLiked, onClick }: IProductProps) => {
   );
   const { reloadLikedProducts } = useGetLikeAll();
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const handleDeleteModalClick = () => {
     setIsOpen(true);
   };
 
   const handleLikeClick = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      alert('로그인 후 이용해주세요.');
+      navigate(ROUTE.LOGINPAGE);
+      return;
+    }
     try {
       await fetchToggleLike(Number(productInfo.productId));
       reloadLikedProducts();
