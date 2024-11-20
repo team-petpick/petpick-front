@@ -22,7 +22,7 @@
   <tr>
 </table>
 
-## Teck Stack
+## Tech Stack
 
 **메인**
 
